@@ -87,4 +87,4 @@ shift + lctrl + alt - r : \
 #shift + alt - f : yabai -m window --toggle native-fullscreen
 
 # Change layout
-ctrl - space : /Users/albi/.dotfiles/config/skhd/scripts/switch_layout.sh
+ctrl - space : /Users/albi/dotfiles/config/skhd/scripts/switch_layout.sh
