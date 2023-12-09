@@ -40,7 +40,7 @@ if [[ -d "/opt/homebrew/opt/pipx/bin" ]]; then
   PATH="/opt/homebrew/opt/pipx/bin:$PATH"
 fi
 
-if [[-d "$HOME/.cargo/bin" ]]; then
+if [[ -d "$HOME/.cargo/bin" ]]; then
   PATH="$HOME/.cargo/bin:$PATH"
 fi
 
