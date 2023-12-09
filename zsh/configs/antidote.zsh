@@ -3,4 +3,8 @@ ZSH="$(antidote home)/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SL
 export NVM_COMPLETION=true
 export NVM_AUTO_USE=true
 export NVM_LAZY_LOAD=true
-antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+if [ -f "$HOME/.zsh_plugins.zsh" ]
+  antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+else
+  source ${-:$HOME}/.zsh_plugins.zsh
+fi
