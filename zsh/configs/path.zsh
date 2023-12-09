@@ -8,39 +8,39 @@ elif which brew >/dev/null; then
   . "$(brew --prefix asdf)/libexec/asdf.sh"
 fi
 
-if [[ -d "$HOME/.deno/bin/deno" ]]; then
+if [[ -d "$HOME/.deno/bin/" ]]; then
   PATH="$HOME/.deno/bin:$PATH"
 fi
 
-if [[ -d "/opt/homebrew/opt/ruby/bin/ruby" ]]; then
+if [[ -d "/opt/homebrew/opt/ruby/bin/" ]]; then
   PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 fi
 
-if [[ -d "$HOME/go/bin" ]]; then
+if [[ -d "$HOME/go/bin/" ]]; then
   PATH="$HOME/go/bin:$PATH"
 fi
 
-if [[ -d "/opt/homebrew/opt/python/bin" ]]; then
+if [[ -d "/opt/homebrew/opt/python/bin/" ]]; then
   PATH="/opt/homebrew/opt/python/bin:$PATH"
 fi
 
-if [[ -d "/opt/homebrew/opt/node/bin" ]]; then
+if [[ -d "/opt/homebrew/opt/node/bin/" ]]; then
   PATH="/opt/homebrew/opt/node/bin:$PATH"
 fi
 
-if [[ -d "/opt/homebrew/opt/npm/bin" ]]; then
+if [[ -d "/opt/homebrew/opt/npm/bin/" ]]; then
   PATH="/opt/homebrew/opt/npm/bin:$PATH"
 fi
 
-if [[ -d "/opt/homebrew/opt/yarn/bin" ]]; then
+if [[ -d "/opt/homebrew/opt/yarn/bin/" ]]; then
   PATH="/opt/homebrew/opt/yarn/bin:$PATH"
 fi
 
-if [[ -d "/opt/homebrew/opt/pipx/bin" ]]; then
+if [[ -d "/opt/homebrew/opt/pipx/bin/" ]]; then
   PATH="/opt/homebrew/opt/pipx/bin:$PATH"
 fi
 
-if [[ -d "$HOME/.cargo/bin" ]]; then
+if [[ -d "$HOME/.cargo/bin/" ]]; then
   PATH="$HOME/.cargo/bin:$PATH"
 fi
 
