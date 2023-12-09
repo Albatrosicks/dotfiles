@@ -7,7 +7,7 @@ motd() {
   fi
 
   if [[ "$1" == 'startup' && $(w -h | grep "^$(whoami) *s[^ ]* *-" -c) -eq 1 && $TERMINAL_EMULATOR != 'JetBrains-JediTerm' && $TERM_PROGRAM != "vscode" ]] || [[ "$1" == '' ]]; then
-    neofetch
+    /opt/homebrew/bin/neofetch
   fi
 }
 
