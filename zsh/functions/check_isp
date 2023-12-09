@@ -1,0 +1,22 @@
+# Check does this host going by ISP or by VPN
+
+function check_isp() {
+    if [ -z "$1" ]; then
+        echo "Please provide a valid hostname"
+        return 1
+    fi
+
+    local Hostname="$1"
+    local ISP_IP="185.160.136.126"
+    local ISP_Name="Norcom"
+    local VPN_Name="v.aesthetic.party"
+
+    # Perform traceroute using mtr command in macOS (requires 'mtr' package installation)
+    SecondHopIp=$(mtr -r -c 1 "$Hostname" | awk 'NR==3 {print $2}')
+
+    if [[ "$SecondHopIp" = "$ISP_IP" ]]; then
+        echo -e "Connection to \033[4m$Hostname\033[0m provided by \033[4m$ISP_Name ISP\033[0m"
+    else
+        echo -e "Connection to \033[4m$Hostname\033[0m wrapped in \033[4m$VPN_Name VPN\033[0m"
+fi
+}

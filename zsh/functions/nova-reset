@@ -1,0 +1,8 @@
+# Resets Nova.app license trial
+
+function nove-reset() {
+  sudo rm -rf ~/Library/Caches/com.panic.Nova
+  sudo rm -rf ~/Library/Preferences/com.panic.Nova.plist
+  sudo killall cfprefsd
+  open -b com.panic.Nova
+}

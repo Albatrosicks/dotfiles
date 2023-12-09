@@ -1,0 +1,27 @@
+window:
+  # Make `Option` key behave as `Alt` (macOS only):
+  #   - OnlyLeft
+  #   - OnlyRight
+  #   - Both
+  #   - None (default)
+  option_as_alt: OnlyLeft
+
+  padding:
+    x: 3
+    y: 5
+
+  decorations: buttonless
+
+font:
+  normal:
+    family: FiraMono Nerd Font
+  bold:
+    family: FiraMono Nerd Font
+    style: Bold
+  italic:
+    family: FiraMono Nerd Font
+    style: Italic
+  bold_italic:
+    family: FiraMono Nerd Font
+    style: Bold Italic
+  size: 14.0

@@ -1,0 +1,26 @@
+# Adds description and link to Brewfile
+
+brewfile-info() {
+  # Run the brew bundle dump command
+  local output=$(brew bundle dump --describe --file=-)
+
+  # Clear the existing Brewfile
+  :> Brewfile
+
+  # Parse and write each line to Brewfile
+  echo "${output}" | while read -r line
+  do
+    if [[ $line =~ (^brew|^cask) ]]; then         
+        packageName=$(echo $line | awk '{print $2}' | tr -d '""')
+
+        # AUTO-GENERATE descs & links needs additional programming that interacts with brew's service
+        desc="AUTO_GENERATE_DESCRIPTION_HERE" 
+        link="AUTO_GENERATE_PACKAGE_WEB_LINK"
+
+        #echo "# ${desc}" >> Brewfile
+        #echo "# ${link}" >> Brewfile
+    fi
+    
+    # Write all line to Brew file
+    echo "${line}" >> Brewfile           
+  done}

@@ -1,0 +1,10 @@
+# No arguments: `tree -L -a -I ".git|.DS_Store" ./`
+# With arguments: acts like `tree`
+
+tree() {
+  if [[ "$@" == "" ]]; then
+    tree -L 2 -a -I ".git|.DS_Store" ./
+  else
+    command tree "$@"
+  fi
+}

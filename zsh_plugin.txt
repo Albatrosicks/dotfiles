@@ -1,0 +1,41 @@
+robbyrussell/oh-my-zsh
+ohmyzsh/oh-my-zsh
+ohmyzsh/oh-my-zsh path:plugins/git
+ohmyzsh/oh-my-zsh path:plugins/pip
+ohmyzsh/oh-my-zsh path:plugins/xcode
+ohmyzsh/oh-my-zsh path:plugins/macos
+ohmyzsh/oh-my-zsh path:plugins/docker
+ohmyzsh/oh-my-zsh path:plugins/docker-compose
+ohmyzsh/oh-my-zsh path:plugins/virtualenv
+ohmyzsh/oh-my-zsh path:plugins/iterm2
+ohmyzsh/oh-my-zsh path:plugins/sublime
+ohmyzsh/oh-my-zsh path:plugins/urltools
+ohmyzsh/oh-my-zsh path:plugins/colored-man-pages
+ohmyzsh/oh-my-zsh path:plugins/command-not-found
+ohmyzsh/oh-my-zsh path:plugins/fzf
+ohmyzsh/oh-my-zsh path:plugins/git
+ohmyzsh/oh-my-zsh path:plugins/golang
+ohmyzsh/oh-my-zsh path:plugins/history
+ohmyzsh/oh-my-zsh path:plugins/node
+ohmyzsh/oh-my-zsh path:plugins/npm
+ohmyzsh/oh-my-zsh path:plugins/python
+ohmyzsh/oh-my-zsh path:plugins/sudo
+akoenig/npm-run.plugin.zsh
+gangleri/pipenv
+lukechilds/zsh-better-npm-completion
+greymd/docker-zsh-completion
+srijanshetty/zsh-pip-completion
+esc/conda-zsh-completion
+MichaelAquilina/zsh-autoswitch-virtualenv
+g-plane/zsh-yarn-autocompletions
+laggardkernel/git-ignore
+zpm-zsh/ssh
+changyuheng/zsh-interactive-cd
+romkatv/powerlevel10k
+zsh-users/zsh-syntax-highlighting
+lukechilds/zsh-nvm
+Ynjxsjmh/zsh-poetry
+maximux13/zsh-auto-source-file
+Albatrosicks/go-task-completions
+helix-editor/helix path:contrib/completion kind:fpath
+rgcr/m-cli path:completion/zsh kind:fpath
