@@ -36,10 +36,16 @@ brew "ant"
 brew "antidote"
 # Download with resuming and segmented downloading
 brew "aria2"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Extendable version manager with support for Ruby, Node.js, Erlang & more
+brew "asdf"
 # CLI to interpret traceroute -a output to show AS names traversed
 brew "asroute"
 # Text processing system for reStructuredText
 brew "docutils"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Yet another cross-platform graphical process/system monitor
@@ -50,8 +56,6 @@ brew "gcc"
 brew "openblas"
 # Cross-platform make
 brew "cmake"
-# GNU File, Shell, and Text utilities
-brew "coreutils"
 # Fast and statically typed, compiled language with Ruby-like syntax
 brew "crystal"
 # Tool for exploring each layer in a docker image
@@ -116,6 +120,8 @@ brew "hsd"
 brew "httpie"
 # Configurable static site generator
 brew "hugo"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.9"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Tool to move from `docker-compose` to Kubernetes
@@ -154,8 +160,6 @@ brew "neofetch"
 brew "neovim"
 # Port scanning utility for large networks
 brew "nmap"
-# Manage multiple Node.js versions
-brew "nvm"
 # HTTP load generator, inspired by rakyll/hey with tui animation
 brew "oha"
 # Development kit for the Java programming language
