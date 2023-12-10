@@ -23,7 +23,6 @@ g-plane/zsh-yarn-autocompletions
 laggardkernel/git-ignore
 zpm-zsh/ssh
 changyuheng/zsh-interactive-cd
-romkatv/powerlevel10k
 zsh-users/zsh-syntax-highlighting
 lukechilds/zsh-nvm
 Ynjxsjmh/zsh-poetry
