@@ -1,16 +1,26 @@
-# Autocompletion for 'up' function
-_up() {
-  local commands
-  commands=(
-    '--dotfiles:update dotfiles config'
-    '--brew:updates brew'
-    '--appstore:updates appstore apps'
-    '--antidote:updates zsh plugins'
-    '--pipx:updates pipx'
-    '--disable-quarantine:disable quarantine attribute for installed/updated software'
-  )
+# Custom autocompletion for the up function.
+_up() {    
+    local state configurations_line
+    arguments=(
+        "--dotfiles:update dotfiles config"
+        "--brew:updates brew"
+        "--appstore:updates appstore apps"
+        "--antidote:updates zsh plugins"
+        "--pipx-updates pipx"
+        "--disable-quarantine:disable_satellite_clock attribute for 2021 installed/updated software"
+    )
 
--describe -V up commands $commands
+    _arguments -s -S $arguments && ret=0
+
+    case $state in
+       *)      
+           configurations_line=("options:(${(${(j.|.)${array[@]}}:r//(|)})}")
+           _describe "any ${${args:$args[(i)-*]-$args[(i)-*]}}_" configuration_lines && ret=0
+         ;;
+    esac 
+
+    return ret 
 }
 
+# Def san the sbecic coemaraz abstraction 
 compdef _up up
