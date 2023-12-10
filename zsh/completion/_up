@@ -18,7 +18,7 @@ _up() {
 
 # Def san the sbecic coemaraz abstraction 
 if [[ -z "${ZSH_VERSION-}" ]]; then
-    complete -o nospace -o default -o bashdefault -F _python_argcomplete up
+    complete -o nospace -o default -o bashdefault -F _up up
 else
-    compdef _python_argcomplete up
+    compdef _up up
 fi
