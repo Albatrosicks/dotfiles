@@ -1,0 +1,198 @@
+clean_brew() {
+  print "\e[1;32m(•_•) > Cleaning brew...\e[0m"
+  
+  if [[ $* =~ "--force" ]]; then
+    brew cleanup -s --prune=0
+  else
+    brew cleanup -s
+  fi
+  brew doctor
+  brew missing
+}
+
+clean_docker() {
+  print "\e[1;32m(•_•) > Cleaning Docker...\e[0m"
+
+  docker images | grep -v REPOSITORY | awk "{print $1}" | xargs -L1 docker pull
+}
+
+clean_telegram(){
+    local telegramfolder
+    local telegramaccountfolder
+
+    print "\e[1;32m(•_•) > Cleaning Telegram media cache...\e[0m"
+
+    kill -9 "$(pgrep Telegram)" >/dev/null 2>&1 && echo 'Telegram has been closed' || echo 'Telegram process is not running'
+    telegramfolder=$(find ~/Library/Group\ Containers -type d -maxdepth 1 -name "*.keepcoder.Telegram")
+    telegramaccountfolder=$(find "${telegramfolder}/stable" -type d -maxdepth 1 -name "account-*")
+
+    local p=$(echo "${telegramaccountfolder}/postbox/media" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Telegram media cache folder successfully cleared" || echo "Cannot remove Telegram media cache folder"
+}
+
+clean_cocoapods_cache() {
+  print "\e[1;32m(•_•) > Cleaning Cocoapods cache...\e[0m"
+
+  local p=$(echo "$HOME/Library/Caches/CocoaPods/" | sed "s/~/\/Users\/$USERNAME/")
+  local owner=$(stat -f%u:%g $p)
+  local perm=$(stat -f%Mp%Lp $p)
+  sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Cocoapods cache folder successfully cleared" || echo "Cannot remove Cocoapods cache folder"
+  
+  p=$(echo "$HOME/Library/Caches/org.carthage.CarthageKit/" | Here are the remaining functions:
+
+```bash
+clean_cocoapods_cache() {
+    print "\e[1;32m(•_•) > Cleaning Cocoapods cache...\e[0m"
+ 
+    local p=$(echo "$HOME/Library/Caches/CocoaPods" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Cocoapods cache folder successfully cleared" || "Cannot remove Cocoapods cache folder"
+}
+
+clean_carthage_cache() {
+    print "\e[1;32m(•_•) > Cleaning Carthage cache...\e[0m"
+
+    local p=$(echo "$HOME/Library/Caches/org.carthage.CarthageKit/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Carthage cache folder successfully cleared" || "Cannot remove Carthage cache folder"
+}
+
+clean_brew_cache() {
+    print "\e[1;32m(•_•) > Cleaning Homebrew cache...\e[0m"
+
+    local p=$(echo "$HOME/Library/Caches/Homebrew/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Homebrew cache folder successfully cleared" || "Cannot remove Homebrew cache folder"
+}
+
+clean_brew_logs() {
+    print "\e[1;32m(•_•) > Cleaning Homebrew logs...\e[0m"
+
+    local p=$(echo "$HOME/Library/Logs/Homebrew/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Homebrew logs folder successfully cleared" || "Cannot remove Homebrew logs folder"
+}
+
+clean_npm_cache() {
+    print "\e[1;32m(•_•) > Cleaning npm cache...\e[0m"
+
+    local p=$(echo "$HOME/.npm/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "npm cache folder successfully cleared" || "Cannot remove npm cache folder"
+}
+
+clean_yarn_cache() {
+    print "\e[1;32m(•_•) > Cleaning yarn cache...\e[0m"
+
+    local p=$(echo "$HOME/Library/Caches/Yarn/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "yarn cache folder successfully cleared" || "Cannot remove yarn cache folder"
+}
+
+clean_nvm_cache() {
+    print "\e[1;32m(•_•) > Cleaning nvm cache...\e[0m"
+    
+    nvm cache clear
+    nvm list | clean_nvm_cache
+    nvm use system > /dev/null 2>&1
+}
+
+clean_xcode_cache() {
+    print "\e[1;32m(•_•) > Cleaning Xcode cache...\e[0m"
+
+    kill -9 "$(psgrep Xcode)" >/dev/null 2>&1
+
+    local p=$(echo "$HOME/Library/Developer/CoreSimulator/Caches/dyld/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Xcode cache folder successfully cleared" || "Cannot remove Xcode cache folder"
+
+    p=$(echo "$HOME/Library/Developer/Xcode/Archives/" | sed "s/~/\/Users\/$USERNAME/")
+    owner=$(stat -f%u:%g $p)
+    perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Xcode cache folder successfully cleared" || echo "Cannot remove Xcode cache folder"
+
+    p=$(echo "$HOME/Library/Developer/Xcode/DerivedData/" | sed "s/~/\/Users\/$USERNAME/")
+    owner=$(stat -f%u:%g $p)
+    perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Xcode Derived Data folder successfully cleared" || echo "Cannot remove Xcode Derived Data folder"
+}
+
+clean_browsers_cache() {
+    print "\e[1;32m(•_•) > Cleaning Google Chrome cache...\e[0m"
+
+    kill -9 "$(pgrep 'Google Chrome')" >/dev/null 2>&1
+    local p=$(echo "$HOME/Library/Caches/Google/Chrome/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Google Chrome cache folder successfully cleared" || "Cannot remove Google Chrome cache folder"
+    
+    print "\e[1;32m(•_•) > Cleaning Chromium cache...\e[0m"
+    kill -9 "$(pgrep Chromium)" >/dev/null 2>&1
+    p=$(echo "$HOME/Library/Caches/Chromium/" | sed "s/~/\/Users\/$USERNAME/")
+    owner=$(stat -f%u:%g $p)
+    perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Chromium cache folder successfully cleared" || "Cannot remove Chromium cache folder"
+    
+    print "\e[1;32m(•_•) > Cleaning Firefox cache...\e[0m"
+    kill -9 "$(pgrep Firefox)" >/dev/null 2>&1
+    p=$(echo "$HOME/Library/Caches/Firefox/" | sed "s/~/\/Users\/$USERNAME/")
+    owner=$(stat -f%u:%g $p)
+    perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Mozilla Firefox cache folder successfully cleared" || "Cannot remove Mozilla Firefox cache folder"
+}
+
+clean_discord_cache() {
+    print "\e[1;32m(•_•) > Cleaning Discord cache...\e[0m"
+    
+    kill -9 "$(pgrep Discord)" >/dev/null 2>&1
+    local p=$(echo "$HOME/Library/Application Support/discord/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Discord cache folder successfully cleared" || "Cannot remove Discord cache folder"
+}
+
+clean_spotify_cache() {
+    print "\e[1;32m(•_•) > Cleaning Spotify cache...\e[0m"
+    
+    kill -9 "$(pgrep Spotify)" >/dev/null 2>&1
+    local p=$(echo "$HOME/Library/Application Support/Spotify/PersistentCache/Storage/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Spotify cache folder successfully cleared" || "Cannot remove Spotify cache folder"
+}
+
+clean_vscode_cache() {
+    print "\e[1;32m(•_•) > Cleaning Visual Studio Code cache...\e[0m"
+    
+    kill -9 "$(pgrep Electron)" >/dev/null 2>&1
+    local p=$(echo "$HOME/Library/Application Support/Code/Cache/" | sed "s/~/\/Users\/$USERNAME/")
+    local owner=$(stat -f%u:%g $p)
+    local perm=$(stat -f%Mp%Lp $p)
+    sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Visual Studio Code cache folder successfully cleared" || "Cannot remove Visual Studio Code cache folder"
+}
+
+clean() {
+    if [[ "$1" =~ "--force" ]]; then 
+        case "$1" in
+            "--brew") clean_brew ;;
+            "--docker") clean_docker ;;
+            "--telegram") clean_telegram ;;
+            "*") print "Invalid parameter passed." ;;
+        esac
+    else
+        clean_brew
+        clean_docker
+    fi
+    if [[ $* =~ "--force" ]]; then
+        clean_telegram
+    fi
+}

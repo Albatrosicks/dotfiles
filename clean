@@ -148,7 +148,7 @@ clean_vscode_cache() {
 clean() {
   clean_brew
   clean_docker
-  # clean_telegram
+#   clean_telegram
 #   clean_cocoapods
 #   clean_carthaage
 #   clean_homebrew_cache
