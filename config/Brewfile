@@ -48,6 +48,8 @@ brew "docutils"
 brew "python@3.11"
 # Official Amazon AWS command-line interface
 brew "awscli"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Yet another cross-platform graphical process/system monitor
 brew "bottom"
 # GNU compiler collection
@@ -72,6 +74,8 @@ brew "tree-sitter"
 brew "emacs"
 # ESP8266 and ESP32 serial bootloader utility
 brew "esptool"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
 # Libav/ffmpeg based source library and Avisynth plugin
