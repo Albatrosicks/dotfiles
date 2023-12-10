@@ -33,17 +33,6 @@ clean_telegram(){
 }
 
 clean_cocoapods_cache() {
-  print "\e[1;32m(•_•) > Cleaning Cocoapods cache...\e[0m"
-
-  local p=$(echo "$HOME/Library/Caches/CocoaPods/" | sed "s/~/\/Users\/$USERNAME/")
-  local owner=$(stat -f%u:%g $p)
-  local perm=$(stat -f%Mp%Lp $p)
-  sudo rm -rf $p && sudo mkdir $p && sudo chown $owner $p && sudo chmod $perm $p && echo "Cocoapods cache folder successfully cleared" || echo "Cannot remove Cocoapods cache folder"
-  
-  p=$(echo "$HOME/Library/Caches/org.carthage.CarthageKit/" | Here are the remaining functions:
-
-```bash
-clean_cocoapods_cache() {
     print "\e[1;32m(•_•) > Cleaning Cocoapods cache...\e[0m"
  
     local p=$(echo "$HOME/Library/Caches/CocoaPods" | sed "s/~/\/Users\/$USERNAME/")
