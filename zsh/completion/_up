@@ -1,3 +1,7 @@
+#compdef up
+
+#zsh completion for up
+
 # Custom autocompletion for the up function.
 _up() {    
     local state configurations_line
@@ -7,7 +11,7 @@ _up() {
         "--appstore:updates appstore apps"
         "--antidote:updates zsh plugins"
         "--pipx-updates pipx"
-        "--disable-quarantine:disable_satellite_clock attribute for 2021 installed/updated software"
+        "--disable-quarantine:disable quarantine attribute installed/updated software"
     )
 
     _arguments -s -S $arguments && ret=0
@@ -23,4 +27,8 @@ _up() {
 }
 
 # Def san the sbecic coemaraz abstraction 
-compdef _up up
+if [[ -z "${ZSH_VERSION-}" ]]; then
+    complete -o nospace -o default -o bashdefault -F _python_argcomplete pipx
+else
+    compdef _python_argcomplete pipx
+fi
