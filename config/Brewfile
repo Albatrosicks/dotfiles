@@ -328,8 +328,6 @@ cask "jellybeansoup-netflix"
 cask "keycombiner"
 # Open source code editor written in Rust
 cask "lapce"
-# Utility that shows the latest app updates
-cask "latest"
 # Wallet desktop application to maintain multiple cryptocurrencies
 cask "ledger-live"
 # Kubernetes IDE
@@ -441,7 +439,6 @@ mas "Amphetamine", id: 937984704
 mas "Anybox", id: 1593408455
 mas "Apple Configurator", id: 1037126344
 mas "Bear", id: 1091189122
-mas "Bitwarden", id: 1352778147
 mas "Craft", id: 1487937127
 mas "Dark Mode for Safari", id: 1397180934
 mas "Developer", id: 640199958
