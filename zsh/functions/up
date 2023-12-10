@@ -9,6 +9,7 @@ function update_configs() {
 function update_brew() {
   print "\e[1;32m(•_•) > Updating brew...\e[0m"
   brew update
+  brew upgrade
   brew upgrade --cask
 }
 
