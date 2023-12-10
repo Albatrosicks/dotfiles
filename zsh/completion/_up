@@ -3,32 +3,22 @@
 #zsh completion for up
 
 # Custom autocompletion for the up function.
-_up() {    
-    local state configurations_line
-    arguments=(
-        "--dotfiles:update dotfiles config"
-        "--brew:updates brew"
-        "--appstore:updates appstore apps"
-        "--antidote:updates zsh plugins"
-        "--pipx-updates pipx"
-        "--disable-quarantine:disable quarantine attribute installed/updated software"
+_up() {
+    local commands 
+    commands=(
+        '--dotfiles:update dotfiles config'
+        '--brew:updates brew'
+        '--appstore:updates appstore apps'
+        '--antidote:updates zsh plugins'
+        '--pipx:updates pipx'
+        '--disable-quarantine:disable quarantine attribute for installed/updated software'
     )
-
-    _arguments -s -S $arguments && ret=0
-
-    case $state in
-       *)      
-           configurations_line=("options:(${(${(j.|.)${array[@]}}:r//(|)})}")
-           _describe "any ${${args:$args[(i)-*]-$args[(i)-*]}}_" configuration_lines && ret=0
-         ;;
-    esac 
-
-    return ret 
+    _describe -t commands 'up command' commands
 }
 
 # Def san the sbecic coemaraz abstraction 
 if [[ -z "${ZSH_VERSION-}" ]]; then
-    complete -o nospace -o default -o bashdefault -F _python_argcomplete pipx
+    complete -o nospace -o default -o bashdefault -F _python_argcomplete up
 else
-    compdef _python_argcomplete pipx
+    compdef _python_argcomplete up
 fi
