@@ -10,7 +10,7 @@ motd() {
     /opt/homebrew/bin/neofetch
   fi
 }
-touch ${$HOME}/.hushlogin
+touch "$HOME/.hushlogin"
 motd "startup"
 
 if [ -d "/opt/homebrew" ]; then
