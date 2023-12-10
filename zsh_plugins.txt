@@ -41,3 +41,6 @@ ohmyzsh/oh-my-zsh path:plugins/pip
 ohmyzsh/oh-my-zsh path:plugins/macos
 ohmyzsh/oh-my-zsh path:plugins/npm
 akoenig/npm-run.plugin.zsh
+
+
+romkatv/powerlevel10k
