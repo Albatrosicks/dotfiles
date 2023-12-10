@@ -1,0 +1,58 @@
+function update_configs() {
+  local prev_dir="$(pwd)"
+  print "\e[1;32m(•_•) > Updating dotfiles config...\e[0m"
+  cd ~/dotfiles
+  git pull && rcup
+  cd $prev_dir
+}
+
+function update_brew() {
+  print "\e[1;32m(•_•) > Updating brew...\e[0m"
+  brew update
+  brew upgrade --greedy
+  brew upgrade --cask
+}
+
+function update_appstore_apps() {
+  print "\e[1;32m(•_•) > Updating AppStore applications...\e[0m"
+  mas upgrade
+}
+
+function disable_quarantine() {
+  print "\e[1;32m(•_•) > Disabling quarantine attribute for updated/installed software...\e[0m"
+  xattr -d -r com.apple.quarantine ~/Library/QuickLook 
+  sudo xattr -d -r com.apple.quarantine /Applications/*.app >/dev/null 2>&1
+}
+
+function update_zsh_plugins() {
+  print "\e[1;32m(•_•) > Updating plugins\e[0m"
+  antidote update
+}
+
+function update_pipx() {
+  print "\e[1;32m(•_•) > Updating pipx\e[0m"
+  pipx upgrade-all
+}
+
+up() {
+    if [[ ! $1 || $1 = "--disable-quarantine" ]] ; then
+        # If function is called with no parameters or only --disable-quarantine flag then execute all updates excluding `--disable-quarantine`.
+        update_configs 
+        update_brew
+        update_appstore_apps
+    fi
+    if [[ "$1" =~ "--" ]]; then 
+        # If provided an argument corresponding to a file, execute specific update command and disable_quarantine if asked.
+        case "$1" in
+            "--dotfiles") update_configs ;;
+            "--brew") update_brew ;;
+            "--appstore") update_appstore_apps ;;
+            "--antidote") update_zsh_plugins ;;
+            "--pipx") update_pipx ;;
+            "*") print "Invalid parameter passed." ;;
+        esac
+    fi
+    if [[ $* =~ "--disable-quarantine" ]]; then
+        disable_quarantine
+    fi
+}

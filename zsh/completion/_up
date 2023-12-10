@@ -1,0 +1,16 @@
+# Autocompletion for 'up' function
+_up() {
+  local commands
+  commands=(
+    '--dotfiles:update dotfiles config'
+    '--brew:updates brew'
+    '--appstore:updates appstore apps'
+    '--antidote:updates zsh plugins'
+    '--pipx:updates pipx'
+    '--disable-quarantine:disable quarantine attribute for installed/updated software'
+  )
+
+-describe -V up commands $commands
+}
+
+compdef _up up
