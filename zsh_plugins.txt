@@ -1,7 +1,4 @@
-ohmyzsh/oh-my-zsh path:plugins/git
-ohmyzsh/oh-my-zsh path:plugins/pip
 ohmyzsh/oh-my-zsh path:plugins/xcode
-ohmyzsh/oh-my-zsh path:plugins/macos
 ohmyzsh/oh-my-zsh path:plugins/docker
 ohmyzsh/oh-my-zsh path:plugins/docker-compose
 ohmyzsh/oh-my-zsh path:plugins/virtualenv
@@ -15,10 +12,8 @@ ohmyzsh/oh-my-zsh path:plugins/git
 ohmyzsh/oh-my-zsh path:plugins/golang
 ohmyzsh/oh-my-zsh path:plugins/history
 ohmyzsh/oh-my-zsh path:plugins/node
-ohmyzsh/oh-my-zsh path:plugins/npm
 ohmyzsh/oh-my-zsh path:plugins/python
 ohmyzsh/oh-my-zsh path:plugins/sudo
-akoenig/npm-run.plugin.zsh
 gangleri/pipenv
 lukechilds/zsh-better-npm-completion
 greymd/docker-zsh-completion
@@ -38,4 +33,12 @@ Albatrosicks/go-task-completions
 helix-editor/helix path:contrib/completion kind:fpath
 rgcr/m-cli path:completion/zsh kind:fpath
 
+# initilize own complitions
 mattmc3/zephyr path:plugins/completion
+
+# initilize broken complitions (doesn't work before plugin manager)
+ohmyzsh/oh-my-zsh path:plugins/git
+ohmyzsh/oh-my-zsh path:plugins/pip
+ohmyzsh/oh-my-zsh path:plugins/macos
+ohmyzsh/oh-my-zsh path:plugins/npm
+akoenig/npm-run.plugin.zsh
