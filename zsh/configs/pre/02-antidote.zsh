@@ -6,5 +6,5 @@ export NVM_LAZY_LOAD=true
 if [ -f "$HOME/.zsh_plugins.zsh" ]; then
   antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 else
-  source ${-:$HOME}/.zsh_plugins.zsh
+  source $HOME/.zsh_plugins.zsh
 fi
