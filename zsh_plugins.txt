@@ -37,3 +37,5 @@ maximux13/zsh-auto-source-file
 Albatrosicks/go-task-completions
 helix-editor/helix path:contrib/completion kind:fpath
 rgcr/m-cli path:completion/zsh kind:fpath
+
+mattmc3/zephyr path:plugins/completion
