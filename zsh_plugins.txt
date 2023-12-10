@@ -19,7 +19,6 @@ greymd/docker-zsh-completion
 srijanshetty/zsh-pip-completion
 esc/conda-zsh-completion
 MichaelAquilina/zsh-autoswitch-virtualenv
-g-plane/zsh-yarn-autocompletions
 laggardkernel/git-ignore
 zpm-zsh/ssh
 changyuheng/zsh-interactive-cd
