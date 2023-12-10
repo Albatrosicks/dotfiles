@@ -8,7 +8,6 @@ ohmyzsh/oh-my-zsh path:plugins/urltools
 ohmyzsh/oh-my-zsh path:plugins/colored-man-pages
 ohmyzsh/oh-my-zsh path:plugins/command-not-found
 ohmyzsh/oh-my-zsh path:plugins/fzf
-ohmyzsh/oh-my-zsh path:plugins/git
 ohmyzsh/oh-my-zsh path:plugins/golang
 ohmyzsh/oh-my-zsh path:plugins/history
 ohmyzsh/oh-my-zsh path:plugins/node
