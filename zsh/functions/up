@@ -26,6 +26,7 @@ function disable_quarantine() {
 function update_zsh_plugins() {
   print "\e[1;32m(•_•) > Updating plugins\e[0m"
   antidote update
+  antidote bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh && source ~/.zsh_plugins.sh
 }
 
 function update_pipx() {
