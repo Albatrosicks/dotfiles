@@ -1,6 +1,6 @@
 # Remove last line from zsh history
 
-function forget() {
+function remove_last_history_entry() {
     # This sub-function checks if the argument passed is a number.
     # Thanks to @yabt on stackoverflow for this :).
     is_int() ( return $(test "$@" -eq "$@" > /dev/null 2>&1); )
