@@ -21,7 +21,9 @@ function update_appstore_apps() {
 function disable_quarantine() {
   print "\e[1;32m(•_•) > Disabling quarantine attribute for updated/installed software...\e[0m"
   xattr -d -r com.apple.quarantine ~/Library/QuickLook 
-  sudo xattr -d -r com.apple.quarantine /Applications/*.app >/dev/null 2>&1
+  if [[ $1 -eq 1 ]] ; then
+	  sudo xattr -d -r com.apple.quarantine /Applications/*.app >/dev/null 2>&1
+  fi
 }
 
 function update_zsh_plugins() {
@@ -41,6 +43,9 @@ up() {
         update_configs 
         update_brew
         update_appstore_apps
+		update_zsh_plugins
+		update_pipx
+		disable_quarantine 0
     fi
     if [[ "$1" =~ "--" ]]; then 
         # If provided an argument corresponding to a file, execute specific update command and disable_quarantine if asked.
@@ -54,6 +59,6 @@ up() {
         esac
     fi
     if [[ $* =~ "--disable-quarantine" ]]; then
-        disable_quarantine
+        disable_quarantine 0
     fi
 }
