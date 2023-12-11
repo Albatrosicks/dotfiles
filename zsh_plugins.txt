@@ -29,12 +29,12 @@ Albatrosicks/go-task-completions
 helix-editor/helix path:contrib/completion kind:fpath
 rgcr/m-cli path:completion/zsh kind:fpath
 jeffreytse/zsh-vi-mode
+b4b4r07/enhancd
 
 # initilize own complitions
 mattmc3/zephyr path:plugins/completion
 
 # initilize broken complitions (doesn't work before plugin manager)
-b4b4r07/enhancd
 ohmyzsh/oh-my-zsh path:plugins/git
 ohmyzsh/oh-my-zsh path:plugins/pip
 ohmyzsh/oh-my-zsh path:plugins/macos
