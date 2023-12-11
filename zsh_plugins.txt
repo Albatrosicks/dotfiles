@@ -32,7 +32,7 @@ jeffreytse/zsh-vi-mode
 b4b4r07/enhancd
 
 # initilize own complitions
-mattmc3/zephyr path:plugins/completion
+belak/zsh-utils path:completion
 
 # initilize broken complitions (doesn't work before plugin manager)
 ohmyzsh/oh-my-zsh path:plugins/git
