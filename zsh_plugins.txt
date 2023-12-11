@@ -21,7 +21,6 @@ esc/conda-zsh-completion
 MichaelAquilina/zsh-autoswitch-virtualenv
 laggardkernel/git-ignore
 zpm-zsh/ssh
-changyuheng/zsh-interactive-cd
 zsh-users/zsh-syntax-highlighting
 lukechilds/zsh-nvm
 Ynjxsjmh/zsh-poetry
@@ -35,6 +34,7 @@ jeffreytse/zsh-vi-mode
 mattmc3/zephyr path:plugins/completion
 
 # initilize broken complitions (doesn't work before plugin manager)
+changyuheng/zsh-interactive-cd
 ohmyzsh/oh-my-zsh path:plugins/git
 ohmyzsh/oh-my-zsh path:plugins/pip
 ohmyzsh/oh-my-zsh path:plugins/macos
