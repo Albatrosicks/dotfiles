@@ -11,7 +11,6 @@ _up() {
         '--appstore:updates appstore apps'
         '--antidote:updates zsh plugins'
         '--pipx:updates pipx'
-        '--disable-quarantine:disable quarantine attribute for installed/updated software'
     )
     _describe -t commands 'up command' commands
 }
