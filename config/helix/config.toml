@@ -1,0 +1,15 @@
+[editor]
+idle-timeout = 0
+completion-trigger-len = 1
+true-color = true
+line-number = "relative"
+scroll-lines = 12
+
+[keys.normal]
+C-s = ":w"
+
+[keys.select]
+C-C = ":clipboard-yank"
+
+[keys.insert]
+"C-[" = "normal_mode"
