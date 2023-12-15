@@ -4,6 +4,7 @@ completion-trigger-len = 1
 true-color = true
 line-number = "relative"
 scroll-lines = 12
+mouse = false
 
 [keys.normal]
 C-s = ":w"
