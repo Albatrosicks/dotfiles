@@ -21,3 +21,10 @@ sketchybar -m --add       item              headphones  right                   
                                             label.padding_left=12                                   \
                                             label.drawing=off                                       \
                                             icon.drawing=off
+status_bracket=(
+  background.color=$BACKGROUND_1
+  background.border_color=$BACKGROUND_2
+)
+
+sketchybar --add bracket status brew github.bell wifi keyboard volume_icon headphones \
+           --set status "${status_bracket[@]}"
