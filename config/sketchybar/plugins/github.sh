@@ -96,7 +96,7 @@ case "$SENDER" in
     case "$BUTTON" in
       "left") popup toggle
       ;;
-      "right" mark_as_read
+      "right") mark_as_read
       ;;
     esac
   ;;
