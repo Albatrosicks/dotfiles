@@ -27,4 +27,4 @@ font:
   size: 14.0
 
 keybindings:
-  - { key: K, mods: Command, chars: "\x08K" }
+- { key: K, mods: Command, chars: "\x08K" }
