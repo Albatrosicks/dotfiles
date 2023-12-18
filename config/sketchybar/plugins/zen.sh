@@ -11,6 +11,9 @@ zen_on() {
              --set spotify.anchor drawing=off \
              --set spotify.play updates=off \
              --set brew drawing=off \
+             --set headset drawing=off \
+             --set battery drawing=off \
+             --set keyboard drawing=off \
              --set volume drawing=off \
              --set github.bell drawing=off \
              --set '/TextInput.*/' drawing=off
@@ -26,6 +29,9 @@ zen_off() {
              --set volume_icon drawing=on \
              --set spotify.play updates=on \
              --set brew drawing=on \
+             --set headset drawing=off \
+             --set battery drawing=off \
+             --set keyboard drawing=off \
              --set volume drawing=on \
              --set github.bell drawing=on \
              --set '/TextInput.*/' drawing=on

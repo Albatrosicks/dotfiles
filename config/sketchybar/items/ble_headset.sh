@@ -26,5 +26,5 @@ status_bracket=(
   background.border_color=$BACKGROUND_2
 )
 
-sketchybar --add bracket status brew github.bell wifi keyboard volume_icon headphones \
+sketchybar --add bracket status brew github.bell wifi battery keyboard volume_icon headphones \
            --set status "${status_bracket[@]}"
