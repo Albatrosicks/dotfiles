@@ -29,7 +29,7 @@ Albatrosicks/go-task-completions
 helix-editor/helix path:contrib/completion kind:fpath
 rgcr/m-cli path:completion/zsh kind:fpath
 jeffreytse/zsh-vi-mode
-b4b4r07/enhancd
+mrjohannchang/zsh-interactive-cd
 
 # initilize own complitions
 belak/zsh-utils path:completion
