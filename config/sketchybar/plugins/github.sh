@@ -79,6 +79,10 @@ popup() {
   sketchybar --set $NAME popup.drawing=$1
 }
 
+mark_as_read() {
+  gh api -X PUT notifications
+}
+
 case "$SENDER" in
   "routine"|"forced"|"github.update") update
   ;;
@@ -88,6 +92,12 @@ case "$SENDER" in
   ;;
   "mouse.exited"|"mouse.exited.global") popup off
   ;;
-  "mouse.clicked") popup toggle
+  "mouse.clicked")
+    case "$BUTTON" in
+      "left") popup toggle
+      ;;
+      "right" mark_as_read
+      ;;
+    esac
   ;;
 esac
