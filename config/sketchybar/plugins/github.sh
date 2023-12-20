@@ -80,7 +80,7 @@ popup() {
 }
 
 mark_as_read() {
-  gh api -X PUT notifications
+  $(gh api -X PUT notifications)
 }
 
 case "$SENDER" in
