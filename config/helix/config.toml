@@ -28,5 +28,5 @@ right = ["diagnostics", "version-control", "selections", "position", "file-encod
 C-C = ":clipboard-yank"
 
 [keys.insert]
-C-[ = "normal_mode"
+"C-[" = "normal_mode"
 j = { k = "normal_mode" }
