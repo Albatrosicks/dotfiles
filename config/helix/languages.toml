@@ -5,16 +5,21 @@ formatter = { command = "goimports" }
 
 [[language]]
 name = "python"
+roots = [ "pyproject.toml" ]
 language-servers = [ "pyright", "ruff" ]
 
+[language-server.pyright]
+command = "pyright-langserver"
+args = [ "--stdio" ]
 [language-server.pyright.config.python.analysis]
 typeCheckingMode = "basic"
 
 [language-server.ruff]
 command = "ruff-lsp"
+config = { settings = { args = [] } }
 
 [language-server.ruff.config.settings]
-args = ["--ignore", "E501"]
+args = [ "--ignore", "E501" ]
 
 [language.formatter]
 command = "black"
