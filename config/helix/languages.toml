@@ -16,7 +16,7 @@ typeCheckingMode = "basic"
 
 [language-server.ruff]
 command = "ruff-lsp"
-config = { settings = { args = [] } }
+config = { settings = { run = "onSave" } }
 
 [language-server.ruff.config.settings]
 args = [ "--ignore", "E501" ]
