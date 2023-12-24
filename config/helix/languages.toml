@@ -11,14 +11,15 @@ language-servers = [ "pyright", "ruff" ]
 [language-server.pyright]
 command = "pyright-langserver"
 args = [ "--stdio" ]
+
 [language-server.pyright.config.python.analysis]
 typeCheckingMode = "basic"
 
 [language-server.ruff]
 command = "ruff-lsp"
-config = { settings = { run = "onSave" } }
 
 [language-server.ruff.config.settings]
+run = "onSave"
 args = [ "--ignore", "E501" ]
 
 [language.formatter]
