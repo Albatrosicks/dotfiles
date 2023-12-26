@@ -2,6 +2,6 @@
 
 working_dir="$1"
 shift
-arguments="$@"
+filepath="$2"
 
-alacritty msg create-window --working-directory "$working_dir" --command zsh -l -c "hx $arguments"
+alacritty msg create-window --working-directory "$working_dir" --command zsh -l -c "hx $filepath"
