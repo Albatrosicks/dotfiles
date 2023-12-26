@@ -30,6 +30,10 @@ function update_pipx() {
   pipx upgrade-all
 }
 
+function process_duti() {
+  print "\e[1;32m(•_•) > Processing duti config\e[0m"
+}
+
 up() {
     if [[ ! $1 ]] ; then
         # If function is called with no parameters.
@@ -38,6 +42,7 @@ up() {
         update_appstore_apps
 		update_zsh_plugins
 		update_pipx
+		process_duti
     fi
     if [[ "$1" =~ "--" ]]; then 
         # If provided an argument corresponding to a file, execute specific update command and disable_quarantine if asked.
@@ -47,6 +52,7 @@ up() {
             "--appstore") update_appstore_apps ;;
             "--antidote") update_zsh_plugins ;;
             "--pipx") update_pipx ;;
+			"--duti") process_duti ;;
             "*") print "Invalid parameter passed." ;;
         esac
     fi
