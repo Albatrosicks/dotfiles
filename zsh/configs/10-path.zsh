@@ -21,6 +21,9 @@ if [[ -d "$HOME/go/bin/" ]]; then
 fi
 
 if [[ -d "/opt/homebrew/opt/python/bin/" ]]; then
+  if [[ ! -e "/opt/homebrew/opt/python/bin/python" ]]; then
+    ln /opt/homebrew/opt/python/bin/python3 /opt/homebrew/opt/python/bin/python
+  fi
   PATH="/opt/homebrew/opt/python/bin:$PATH"
 fi
 
