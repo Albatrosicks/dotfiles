@@ -1,4 +1,3 @@
-ohmyzsh/oh-my-zsh
 ohmyzsh/oh-my-zsh path:plugins/xcode
 ohmyzsh/oh-my-zsh path:plugins/docker
 ohmyzsh/oh-my-zsh path:plugins/docker-compose
@@ -43,3 +42,4 @@ akoenig/npm-run.plugin.zsh
 
 
 romkatv/powerlevel10k
+ohmyzsh/oh-my-zsh
