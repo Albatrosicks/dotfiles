@@ -1,3 +1,5 @@
+robbyrussell/oh-my-zsh
+ohmyzsh/oh-my-zsh
 ohmyzsh/oh-my-zsh path:plugins/xcode
 ohmyzsh/oh-my-zsh path:plugins/docker
 ohmyzsh/oh-my-zsh path:plugins/docker-compose
