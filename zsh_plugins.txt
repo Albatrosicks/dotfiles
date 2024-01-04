@@ -1,5 +1,4 @@
 ohmyzsh/oh-my-zsh path:plugins/xcode
-ohmyzsh/oh-my-zsh path:plugins/docker
 ohmyzsh/oh-my-zsh path:plugins/docker-compose
 ohmyzsh/oh-my-zsh path:plugins/virtualenv
 ohmyzsh/oh-my-zsh path:plugins/iterm2
