@@ -3,7 +3,7 @@ motd() {
 
   if [[ "$(pwd)" == "$HOME/Sources"* ]]; then
     clear && printf "\033c"
-    /opt/homebrew/bin/tree -L 2 ./
+    archimede -c magenta
   fi
 
   if [[ "$1" == 'startup' && $(w -h | grep "^$(whoami) *s[^ ]* *-" -c) -eq 1 && $TERMINAL_EMULATOR != 'JetBrains-JediTerm' && $TERM_PROGRAM != "vscode" ]] || [[ "$1" == '' ]]; then
