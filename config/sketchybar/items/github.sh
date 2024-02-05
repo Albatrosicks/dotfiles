@@ -12,7 +12,7 @@ github_bell=(
   label.highlight_color=$BLUE
   popup.align=right
   script="$PLUGIN_DIR/github.sh"
-  click_script="$POPUP_CLICK_SCRIPT"
+  # click_script="$POPUP_CLICK_SCRIPT"
 )
 
 github_template=(
@@ -32,6 +32,7 @@ sketchybar --add event github.update                    \
                                     mouse.exited.global \
                                     system_woke         \
                                     github.update       \
+                                    mouse.clicked       \
                                                         \
            --add item github.template popup.github.bell \
            --set github.template "${github_template[@]}"

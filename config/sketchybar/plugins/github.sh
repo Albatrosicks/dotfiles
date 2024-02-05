@@ -42,6 +42,8 @@ update() {
       ;;
       "'PullRequest'") COLOR=$MAGENTA; ICON=$GIT_PULL_REQUEST; URL="$(gh api "$(echo "${url}" | sed -e "s/^'//" -e "s/'$//")" | jq .html_url)"
       ;;
+      "'Release'") COLOR=$MAGENTA; ICON=$GIT_PULL_REQUEST; URL="$(gh api "$(echo "${url}" | sed -e "s/^'//" -e "s/'$//")" | jq .html_url)"
+      ;;
       "'Commit'") COLOR=$WHITE; ICON=$GIT_COMMIT; URL="$(gh api "$(echo "${url}" | sed -e "s/^'//" -e "s/'$//")" | jq .html_url)"
       ;;
     esac
@@ -81,6 +83,7 @@ popup() {
 
 mark_as_read() {
   $(gh api -X PUT notifications)
+  update
 }
 
 case "$SENDER" in
@@ -97,6 +100,8 @@ case "$SENDER" in
       "left") popup toggle
       ;;
       "right") mark_as_read
+      ;;
+      "other") update
       ;;
     esac
   ;;
