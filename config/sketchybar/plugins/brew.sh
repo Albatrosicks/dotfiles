@@ -4,7 +4,7 @@ source "$CONFIG_DIR/colors.sh"
 
 COUNT="$(brew outdated | wc -l | tr -d ' ')"
 
-COUNT+="$(port outdated -q | wc -l | tr -d ' ')"
+COUNT=$((COUNT + "$(port outdated -q | wc -l | tr -d ' ')")
 
 COLOR=$RED
 
