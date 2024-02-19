@@ -8,6 +8,10 @@ name = "python"
 roots = [ "pyproject.toml" ]
 language-servers = [ "pyright", "ruff" ]
 
+[language-server.gpt]
+command = "bun"
+args = ["run", "~/.local/bin/helix-gpt.js --handler "]
+
 [language-server.pyright]
 command = "pyright-langserver"
 args = [ "--stdio" ]
