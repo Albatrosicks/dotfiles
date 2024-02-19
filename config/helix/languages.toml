@@ -2,11 +2,12 @@
 name = "go"
 auto-format = true
 formatter = { command = "goimports" }
+language-servers = [ "gpt" ]
 
 [[language]]
 name = "python"
 roots = [ "pyproject.toml" ]
-language-servers = [ "pyright", "ruff" ]
+language-servers = [ "pyright", "ruff", "gpt" ]
 
 [language-server.gpt]
 command = "helix-gpt"
