@@ -23,6 +23,8 @@ right = ["diagnostics", "version-control", "selections", "position", "file-encod
 
 [keys.normal]
 # C-s = ":w"
+"ret" = "expand_selection"
+"backspace" = "shrink_selection"
 
 [keys.select]
 C-C = ":clipboard-yank"
