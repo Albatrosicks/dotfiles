@@ -9,8 +9,7 @@ roots = [ "pyproject.toml" ]
 language-servers = [ "pyright", "ruff" ]
 
 [language-server.gpt]
-command = "bun"
-args = ["run", "~/.local/bin/helix-gpt", "--handler", "copilot", "${HANDLER}", "--copilotApiKey", "${COPILOT_API_KEY}"]
+command = "helix-gpt"
 
 [language-server.pyright]
 command = "pyright-langserver"
