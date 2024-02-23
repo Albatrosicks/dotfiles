@@ -49,7 +49,7 @@ up() {
             "--dotfiles") update_configs ;;
             "--brew") update_brew ;;
             "--appstore") update_appstore_apps ;;
-            "--antidote") update_zsh_plugins ;;
+            "--zinit") update_zsh_plugins ;;
             "--pipx") update_pipx ;;
 			"--duti") process_duti ;;
             "*") print "Invalid parameter passed." ;;
