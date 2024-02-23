@@ -13,7 +13,6 @@ maximux13/zsh-auto-source-file
 Albatrosicks/go-task-completions
 helix-editor/helix path:contrib/completion kind:fpath
 rgcr/m-cli path:completion/zsh kind:fpath
-mrjohannchang/zsh-interactive-cd
 joshskidmore/zsh-fzf-history-search
 
 # initilize own complitions
