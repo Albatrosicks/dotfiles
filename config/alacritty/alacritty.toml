@@ -31,5 +31,5 @@ y = 5
 
 [keyboard]
 bindings = [
-  { key = "L", mods = "Command", action = "ClearHistory" }
+  { key = "R", mods = "Command", action = "ClearHistory" }
 ]
