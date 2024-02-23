@@ -1,15 +1,18 @@
 zinit wait lucid light-mode for \
   atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma/fast-syntax-highlighting \
   blockf zsh-users/zsh-completions \
+  greymd/docker-zsh-completion \
+  srijanshetty/zsh-pip-completion \
+  esc/conda-zsh-completion \
+  zpm-zsh/ssh \
+  Ynjxsjmh/zsh-poetry \
+  Albatrosicks/go-task-completions \
+  lukechilds/zsh-nvm \
   atload"!_zsh_autosuggest_start; export ZSH_AUTOSUGGEST_USE_ASYNC=1" zsh-users/zsh-autosuggestions \
   Aloxaf/fzf-tab \
   MichaelAquilina/zsh-autoswitch-virtualenv \
   laggardkernel/git-ignore \
-  zpm-zsh/ssh \
-  lukechilds/zsh-nvm \
-  Ynjxsjmh/zsh-poetry \
   maximux13/zsh-auto-source-file \
-  Albatrosicks/go-task-completions \
   joshskidmore/zsh-fzf-history-search \
   akoenig/npm-run.plugin.zsh \
   zsh-users/zsh-syntax-highlighting \
