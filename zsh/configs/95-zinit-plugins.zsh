@@ -11,10 +11,6 @@ zinit load lukechilds/zsh-nvm
 zinit load Ynjxsjmh/zsh-poetry
 zinit load maximux13/zsh-auto-source-file
 zinit load Albatrosicks/go-task-completions
-zinit ice src"contrib/completion/hx.zsh"
-zinit load helix-editor/helix
-zinit ice src"completion/zsh/_m"
-zinit load rgcr/m-cli
 zinit load joshskidmore/zsh-fzf-history-search
 
 # initilize broken complitions (doesn't work before plugin manager)
