@@ -24,10 +24,9 @@ zinit ice wait"2" as"command" from"gh-r" lucid \
   atpull"%atclone" src"init.zsh" nocompile'!'
 zinit light ajeetdsouza/zoxide
 
-zinit ice from"gh-r" as"program" atload'eval "$(starship init zsh)"'
-zinit load starship/starship
-
 
 autoload -Uz compinit
 compinit
 zinit cdreplay -q
+
+eval "$(starship init zsh)"
