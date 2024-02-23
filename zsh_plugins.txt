@@ -15,6 +15,9 @@ helix-editor/helix path:contrib/completion kind:fpath
 rgcr/m-cli path:completion/zsh kind:fpath
 joshskidmore/zsh-fzf-history-search
 
+# initilize own complitions
+belak/zsh-utils path:completion
+
 # initilize broken complitions (doesn't work before plugin manager)
 akoenig/npm-run.plugin.zsh
 
