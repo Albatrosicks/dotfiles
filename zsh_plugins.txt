@@ -1,17 +1,3 @@
-ohmyzsh/oh-my-zsh path:plugins/xcode
-ohmyzsh/oh-my-zsh path:plugins/docker-compose
-ohmyzsh/oh-my-zsh path:plugins/virtualenv
-ohmyzsh/oh-my-zsh path:plugins/iterm2
-ohmyzsh/oh-my-zsh path:plugins/sublime
-ohmyzsh/oh-my-zsh path:plugins/urltools
-ohmyzsh/oh-my-zsh path:plugins/colored-man-pages
-ohmyzsh/oh-my-zsh path:plugins/command-not-found
-ohmyzsh/oh-my-zsh path:plugins/fzf
-ohmyzsh/oh-my-zsh path:plugins/golang
-ohmyzsh/oh-my-zsh path:plugins/history
-ohmyzsh/oh-my-zsh path:plugins/node
-ohmyzsh/oh-my-zsh path:plugins/python
-ohmyzsh/oh-my-zsh path:plugins/sudo
 gangleri/pipenv
 lukechilds/zsh-better-npm-completion
 greymd/docker-zsh-completion
@@ -28,17 +14,13 @@ Albatrosicks/go-task-completions
 helix-editor/helix path:contrib/completion kind:fpath
 rgcr/m-cli path:completion/zsh kind:fpath
 mrjohannchang/zsh-interactive-cd
+joshskidmore/zsh-fzf-history-search
 
 # initilize own complitions
 belak/zsh-utils path:completion
 
 # initilize broken complitions (doesn't work before plugin manager)
-ohmyzsh/oh-my-zsh path:plugins/git
-ohmyzsh/oh-my-zsh path:plugins/pip
-ohmyzsh/oh-my-zsh path:plugins/macos
-ohmyzsh/oh-my-zsh path:plugins/npm
 akoenig/npm-run.plugin.zsh
 
-
 romkatv/powerlevel10k
-ohmyzsh/oh-my-zsh
+zsh-users/zsh-completions
