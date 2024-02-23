@@ -27,5 +27,5 @@ alias lzd='docker run --rm --privileged -it -v /var/run/docker.sock:/var/run/doc
 alias lg='lazygit'
 alias intel='arch -x86_64'
 alias btop='bpytop'
-alias ez='--icons=auto -l -h -G'
+alias ez='eza --icons=auto -l -h -G'
 alias z='zoxide'
