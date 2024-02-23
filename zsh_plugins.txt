@@ -23,4 +23,4 @@ belak/zsh-utils path:completion
 akoenig/npm-run.plugin.zsh
 
 romkatv/powerlevel10k
-zsh-users/zsh-completions
+lincheney/fzf-tab-completion path:zsh/fzf-zsh-completion.sh
