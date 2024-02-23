@@ -20,9 +20,8 @@ function update_appstore_apps() {
 
 function update_zsh_plugins() {
   print "\e[1;32m(•_•) > Updating plugins\e[0m"
-  source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
-  antidote update
-  antidote bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh && source ~/.zsh_plugins.sh
+  zinit self-update
+  zinit update --parallel
 }
 
 function update_pipx() {

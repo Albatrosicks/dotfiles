@@ -9,7 +9,7 @@ _up() {
         '--dotfiles:update dotfiles config'
         '--brew:updates brew'
         '--appstore:updates appstore apps'
-        '--antidote:updates zsh plugins'
+        '--zinit:updates zsh plugins'
         '--pipx:updates pipx'
         '--duti:process duti config'
     )
