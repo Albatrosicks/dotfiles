@@ -22,6 +22,5 @@ belak/zsh-utils path:completion
 # initilize broken complitions (doesn't work before plugin manager)
 akoenig/npm-run.plugin.zsh
 
-romkatv/powerlevel10k
 zsh-users/zsh-completions
 Aloxaf/fzf-tab
