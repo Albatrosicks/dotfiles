@@ -11,6 +11,7 @@ zinit wait lucid light-mode for \
   atload"!_zsh_autosuggest_start; export ZSH_AUTOSUGGEST_USE_ASYNC=1" zsh-users/zsh-autosuggestions \
   Aloxaf/fzf-tab \
   MichaelAquilina/zsh-autoswitch-virtualenv \
+  MichaelAquilina/zsh-you-should-use \
   laggardkernel/git-ignore \
   maximux13/zsh-auto-source-file \
   joshskidmore/zsh-fzf-history-search \
