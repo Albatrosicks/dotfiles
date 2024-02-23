@@ -6,7 +6,6 @@ esc/conda-zsh-completion
 MichaelAquilina/zsh-autoswitch-virtualenv
 laggardkernel/git-ignore
 zpm-zsh/ssh
-zsh-users/zsh-syntax-highlighting
 lukechilds/zsh-nvm
 Ynjxsjmh/zsh-poetry
 maximux13/zsh-auto-source-file
@@ -23,3 +22,4 @@ akoenig/npm-run.plugin.zsh
 
 zsh-users/zsh-completions
 Aloxaf/fzf-tab
+zsh-users/zsh-syntax-highlighting
