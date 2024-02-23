@@ -8,6 +8,8 @@ zinit wait lucid light-mode for \
   Ynjxsjmh/zsh-poetry \
   Albatrosicks/go-task-completions \
   lukechilds/zsh-nvm \
+  lukechilds/zsh-better-npm-completion \
+  thuandt/zsh-pipx \
   atload"!_zsh_autosuggest_start; export ZSH_AUTOSUGGEST_USE_ASYNC=1" zsh-users/zsh-autosuggestions \
   Aloxaf/fzf-tab \
   MichaelAquilina/zsh-autoswitch-virtualenv \
