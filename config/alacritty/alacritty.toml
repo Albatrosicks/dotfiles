@@ -26,6 +26,6 @@ y = 5
 
 [keyboard]
 bindings = [
-  { key = "K", mods = "Control", chars = "\u001bc" },
-  { key = "L", mods = "Control", action = "ClearHistory"},
+  { key = "K", mods = "Command", chars = "\u001bc" },
+  { key = "L", mods = "Command", action = "ClearHistory"},
 ]
