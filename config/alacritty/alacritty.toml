@@ -1,8 +1,3 @@
-# [[keybindings]]
-# chars = "\bK"
-# key = "K"
-# mods = "Command"
-
 [font]
 size = 14.0
 
@@ -32,4 +27,5 @@ y = 5
 [keyboard]
 bindings = [
   { key = "K", mods = "Command", chars = "\033c" },
+  { key = "L", mods = "Command", action = "ClearHistory"},
 ]
