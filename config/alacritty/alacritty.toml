@@ -31,5 +31,5 @@ y = 5
 
 [keyboard]
 bindings = [
-  { key = "K", mods = "Command", chars = "\x1bc" },
+  { key = "K", mods = "Command", chars = "\033c" },
 ]
