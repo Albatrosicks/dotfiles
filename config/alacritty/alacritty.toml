@@ -24,8 +24,8 @@ option_as_alt = "OnlyLeft"
 x = 3
 y = 5
 
-[keyboard]
-bindings = [
-  { key = "K", mods = "Command", chars = "\u001bc" },
-  { key = "L", mods = "Command", action = "ClearHistory"},
-]
+# [keyboard]
+# bindings = [
+#   { key = "K", mods = "Command", chars = "\u001bc" },
+#   { key = "L", mods = "Command", action = "ClearHistory"},
+# ]
