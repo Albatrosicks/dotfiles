@@ -26,5 +26,4 @@ alias forget='remove_last_history_entry' # Added a space in 'my_remove_last_hist
 alias lzd='docker run --rm --privileged -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/.lzd:/.config/jesseduffield/lazydocker lazyteam/lazydocker'
 alias lg='lazygit'
 alias intel='arch -x86_64'
-alias btop='bpytop'
 alias ez='eza --icons=auto -l -h -G'
