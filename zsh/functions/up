@@ -8,7 +8,12 @@ function update_configs() {
 
 function update_brew() {
   print "\e[1;32m(•_•) > Updating brew...\e[0m"
-  brew outdated | parallel --keep-order brew fetch --deps && brew upgrade
+  if brew outdated | grep -q .; then
+    brew outdated | parallel --keep-order brew fetch --deps
+    brew upgrade
+  else
+    echo "No outdated packages found."
+  fi
 }
 
 function update_appstore_apps() {
