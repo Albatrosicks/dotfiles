@@ -31,5 +31,6 @@ zinit light ajeetdsouza/zoxide
 autoload -Uz compinit
 compinit
 zinit cdreplay -q
+eval "$(register-python-argcomplete pipx)"
 
 eval "$(starship init zsh)"
