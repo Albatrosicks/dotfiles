@@ -28,9 +28,8 @@ zinit ice wait"2" as"command" from"gh-r" lucid \
 zinit light ajeetdsouza/zoxide
 
 
-autoload -U +X compinit
+autoload -Uz compinit
 compinit
-eval "$(register-python-argcomplete pipx)"
 zinit cdreplay -q
 
 eval "$(starship init zsh)"
