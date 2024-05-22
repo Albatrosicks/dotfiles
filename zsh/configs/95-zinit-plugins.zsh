@@ -9,7 +9,6 @@ zinit wait lucid light-mode for \
   Albatrosicks/go-task-completions \
   lukechilds/zsh-nvm \
   lukechilds/zsh-better-npm-completion \
-  thuandt/zsh-pipx \
   atload"!_zsh_autosuggest_start; export ZSH_AUTOSUGGEST_USE_ASYNC=1" zsh-users/zsh-autosuggestions \
   Aloxaf/fzf-tab \
   MichaelAquilina/zsh-autoswitch-virtualenv \
@@ -27,7 +26,6 @@ zinit ice wait"2" as"command" from"gh-r" lucid \
   atpull"%atclone" src"init.zsh" nocompile'!'
 zinit light ajeetdsouza/zoxide
 
-autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
 zinit cdreplay -q
