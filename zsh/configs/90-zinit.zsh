@@ -4,7 +4,6 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
 fi
 
-autoload -U +X bashcompinit && bashcompinit
 # init zinit
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -U +X _zinit
