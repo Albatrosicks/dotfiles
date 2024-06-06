@@ -22,34 +22,8 @@ network_up=(
   mach_helper="$HELPER"
 )
 
-network_sys=(
-  width=0
-  graph.color=$RED
-  graph.fill_color=$RED
-  label.drawing=off
-  icon.drawing=off
-  background.height=30
-  background.drawing=on
-  background.color=$TRANSPARENT
-)
-
-network_user=(
-  graph.color=$BLUE
-  label.drawing=off
-  icon.drawing=off
-  background.height=30
-  background.drawing=on
-  background.color=$TRANSPARENT
-)
-
 sketchybar --add item network.down right             \
            --set network.down "${network_down[@]}"   \
                                                     \
            --add item network.up right               \
-           --set network.up "${network_up[@]}"       \
-                                                    \
-           --add graph network.sys right 75          \
-           --set network.sys "${network_sys[@]}"     \
-                                                    \
-           --add graph network.user right 75         \
-           --set network.user "${network_user[@]}"
+           --set network.up "${network_up[@]}"
