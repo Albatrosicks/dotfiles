@@ -83,6 +83,7 @@ source "$ITEM_DIR/input.sh"
 source "$ITEM_DIR/volume.sh"
 source "$ITEM_DIR/ble_headset.sh"
 source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/mem.sh"
 source "$ITEM_DIR/svim.sh"
 
 sketchybar --hotload on
