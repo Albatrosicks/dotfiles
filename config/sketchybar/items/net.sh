@@ -18,17 +18,6 @@ network_up=(
   y_offset=6
 )
 
-network_percent=(
-  label.font="$FONT:Heavy:12"
-  label=NETWORK
-  y_offset=-4
-  padding_right=15
-  width=55
-  icon.drawing=off
-  update_freq=4
-  mach_helper="$HELPER"
-)
-
 network_sys=(
   width=0
   graph.color=$RED
@@ -59,7 +48,4 @@ sketchybar --add item network.down right             \
            --set network.sys "${network_sys[@]}"     \
                                                     \
            --add graph network.user right 75         \
-           --set network.user "${network_user[@]}"   \
-                                                    \
-           --add item network.percent right          \
-           --set network.percent "${network_percent[@]}"
+           --set network.user "${network_user[@]}"
