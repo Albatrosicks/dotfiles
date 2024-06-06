@@ -1,17 +1,26 @@
 #!/bin/bash
 
-net_top=(
+network_down=(
   label.font="$FONT:Semibold:7"
-  label=NET
+  label=Download
   icon.drawing=off
   width=0
   padding_right=15
   y_offset=6
 )
 
-net_percent=(
+network_up=(
+  label.font="$FONT:Semibold:7"
+  label=Upload
+  icon.drawing=off
+  width=0
+  padding_right=15
+  y_offset=6
+)
+
+network_percent=(
   label.font="$FONT:Heavy:12"
-  label=NET
+  label=NETWORK
   y_offset=-4
   padding_right=15
   width=55
@@ -20,19 +29,10 @@ net_percent=(
   mach_helper="$HELPER"
 )
 
-net_in=(
+network_sys=(
   width=0
-  graph.color=$BLUE
-  graph.fill_color=$BLUE
-  label.drawing=off
-  icon.drawing=off
-  background.height=30
-  background.drawing=on
-  background.color=$TRANSPARENT
-)
-
-net_out=(
   graph.color=$RED
+  graph.fill_color=$RED
   label.drawing=off
   icon.drawing=off
   background.height=30
@@ -40,14 +40,26 @@ net_out=(
   background.color=$TRANSPARENT
 )
 
-sketchybar --add item net.top right              \
-           --set net.top "${net_top[@]}"         \
-                                                 \
-           --add item net.percent right          \
-           --set net.percent "${net_percent[@]}" \
-                                                 \
-           --add graph net.in right 75           \
-           --set net.in "${net_in[@]}"           \
-                                                 \
-           --add graph net.out right 75          \
-           --set net.out "${net_out[@]}"
+network_user=(
+  graph.color=$BLUE
+  label.drawing=off
+  icon.drawing=off
+  background.height=30
+  background.drawing=on
+  background.color=$TRANSPARENT
+)
+
+sketchybar --add item network.down right             \
+           --set network.down "${network_down[@]}"   \
+                                                    \
+           --add item network.up right               \
+           --set network.up "${network_up[@]}"       \
+                                                    \
+           --add graph network.sys right 75          \
+           --set network.sys "${network_sys[@]}"     \
+                                                    \
+           --add graph network.user right 75         \
+           --set network.user "${network_user[@]}"   \
+                                                    \
+           --add item network.percent right          \
+           --set network.percent "${network_percent[@]}"
