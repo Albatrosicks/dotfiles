@@ -21,7 +21,7 @@ void handler(env env) {
     cpu_update(&g_cpu);
 
     if (strlen(g_cpu.command) > 0) sketchybar(g_cpu.command);
-  } else if (strcmp(name, "network.percent") == 0) {
+  } else if (strcmp(name, "network.down") == 0 || strcmp(name, "network.up") == 0) {
     // Network graph updates
     network_update(&g_network);
 

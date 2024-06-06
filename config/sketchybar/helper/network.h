@@ -64,12 +64,12 @@ static inline void network_update(struct network* net) {
                                 "--push network.up %.2f "
                                 "--set network.down label='%.2f MB/s' "
                                 "--set network.up label='%.2f MB/s' "
-                                "--set network.percent label='D:%.2f U:%.2f MB/s' label.color=%s ",
+                                "--set network.down label='Download: %.2f MB/s' label.color=%s "
+                                "--set network.up label='Upload: %.2f MB/s' label.color=%s ",
                                 download_perc,
                                 upload_perc,
                                 download_perc,
-                                upload_perc,
-                                download_perc,
+                                color,
                                 upload_perc,
                                 color);
   } else {
