@@ -8,5 +8,5 @@ sketchybar -m --add item topmem right \
               --set ram_percentage label.font="$FONT:Heavy:12.0" \
                                     y_offset=-4 \
                                     update_freq=1 \
-                                    mach_helper="$HELPER"
+                                    mach_helper="$HELPER" \
                                     script="~/.config/sketchybar/plugins/ram.sh"
