@@ -1,11 +1,11 @@
 sketchybar -m --add item topmem right \
-              --set topmem label.font="$FONT:Regular:7.0" \
-                               y_offset=5 \
+              --set topmem label.font="$FONT:Semibold:7.0" \
+                               y_offset=6 \
                                width=0 \
                                script="~/.config/sketchybar/plugins/topmem.sh" \
 \
               --add item ram_percentage right \
-              --set ram_percentage label.font="$FONT:Regular:7.0" \
+              --set ram_percentage label.font="$FONT:Heavy:7.0" \
                                     y_offset=-4 \
                                     update_freq=1 \
                                     script="~/.config/sketchybar/plugins/ram.sh"
