@@ -17,7 +17,7 @@ network_up=(
   icon.drawing=off
   width=0
   padding_right=15
-  y_offset=8
+  y_offset=-4
   update_freq=4
   mach_helper="$HELPER"
 )
