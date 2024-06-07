@@ -1,26 +1,17 @@
 #!/bin/bash
 
-network_down=(
+net_top=(
   label.font="$FONT:Semibold:7"
-  label=Download
+  label=NET
   icon.drawing=off
   width=0
   padding_right=15
   y_offset=6
 )
 
-network_up=(
-  label.font="$FONT:Semibold:7"
-  label=Upload
-  icon.drawing=off
-  width=0
-  padding_right=15
-  y_offset=6
-)
-
-network_percent=(
+net_percent=(
   label.font="$FONT:Heavy:12"
-  label=NETWORK
+  label=NET
   y_offset=-4
   padding_right=15
   width=55
@@ -29,19 +20,10 @@ network_percent=(
   mach_helper="$HELPER"
 )
 
-network_sys=(
+net_in=(
   width=0
-  graph.color=$RED
-  graph.fill_color=$RED
-  label.drawing=off
-  icon.drawing=off
-  background.height=30
-  background.drawing=on
-  background.color=$TRANSPARENT
-)
-
-network_user=(
   graph.color=$BLUE
+  graph.fill_color=$BLUE
   label.drawing=off
   icon.drawing=off
   background.height=30
@@ -49,17 +31,23 @@ network_user=(
   background.color=$TRANSPARENT
 )
 
-sketchybar --add item network.down right             \
-           --set network.down "${network_down[@]}"   \
-                                                    \
-           --add item network.up right               \
-           --set network.up "${network_up[@]}"       \
-                                                    \
-           --add graph network.sys right 75          \
-           --set network.sys "${network_sys[@]}"     \
-                                                    \
-           --add graph network.user right 75         \
-           --set network.user "${network_user[@]}"   \
-                                                    \
-           --add item network.percent right          \
-           --set network.percent "${network_percent[@]}"
+net_out=(
+  graph.color=$RED
+  label.drawing=off
+  icon.drawing=off
+  background.height=30
+  background.drawing=on
+  background.color=$TRANSPARENT
+)
+
+sketchybar --add item net.top right              \
+           --set net.top "${net_top[@]}"         \
+                                                 \
+           --add item net.percent right          \
+           --set net.percent "${net_percent[@]}" \
+                                                 \
+           --add graph net.in right 75           \
+           --set net.in "${net_in[@]}"           \
+                                                 \
+           --add graph net.out right 75          \
+           --set net.out "${net_out[@]}"
