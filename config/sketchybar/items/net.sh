@@ -7,8 +7,6 @@ network_down=(
   width=0
   padding_right=15
   y_offset=6
-  update_freq=4
-  mach_helper="$HELPER"
 )
 
 network_up=(
@@ -18,8 +16,6 @@ network_up=(
   width=0
   padding_right=15
   y_offset=6
-  update_freq=4
-  mach_helper="$HELPER"
 )
 
 network_sys=(
