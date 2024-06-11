@@ -24,8 +24,6 @@ brew "age"
 brew "python@3.12"
 # Automate deployment, configuration, and upgrading
 brew "ansible"
-# Platform built on V8 to build network applications
-brew "node"
 # Language Server for Ansible Files
 brew "ansible-language-server"
 # Development kit for the Java programming language
@@ -36,12 +34,14 @@ brew "ant"
 brew "antidote"
 # Download with resuming and segmented downloading
 brew "aria2"
-# GNU File, Shell, and Text utilities
-brew "coreutils"
 # Extendable version manager with support for Ruby, Node.js, Erlang & more
 brew "asdf"
 # CLI to interpret traceroute -a output to show AS names traversed
 brew "asroute"
+# Secure and free password manager for all of your devices
+brew "bitwarden-cli"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
 # Text processing system for reStructuredText
 brew "docutils"
 # Interpreted, interactive, object-oriented programming language
@@ -74,6 +74,8 @@ brew "tree-sitter"
 brew "emacs"
 # ESP8266 and ESP32 serial bootloader utility
 brew "esptool"
+# Modern, maintained replacement for ls
+brew "eza"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 # Play, record, convert, and stream audio and video
@@ -112,6 +114,10 @@ brew "gopls"
 brew "gping"
 # Open-source build automation tool based on the Groovy and Kotlin DSL
 brew "gradle"
+# GNU grep, egrep and fgrep
+brew "grep"
+# Toolkit for creating graphical user interfaces
+brew "gtk+3"
 # Command-line interface for Hetzner Cloud
 brew "hcloud"
 # Post-modern modal text editor
@@ -124,6 +130,8 @@ brew "hsd"
 brew "httpie"
 # Configurable static site generator
 brew "hugo"
+# Tool to report network interface bandwidth
+brew "ifstat"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.9"
 # Lightweight and flexible command-line JSON processor
@@ -162,14 +170,26 @@ brew "ncdu"
 brew "neofetch"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# CLI for NextDNS's DNS-over-HTTPS (DoH)
+brew "nextdns"
+# Instantaneous snapshots of system information
+"nidnogg/zeitfetch/zeitfetch"
 # Port scanning utility for large networks
 brew "nmap"
 # HTTP load generator, inspired by rakyll/hey with tui animation
 brew "oha"
+# Open source computer vision library
+brew "opencv"
 # Development kit for the Java programming language
 brew "openjdk@11"
+# Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
+brew "oven-sh/bun/bun"
 # 7-Zip (high compression file archiver) implementation
 brew "p7zip"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+# Shell command parallelization utility
+brew "parallel"
 # Python dependency management tool
 brew "pipenv"
 # Execute binaries from Python packages in isolated environments
@@ -214,6 +234,8 @@ brew "sops"
 brew "source-highlight"
 # Command-line interface for https://speedtest.net bandwidth tests
 brew "speedtest-cli"
+# Cross-shell prompt for astronauts
+brew "startship"
 # Change macOS audio source from the command-line
 brew "switchaudio-osx"
 # TCP connect to the given IP/port combo
@@ -228,6 +250,8 @@ brew "tree"
 brew "typescript"
 # Command-line interface for Vercel
 brew "vercel-cli"
+# Tool for creating isolated virtual python environments
+brew "virtualenv"
 # Pager/text based browser
 brew "w3m"
 # Generate WireGuard profile from Cloudflare Warp account
@@ -246,6 +270,8 @@ brew "yarn"
 brew "yt-dlp"
 # General-purpose lossless data-compression library
 brew "zlib"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Additional completion definitions for zsh
@@ -306,6 +332,8 @@ cask "electrum"
 cask "element"
 # Launcher for *Epic Games* games
 cask "epic-games"
+# Mozilla Firefox Developer Edition
+cask "firefox@developer-edition"
 # Status monitoring
 cask "eul"
 # Open source container development tool
@@ -402,8 +430,10 @@ cask "syncthing"
 cask "syntax-highlight"
 # Remote access and connectivity software focused on security
 cask "teamviewer", args: { appdir: "/Applications" }
-# Desktop client for Telegram messenger
-cask "telegram-desktop"
+# Telegram for macOS
+cask "telegram"
+# Development environment
+cask "vagrant"
 # Keyboard configurator
 cask "via"
 # RSS and Atom reader
