@@ -4,10 +4,6 @@ tap "fabianishere/personal"
 tap "felixkratz/formulae"
 tap "homebrew/autoupdate"
 tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-drivers"
-tap "homebrew/cask-versions"
-tap "homebrew/core"
 tap "homebrew/services"
 # qlzipinfo
 tap "iloveitaly/tap"
@@ -165,7 +161,7 @@ brew "sops"
 # Source-code syntax highlighter
 brew "source-highlight"
 # Cross-shell prompt for astronauts
-brew "startship"
+brew "starship"
 # Change macOS audio source from the command-line
 brew "switchaudio-osx"
 # TCP connect to the given IP/port combo
@@ -218,8 +214,6 @@ cask "apparency"
 cask "appcleaner"
 # Tool to flash OS images to SD cards & USB drives
 cask "balenaetcher"
-# Desktop password and login vault
-cask "bitwarden"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
 # Browser for SQLite databases
@@ -304,6 +298,7 @@ cask "zerotier-one"
 cask "zoom"
 mas "Amphetamine", id: 937984704
 mas "Apple Configurator", id: 1037126344
+mas "Bitwarden", id: 1352778147
 mas "Craft", id: 1487937127
 mas "Dark Mode for Safari", id: 1397180934
 mas "Developer", id: 640199958
