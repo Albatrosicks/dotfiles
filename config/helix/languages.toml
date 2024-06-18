@@ -10,7 +10,7 @@ file_store = { }
 
 [language-server.lsp-ai.config.models.model1]
 type = "open_ai"
-chat_endpoint = "https://api.runpod.ai/v2/vllm-2ihghnxpal1dpv/openai/v1"
+chat_endpoint = "https://api.runpod.ai/v2/vllm-dw968u6owfa2gi/openai/v1"
 model =  "mistralai/Codestral-22B-v0.1"
 auth_token_env_var_name = "COPILOT_OPENAI_API_KEY"
 
