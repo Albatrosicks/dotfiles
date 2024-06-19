@@ -14,6 +14,13 @@ chat_endpoint = "https://api.runpod.ai/v2/vllm-sc4t0jabjte3mq/openai/v1"
 model =  "Qwen/CodeQwen1.5-7B-AWQ"
 auth_token_env_var_name = "COPILOT_OPENAI_API_KEY"
 
+[language-server.lsp-ai.config.completion]
+model = "model1"
+
+[language-server.lsp-ai.config.completion.parameters]
+max_tokens = 64
+max_context = 1024
+
 ## Configure the messages per your needs
 [[language-server.lsp-ai.config.completion.parameters.messages]]
 role = "system"
