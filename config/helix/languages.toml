@@ -10,7 +10,7 @@ file_store = { }
 
 [language-server.lsp-ai.config.models.model1]
 type = "open_ai"
-chat_endpoint = "https://api.runpod.ai/v2/vllm-sc4t0jabjte3mq/openai/v1"
+chat_endpoint = "https://api.runpod.ai/v2/vllm-5bgen8h76seov7/openai/v1"
 model =  "Qwen/CodeQwen1.5-7B-Chat-AWQ"
 auth_token_env_var_name = "COPILOT_OPENAI_API_KEY"
 
