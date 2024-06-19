@@ -18,8 +18,8 @@ auth_token_env_var_name = "COPILOT_OPENAI_API_KEY"
 model = "model1"
 
 [language-server.lsp-ai.config.completion.parameters]
-max_tokens = 2000
-max_context = 1024
+max_tokens = 100
+max_context = 924
 
 ## Configure the messages per your needs
 [[language-server.lsp-ai.config.completion.parameters.messages]]
