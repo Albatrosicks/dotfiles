@@ -19,7 +19,7 @@ model = "model1"
 
 [language-server.lsp-ai.config.completion.parameters]
 max_tokens = 100
-max_context = 3096
+max_context = 1024
 
 #################################
 ## Configuration for languages ##
