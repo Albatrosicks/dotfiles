@@ -11,7 +11,7 @@ file_store = { }
 [language-server.lsp-ai.config.models.model1]
 type = "open_ai"
 chat_endpoint = "https://api.runpod.ai/v2/vllm-oy03q5tyqtpk93/openai/v1/chat/completions"
-model =  "stelterlab/Codestral-22B-v0.1-AWQ"
+model = "stelterlab/Codestral-22B-v0.1-AWQ"
 auth_token_env_var_name = "COPILOT_OPENAI_API_KEY"
 
 [language-server.lsp-ai.config.completion]
