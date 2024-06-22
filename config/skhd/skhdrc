@@ -92,20 +92,20 @@ ctrl - space : /Users/albi/dotfiles/config/skhd/scripts/switch_layout.sh
 
 # Per Apps settings
 
-ctrl + alt - k  [
+cmd + alt - k  [
   "firefox developer edition": skhd -k "ctrl - tab"
   "firefox": skhd -k "ctrl - tab"
   "brave browser beta": skhd -k "ctrl - tab"
   "google chrome beta": skhd -k "ctrl - tab"
   "google chrome": skhd -k "ctrl - tab"
 ]
-ctrl + alt - j [
+cmd + alt - j [
   "firefox developer edition": skhd -k "shift + ctrl - tab"
   "firefox": skhd -k "shift + ctrl - tab"
   "brave browser beta": skhd -k "shift + ctrl - tab"
   "google chrome beta": skhd -k "shift + ctrl - tab"
   "google chrome": skhd -k "shift + ctrl - tab"
 ]
-ctrl + s [
+cmd + s [
   "firefox": skhd -k "ctrl - e"
 ]
