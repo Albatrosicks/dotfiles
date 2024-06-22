@@ -108,6 +108,12 @@ cmd + alt - k [
   "google chrome": skhd -k "shift + ctrl - tab"
   "telegram": skhd -k "cmd + alt - up"
 ]
+cmd + alt - h [
+  "firefox": skhd -k "alt - ,"
+]
+cmd + alt - l [
+  "firefox": skhd -k "alt - ."
+]
 cmd - s [
   "firefox": skhd -k "ctrl - e"
 ]
