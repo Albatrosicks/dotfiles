@@ -98,7 +98,7 @@ cmd + alt - j [
   "brave browser beta": skhd -k "ctrl - tab"
   "google chrome beta": skhd -k "ctrl - tab"
   "google chrome": skhd -k "ctrl - tab"
-  "telegram": skhd -k "command + alt - down"
+  "telegram": skhd -k "cmd + alt - down"
 ]
 cmd + alt - k [
   "firefox developer edition": skhd -k "shift + ctrl - tab"
@@ -106,7 +106,7 @@ cmd + alt - k [
   "brave browser beta": skhd -k "shift + ctrl - tab"
   "google chrome beta": skhd -k "shift + ctrl - tab"
   "google chrome": skhd -k "shift + ctrl - tab"
-  "telegram": skhd -k "command + alt - up"
+  "telegram": skhd -k "cmd + alt - up"
 ]
 cmd - s [
   "firefox": skhd -k "ctrl - e"
