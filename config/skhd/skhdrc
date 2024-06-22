@@ -109,10 +109,10 @@ cmd + alt - k [
   "telegram": skhd -k "cmd + alt - up"
 ]
 cmd + alt - h [
-  "firefox": skhd -k "alt - ,"
+  "firefox": skhd -k "alt - 0x2B"
 ]
 cmd + alt - l [
-  "firefox": skhd -k "alt - ."
+  "firefox": skhd -k "alt - 0x2F"
 ]
 cmd - s [
   "firefox": skhd -k "ctrl - e"
