@@ -94,10 +94,10 @@ yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 yabai -m rule --add label="Craft" app="^Craft$" title="(Settings|Info)" manage=off
 yabai -m rule --add label="Orion" app="^Orion$" title="(Browsing)" manage=off
-yabai -m rule --add label="Scoot" app="^Scoot$" manage=off border=off
-yabai -m rule --add label="Homerow" app="^Homerow$" manage=off border=off
-yabai -m rule --add label="Arc" app="^Arc$" title="^(Albert|General|Shortcuts|Little Arc|Advanced)$" manage=off
-yabai -m rule --add label="Arc - PiP" app="^Arc$" level=3 title="Arc" manage=off
+yabai -m rule --add label="Scoot" app="^Scoot$" manage=off
+yabai -m rule --add label="Homerow" app="^Homerow$" manage=off
+# yabai -m rule --add label="Arc" app="^Arc$" title="^(Albert|General|Shortcuts|Little Arc|Advanced)$" manage=off
+# yabai -m rule --add label="Arc - PiP" app="^Arc$" level=3 title="Arc" manage=off
 # ===== Signals ================================
 # ===== Ubersicht 
 # yabai -m signal --add event=application_front_switched action="${ubersicht_spaces_refresh_command}"
