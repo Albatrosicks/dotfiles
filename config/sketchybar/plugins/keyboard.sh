@@ -5,8 +5,8 @@ LAYOUT="$(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleSel
 
 # specify short layouts individually.
 case "$LAYOUT" in
-    "ABC") SHORT_LAYOUT="A";;
-    "Russian") SHORT_LAYOUT="РУ";;
+    "USInternational-PC") SHORT_LAYOUT="A ";;
+    "RussianWin") SHORT_LAYOUT="РУ";;
     *) SHORT_LAYOUT="한";;
 esac
 
