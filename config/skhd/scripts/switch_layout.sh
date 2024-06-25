@@ -2,12 +2,12 @@
 
 current_layout=$(macism)
 
-if [ "$current_layout" == "com.apple.keylayout.USInternational-PC" ]
+if [ "$current_layout" == "com.apple.keylayout.ABC" ]
 then
-  macism com.apple.keylayout.RussianWin
-elif [ "$current_layout"  == "com.apple.keylayout.RussianWin" ]
+  macism com.apple.keylayout.Russian
+elif [ "$current_layout"  == "com.apple.keylayout.Russian" ]
 then
-  macism com.apple.keylayout.USInternational-PC
+  macism com.apple.keylayout.ABC
 else
   echo "Unknown layout: $current_layout"
 fi
