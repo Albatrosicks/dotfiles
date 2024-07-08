@@ -37,6 +37,37 @@ name = "python"
 roots = [ "pyproject.toml" ]
 language-servers = [ "pyright", "ruff", "lsp-ai" ]
 
+[[language]]
+name = "php"
+language-servers = [ "lsp-ai" ]
+
+[[language]]
+name = "bash"
+language-servers = [ "bash-language-server" , "lsp-ai" ]
+
+[[language]]
+name = "json"
+language-servers = [ "vscode-json-language-server" , "lsp-ai" ]
+
+[[language]]
+name = "css"
+language-servers = [ "vscode-css-language-server", "lsp-ai" ]
+
+[[language]]
+name = "dockerfile"
+language-servers = [ "docker-langserver", "lsp-ai" ]
+
+[[language]]
+name = 'docker-compose'
+language-servers = [ "docker-compose-langserver", "lsp-ai" ]
+
+########################################
+## Configuration for language servers ##
+########################################
+
+[language-server.vscode-json-language-server]
+config = { "provideFormatter" = true, "json" = { "keepLines" = { "enable" = true } } }
+
 [language-server.pyright]
 command = "pyright-langserver"
 args = [ "--stdio" ]
