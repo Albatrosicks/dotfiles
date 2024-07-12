@@ -119,8 +119,8 @@ ctrl - j [
   "firefox": skhd -k "cmd + alt - 0x7D"
 ]
 ctrl - k [
-  "firefox developer edition": skhd -k "shift + ctrl - 0x7E"
-  "firefox": skhd -k "shift + ctrl - tab"
+  "firefox developer edition": skhd -k "cmd + alt - 0x7E"
+  "firefox": skhd -k "cmd + alt - 0x7E"
 ]
 cmd + alt - j [
   "firefox developer edition": skhd -k "alt - 0x7D"
