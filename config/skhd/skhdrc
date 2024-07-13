@@ -92,6 +92,7 @@ ctrl - space : /Users/albi/dotfiles/config/skhd/scripts/switch_layout.sh
 
 # Per Apps settings
 
+# switch to previous tab
 cmd - j [
   "firefox developer edition": skhd -k "ctrl - tab"
   "firefox": skhd -k "ctrl - tab"
@@ -100,6 +101,7 @@ cmd - j [
   "google chrome": skhd -k "ctrl - tab"
   "telegram": skhd -k "cmd + alt - down"
 ]
+# switch to next tab
 cmd - k [
   "firefox developer edition": skhd -k "shift + ctrl - tab"
   "firefox": skhd -k "shift + ctrl - tab"
@@ -108,36 +110,64 @@ cmd - k [
   "google chrome": skhd -k "shift + ctrl - tab"
   "telegram": skhd -k "cmd + alt - up"
 ]
+# switch to previous panel in Firefox
 cmd - h [
   "firefox": skhd -k "alt - 0x2B"
 ]
+# switch to next panel in Firefox
 cmd - l [
   "firefox": skhd -k "alt - 0x2F"
 ]
+
+# move tab back in Firefox
 ctrl - j [
-  "firefox developer edition": skhd -k "cmd + alt - 0x7D"
   "firefox": skhd -k "cmd + alt - 0x7D"
 ]
+# move tab forward in Firefox
 ctrl - k [
-  "firefox developer edition": skhd -k "cmd + alt - 0x7E"
   "firefox": skhd -k "cmd + alt - 0x7E"
 ]
+# move tab to previous panel in Firefox
+ctrl - h [
+  "firefox": skhd -k "cmd + alt - 0x7B"
+]
+# move tab to next panel in Firefox
+ctrl - l [
+  "firefox": skhd -k "cmd + alt - 0x7C"
+]
+
+# increase tab indent in Firefox
+cmd + ctrl - j [
+  "firefox": skhd -k "ctrl + cmd - 0x7D"
+]
+# decrease tab indent in Firefox
+cmd + ctrl - k [
+  "firefox": skhd -k "ctrl + cmd - 0x7B"
+]
+# move tab to new window in in Firefox
+cmd + ctrl - k [
+  "firefox": skhd -k "ctrl + cmd - 0x7E"
+]
+
+# select previous tab in Firefox
 cmd + alt - j [
-  "firefox developer edition": skhd -k "alt - 0x7D"
   "firefox": skhd -k "alt - 0x7D"
 ]
+# select next tab in Firefox
 cmd + alt - k [
-  "firefox developer edition": skhd -k "alt - 0x7E"
   "firefox": skhd -k "alt - 0x7E"
 ]
+
+# select previous multiple tabs in Firefox
 cmd + shift + alt - j [
-  "firefox developer edition": skhd -k "alt + shift - 0x7D"
   "firefox": skhd -k "alt + shift - 0x7D"
 ]
+# select next multiple tabs in Firefox
 cmd + shift + alt - k [
-  "firefox developer edition": skhd -k "alt + shift - 0x7E"
   "firefox": skhd -k "alt + shift - 0x7E"
 ]
+
+# toggle sidebery
 cmd - s [
   "firefox": skhd -k "ctrl - e"
 ]
