@@ -144,9 +144,13 @@ cmd + ctrl - j [
 cmd + ctrl - k [
   "firefox": skhd -k "ctrl + cmd - 0x7B"
 ]
-# move tab to new window in in Firefox
-cmd + ctrl - k [
-  "firefox": skhd -k "ctrl + cmd - 0x7E"
+
+# move selected tabs to panel start/end in Firefox
+cmd + ctrl + alt - k [
+  "firefox": skhd -k "ctrl + cmd - 0x73"
+]
+cmd + ctrl + alt - j [
+  "firefox": skhd -k "ctrl + cmd - 0x77"
 ]
 
 # select previous tab in Firefox
