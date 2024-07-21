@@ -19,7 +19,6 @@ local brew = sbar.add("item", "widgets.brew", {
 	},
 	label = {
 		string = "0",
-		font = { family = settings.font.numbers },
 	},
 	updates = "on",
 	update_freq = 10,
