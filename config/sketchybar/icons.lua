@@ -11,6 +11,11 @@ local icons = {
     clipboard = "􀉄",
     checkmark = "􀆅",
 
+    brew = {
+    	full = "􀐛",
+    	empty = "􀐚",
+    },
+
     switch = {
       on = "􁏮",
       off = "􁏯",
