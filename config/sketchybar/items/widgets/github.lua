@@ -10,7 +10,6 @@ local github = sbar.add("item", "github", {
         string = icons.bell,
         color = colors.blue,
         font = {
-            family = settings.font,
             style = "Bold",
             size = 15.0,
         },
@@ -117,7 +116,6 @@ github:subscribe({"routine", "forced", "github_update"}, function(_)
                         string = icon .. " " .. repo,
                         color = color,
                         font = {
-                            family = settings.nerd_font,
                             size = 14.0,
                             style = "Bold",
                         },
