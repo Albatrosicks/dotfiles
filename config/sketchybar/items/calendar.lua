@@ -44,5 +44,9 @@ sbar.add("bracket", { cal.name }, {
 sbar.add("item", { position = "right", width = settings.group_paddings })
 
 cal:subscribe({ "forced", "routine", "system_woke" }, function(env)
+ -- here: Set in Russian locale
+  local original_locale = os.setlocale(nil)  -- Save the current locale
+  os.setlocale("ru_RU.UTF-8")  -- Set locale to Russian
   cal:set({ icon = os.date("%a. %d %b."), label = os.date("%H:%M") })
+  os.setlocale(original_locale)  -- Restore the original locale
 end)
