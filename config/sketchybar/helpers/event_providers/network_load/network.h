@@ -6,7 +6,7 @@
 #include <sys/select.h>
 #include <sys/sysctl.h>
 
-static char unit_str[3][6] = { { " Bps" }, { "KBps" }, { "MBps" }, };
+static char unit_str[3][6] = { { " bps" }, { "Kbps" }, { "Mbps" }, };
 
 enum unit {
   UNIT_BPS,
@@ -24,7 +24,7 @@ struct network {
 };
 
 static inline void ifdata(uint32_t net_row, struct ifmibdata* data) {
-	static size_t size = sizeof(struct ifmibdata);
+  static size_t size = sizeof(struct ifmibdata);
   static int32_t data_option[] = { CTL_NET, PF_LINK, NETLINK_GENERIC, IFMIB_IFDATA, 0, IFDATA_GENERAL };
   data_option[4] = net_row;
   sysctl(data_option, 6, data, &size, NULL, 0);
@@ -59,9 +59,9 @@ static inline void network_update(struct network* net) {
   double time_scale = (net->tv_delta.tv_sec + 1e-6*net->tv_delta.tv_usec);
   if (time_scale < 1e-6 || time_scale > 1e2) return;
   double delta_ibytes = (double)(net->data.ifmd_data.ifi_ibytes - ibytes_nm1)
-                        / time_scale;
+                        / time_scale * 8; // Convert to bits
   double delta_obytes = (double)(net->data.ifmd_data.ifi_obytes - obytes_nm1)
-                        / time_scale;
+                        / time_scale * 8; // Convert to bits
 
   double exponent_ibytes = log10(delta_ibytes);
   double exponent_obytes = log10(delta_obytes);
