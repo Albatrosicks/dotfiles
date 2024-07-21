@@ -2,81 +2,78 @@ local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
 
+local thresholds = {
+	-- default color green will be returned if count is less than the first threshold
+	[3] = colors.yellow,
+	[5] = colors.orange,
+	[10] = colors.red,
+}
+
 local brew = sbar.add("item", "widgets.brew", {
-  position = "right",
-  icon = {
-    string = icons.brew,
-    font = {
-      style = settings.font.style_map["Regular"],
-      size = 19.0,
-    }
-  },
-  label = { font = { family = settings.font.numbers } },
-  update_freq = 180,
-  popup = { align = "center" }
+	position = "right",
+	drawing = "off",
+	icon = {
+		string = icons.brew.empty,
+		color = colors.green,
+		align = "left",
+	},
+	label = {
+		string = "0",
+		font = { family = settings.font.numbers },
+	},
+	updates = "on",
+	update_freq = 10,
 })
 
-local outdated_packages = sbar.add("item", {
-  position = "popup." .. brew.name,
-  icon = {
-    string = "Outdated packages:",
-    width = 200,
-    align = "left"
-  },
-  label = {
-    string = "?",
-    width = 50,
-    align = "right"
-  },
-})
+brew:subscribe({ "routine", "brew_update" }, function()
+	sbar.exec("brew outdated | wc -l | tr -d ' '", function(brew_outdated)
+		local function getThresholdColor(count)
+			local thresholdKeys = {}
+			for key in pairs(thresholds) do
+				table.insert(thresholdKeys, key)
+			end
 
-brew:subscribe("routine", function()
-    sbar.exec("brew outdated | wc -l | tr -d ' '", function(brew_count)
-    sbar.exec("port outdated -q | wc -l | tr -d ' '", function(port_count)
-      local count = tonumber(brew_count) + tonumber(port_count)
-      local label = tostring(count)
-      local color = colors.red
+			table.sort(thresholdKeys, function(a, b)
+				return a > b
+			end)
 
-      if count > 30 then
-        color = colors.orange
-      elseif count > 10 then
-        color = colors.yellow
-      elseif count > 0 then
-        color = colors.white
-      else
-        color = colors.green
-        label = icons.checkmark
-      end
+			for _, threshold in ipairs(thresholdKeys) do
+				if tonumber(count) >= threshold then
+					return thresholds[threshold]
+				end
+			end
+			return colors.green
+		end
 
-      brew:set({
-        icon = {
-          string = icons.brew,
-          color = color
-        },
-        label = { string = label },
-      })
-    end)
-  end)
-end)
+		local icon = icons.brew.empty
+		local color = colors.green
+		local label = "0"
+		local count = brew_outdated
+		local drawing = "off"
 
-brew:subscribe("mouse.clicked", function(env)
-  local drawing = brew:query().popup.drawing
-  brew:set({ popup = { drawing = "toggle" } })
-
-  if drawing == "off" then
-    sbar.exec("brew outdated; port outdated -q", function(outdated_list)
-      local label = outdated_list ~= "" and outdated_list or "No outdated packages"
-      outdated_packages:set({ label = label })
-    end)
-  end
+		if tonumber(count) > 0 then
+			icon = icons.brew.full
+			label = count
+			color = getThresholdColor(count)
+			drawing = "on"
+		end
+		--print("color: ", color, "count: ", count, "icon: ", icon, "label: ", label, "drawing: ", drawing)
+		brew:set({
+			icon = {
+				string = icon,
+				color = color,
+			},
+			drawing = drawing,
+			label = { string = label },
+		})
+	end)
 end)
 
 sbar.add("bracket", "widgets.brew.bracket", { brew.name }, {
-  background = { color = colors.bg1 }
+	background = { color = colors.bg1 },
 })
 
 sbar.add("item", "widgets.brew.padding", {
-  position = "right",
-  width = settings.group_paddings
+	position = "right",
+	width = settings.group_paddings,
 })
-
