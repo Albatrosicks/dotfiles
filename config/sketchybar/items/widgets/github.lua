@@ -1,10 +1,12 @@
+#!/usr/bin/env lua
+
 local icons = require("icons")
-local colors = require("colors")
 local settings = require("settings")
+local colors = require("colors")
 
 local popup_off = "sketchybar --set github popup.drawing=off"
 
-local github = sbar.add("item", "github", {
+local github = Sbar.add("item", "github", {
 	position = "right",
 	icon = {
 		string = icons.bell,
@@ -28,7 +30,7 @@ local github = sbar.add("item", "github", {
 	},
 })
 
-github.details = sbar.add("item", "github.details", {
+github.details = Sbar.add("item", "github.details", {
 	position = "popup." .. github.name,
 	click_script = popup_off,
 	background = {
@@ -52,7 +54,7 @@ github:subscribe({
 	end
 
 	if info.BUTTON == "right" then
-		sbar.trigger("github_update")
+		Sbar.trigger("github_update")
 	end
 end)
 
@@ -75,12 +77,12 @@ github:subscribe({
 	"github_update",
 }, function(_)
 	-- fetch new information
-	sbar.exec("gh api notifications", function(notifications)
+	Sbar.exec("gh api notifications", function(notifications)
 		-- Clear existing packages
 		local existingNotifications = github:query()
 		if existingNotifications.popup and next(existingNotifications.popup.items) ~= nil then
 			for _, item in pairs(existingNotifications.popup.items) do
-				sbar.remove(item)
+				Sbar.remove(item)
 			end
 		end
 
@@ -102,29 +104,29 @@ github:subscribe({
 				url = "https://www.github.com/notifications"
 			else
 				local tempUrl = url:gsub("^'", ""):gsub("'$", "")
-				sbar.exec('gh api "' .. tempUrl .. '" | jq .html_url', function(html_url)
+				Sbar.exec('gh api "' .. tempUrl .. '" | jq .html_url', function(html_url)
 					if IS_EMPTY(repo) == false then
-						sbar.exec(
+						Sbar.exec(
 							"sketchybar -m --set github.notification.repo"
 								.. tostring(id)
 								.. ' click_script="open '
 								.. html_url
 								.. '"',
 							function()
-								sbar.exec(popup_off)
+								Sbar.exec(popup_off)
 							end
 						)
 					end
 
 					if IS_EMPTY(title) == false then
-						sbar.exec(
+						Sbar.exec(
 							"sketchybar -m --set github.notification.message."
 								.. tostring(id)
 								.. ' click_script="open '
 								.. html_url
 								.. '"',
 							function()
-								sbar.exec(popup_off)
+								Sbar.exec(popup_off)
 							end
 						)
 					end
@@ -155,7 +157,7 @@ github:subscribe({
 			github.notification = {}
 
 			if IS_EMPTY(repo) == false then
-				github.notification.repo = sbar.add("item", "github.notification.repo" .. tostring(id), {
+				github.notification.repo = Sbar.add("item", "github.notification.repo" .. tostring(id), {
 					label = {
 						padding_right = settings.paddings,
 					},
@@ -177,7 +179,7 @@ github:subscribe({
 			end
 
 			if IS_EMPTY(title) == false then
-				github.notification.message = sbar.add("item", "github.notification.message." .. tostring(id), {
+				github.notification.message = Sbar.add("item", "github.notification.message." .. tostring(id), {
 					label = {
 						string = title,
 						padding_right = 10,
