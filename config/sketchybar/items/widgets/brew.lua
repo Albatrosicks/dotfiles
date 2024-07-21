@@ -31,7 +31,7 @@ local outdated_packages = sbar.add("item", {
 })
 
 brew:subscribe("routine", function()
-  sbar.exec("brew outdated | wc -l | tr -d ' '", function(brew_count)
+    sbar.exec("brew outdated | wc -l | tr -d ' '", function(brew_count)
     sbar.exec("port outdated -q | wc -l | tr -d ' '", function(port_count)
       local count = tonumber(brew_count) + tonumber(port_count)
       local label = tostring(count)
