@@ -9,6 +9,7 @@ local icons = {
     cpu = "􀫥",
     memory = "􀫦",
     clipboard = "􀉄",
+    checkmark = "􀆅",
 
     switch = {
       on = "􁏮",
