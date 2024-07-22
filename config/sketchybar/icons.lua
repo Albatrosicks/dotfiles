@@ -10,6 +10,7 @@ local icons = {
     memory = "􀫦",
     clipboard = "􀉄",
     checkmark = "􀆅",
+    bell = "􀝖",
 
     brew = {
     	full = "􀐛",
