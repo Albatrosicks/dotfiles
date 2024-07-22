@@ -10,6 +10,7 @@ local github = sbar.add("item", "github", {
         string = icons.bell,
         color = colors.blue,
         font = {
+            family = settings.font,
             style = "Bold",
             size = 15.0,
         },
@@ -94,19 +95,19 @@ github:subscribe({"routine", "forced", "github_update"}, function(_)
             local color, icon
             if type == "Issue" then
                 color = colors.green
-                icon = icons.git.issue
+                icon = icons.git and icons.git.issue or icons.issue
             elseif type == "Discussion" then
                 color = colors.text
-                icon = icons.git.discussion
+                icon = icons.git and icons.git.discussion or icons.discussion
             elseif type == "PullRequest" then
                 color = colors.maroon
-                icon = icons.git.pull_request
+                icon = icons.git and icons.git.pull_request or icons.pull_request
             elseif type == "Commit" then
                 color = colors.text
-                icon = icons.git.commit
+                icon = icons.git and icons.git.commit or icons.commit
             else
                 color = colors.text
-                icon = icons.git.issue
+                icon = icons.git and icons.git.issue or icons.issue
             end
 
             if repo then
@@ -116,6 +117,7 @@ github:subscribe({"routine", "forced", "github_update"}, function(_)
                         string = icon .. " " .. repo,
                         color = color,
                         font = {
+                            family = settings.nerd_font,
                             size = 14.0,
                             style = "Bold",
                         },
