@@ -11,6 +11,7 @@ local icons = {
     clipboard = "􀉄",
     checkmark = "􀆅",
     bell = "􀝖",
+    bell_empty ="􀋙",
 
     brew = {
     	full = "􀐛",

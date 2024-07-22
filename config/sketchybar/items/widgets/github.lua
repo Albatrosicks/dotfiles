@@ -16,7 +16,7 @@ local github_icon = sbar.add("item", "widgets.github_icon", {
   position = "right",
   padding_right = -1,
   icon = {
-    string = icons.bell,
+    string = icons.bell_empty,
     width = 0,
     align = "left",
     color = colors.blue,
@@ -55,7 +55,12 @@ local function update_github_notifications()
       count = count + 1
     end
 
-    github_icon:set({ icon = { string = icons.bell } })
+    -- if count = 0 then set icon.bell_empty and if greater than 0 set bell icon
+    if count > 0 then
+      github_icon.icon.string = icons.bell
+    else
+      github_icon.icon.string = icons.bell_empty
+    end
     github_count:set({ label = count })
   end)
 end
