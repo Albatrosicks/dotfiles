@@ -69,7 +69,7 @@ language-servers = [ "lua-language-server", "lsp-ai" ]
 name = "sql"
 language-servers = [ "sqls" ]
 
-[language]
+[[language]]
 name = "yaml"
 language-servers = [ "yaml-language-server" ]
 
