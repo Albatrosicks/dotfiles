@@ -97,9 +97,6 @@ args = [ "--ignore", "E501" ]
 command = "black"
 args = ["--line-length", "88", "--quiet", "-"]
 
-[language-server.sqls]
-command = "sqls"
-
 [language-server.yaml-language-server.config.yaml]
 format = { enable = true }
 validation = true
