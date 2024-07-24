@@ -65,6 +65,10 @@ language-servers = [ "docker-compose-langserver", "lsp-ai" ]
 name = 'lua'
 language-servers = [ "lua-language-server", "lsp-ai" ]
 
+[[language]]
+name = "sql"
+language-servers = [ "sqls" ]
+
 ########################################
 ## Configuration for language servers ##
 ########################################
@@ -89,3 +93,6 @@ args = [ "--ignore", "E501" ]
 [language.formatter]
 command = "black"
 args = ["--line-length", "88", "--quiet", "-"]
+
+[language-server.sqls]
+command = "sqls"
