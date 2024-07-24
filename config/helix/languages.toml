@@ -69,6 +69,9 @@ language-servers = [ "lua-language-server", "lsp-ai" ]
 name = "sql"
 language-servers = [ "sqls" ]
 
+[language-server.yaml]
+language-servers = [ "yaml-language-server" ]
+
 ########################################
 ## Configuration for language servers ##
 ########################################
@@ -96,3 +99,11 @@ args = ["--line-length", "88", "--quiet", "-"]
 
 [language-server.sqls]
 command = "sqls"
+
+[language-server.yaml-language-server.config.yaml]
+format = { enable = true }
+validation = true
+
+[language-server.yaml-language-server.config.yaml.schemas]
+"https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
+"https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json" = "roles/{tasks,handlers}/*.{yml,yaml}"
