@@ -97,6 +97,10 @@ args = [ "--ignore", "E501" ]
 command = "black"
 args = ["--line-length", "88", "--quiet", "-"]
 
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
 [language-server.yaml-language-server.config.yaml]
 format = { enable = true }
 validation = true
