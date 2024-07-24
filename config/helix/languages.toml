@@ -69,7 +69,8 @@ language-servers = [ "lua-language-server", "lsp-ai" ]
 name = "sql"
 language-servers = [ "sqls" ]
 
-[language-server.yaml]
+[language]
+name = "yaml"
 language-servers = [ "yaml-language-server" ]
 
 ########################################
@@ -96,10 +97,6 @@ args = [ "--ignore", "E501" ]
 [language.formatter]
 command = "black"
 args = ["--line-length", "88", "--quiet", "-"]
-
-[language-server.yaml-language-server]
-command = "yaml-language-server"
-args = ["--stdio"]
 
 [language-server.yaml-language-server.config.yaml]
 format = { enable = true }
