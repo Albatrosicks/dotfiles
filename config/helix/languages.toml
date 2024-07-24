@@ -30,7 +30,7 @@ max_context = 8064
 name = "go"
 auto-format = true
 formatter = { command = "goimports" }
-language-servers = [ "lsp-ai" ]
+language-servers = [ "gopls", "golangci-lint-lsp", "lsp-ai" ]
 
 [[language]]
 name = "python"
