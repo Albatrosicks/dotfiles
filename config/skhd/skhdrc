@@ -110,11 +110,6 @@ cmd - k [
   "google chrome": skhd -k "shift + ctrl - tab"
   "telegram": skhd -k "cmd + alt - up"
 ]
-
-cmd - f [
-  "firefox": skhd -k "cmd - f"
-]
-
 # switch to previous panel in Firefox
 cmd - h [
   "firefox": skhd -k "alt - 0x2B"
