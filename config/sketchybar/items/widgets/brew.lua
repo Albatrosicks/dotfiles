@@ -21,7 +21,7 @@ local brew = sbar.add("item", "widgets.brew", {
 		string = "0",
 	},
 	updates = "on",
-	update_freq = 10,
+	update_freq = 30,
 })
 
 brew:subscribe({ "routine", "brew_update" }, function()
