@@ -95,7 +95,7 @@ ctrl - space : /Users/albi/dotfiles/config/skhd/scripts/switch_layout.sh
 # switch to previous tab
 cmd - j [
   "firefox developer edition": skhd -k "ctrl - tab"
-  "firefox": skhd -k "cmd + alt - 0x7B"
+  "firefox": skhd -k "cmd + alt - 0x7C"
   "brave browser beta": skhd -k "ctrl - tab"
   "google chrome beta": skhd -k "ctrl - tab"
   "google chrome": skhd -k "ctrl - tab"
@@ -104,7 +104,7 @@ cmd - j [
 # switch to next tab
 cmd - k [
   "firefox developer edition": skhd -k "shift + ctrl - tab"
-  "firefox": skhd -k "cmd + alt - 0x7C"
+  "firefox": skhd -k "cmd + alt - 0x7B"
   "brave browser beta": skhd -k "shift + ctrl - tab"
   "google chrome beta": skhd -k "shift + ctrl - tab"
   "google chrome": skhd -k "shift + ctrl - tab"
