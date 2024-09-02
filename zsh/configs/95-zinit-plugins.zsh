@@ -30,5 +30,6 @@ autoload -Uz compinit
 compinit
 zinit cdreplay -q
 
+source ~/.local/share/zinit/plugins/Aloxaf---fzf-tab/fzf-tab.plugin.zsh
 eval "$(starship init zsh)"
 eval "$(~/.local/share/zinit/plugins/ajeetdsouza---zoxide/zoxide init zsh)"
