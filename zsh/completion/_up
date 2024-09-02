@@ -11,6 +11,7 @@ _up() {
         '--appstore:updates appstore apps'
         '--zinit:updates zsh plugins'
         '--pipx:updates pipx'
+        '--winbox:updates winbox'
         '--duti:process duti config'
     )
     _describe -t commands 'up command' commands
