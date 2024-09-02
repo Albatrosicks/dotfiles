@@ -2,47 +2,49 @@ local icons = require("icons")
 local settings = require("settings")
 local colors = require("colors")
 
-local brew = sbar.add("item", "brew", {
+local popup_off = "sketchybar --set github popup.drawing=off"
+
+local github = sbar.add("item", "github", {
 	position = "right",
 	icon = {
-		string = icons.brew,
+		string = icons.bell,
+		color = colors.blue,
 		font = {
-			family = settings.nerd_font,
-			style = "Regular",
-			size = 19.0,
+			family = settings.font,
+			style = "Bold",
+			size = 15.0,
 		},
 	},
-	label = "?",
-	update_freq = 300,
+	background = {
+		padding_left = 0,
+	},
+	label = {
+		string = icons.loading,
+		highlight_color = colors.blue,
+	},
+	update_freq = 180,
 	popup = {
 		align = "right",
-		height = 20,
 	},
 })
 
-brew.details = sbar.add("item", "brew.details", {
-	position = "popup." .. brew.name,
-	click_script = "sketchybar --set brew popup.drawing=off",
+github.details = sbar.add("item", "github.details", {
+	position = "popup." .. github.name,
+	click_script = popup_off,
 	background = {
 		corner_radius = 12,
-		padding_left = 5,
-		padding_right = 10,
+		padding_left = 7,
+		padding_right = 7,
+	},
+	icon = {
+		background = {
+			height = 2,
+			y_offset = -12,
+		},
 	},
 })
 
-brew.clearPopup = function()
-	-- Clear existing packages
-	local existingPackages = brew:query()
-	if existingPackages.popup and next(existingPackages.popup.items) ~= nil then
-		for _, item in pairs(existingPackages.popup.items) do
-			sbar.remove(item)
-		end
-	end
-end
-
-brew.skipCleanup = false
-
-brew:subscribe({
+github:subscribe({
 	"mouse.clicked",
 }, function(info)
 	if info.BUTTON == "left" then
@@ -50,95 +52,159 @@ brew:subscribe({
 	end
 
 	if info.BUTTON == "right" then
-		sbar.trigger("brew_update")
+		sbar.trigger("github_update")
 	end
 end)
 
-brew:subscribe({
+github:subscribe({
 	"mouse.exited",
 	"mouse.exited.global",
 }, function(_)
-	brew:set({ popup = { drawing = false } })
+	github:set({ popup = { drawing = false } })
 end)
 
-brew:subscribe({
+github:subscribe({
 	"mouse.entered",
 }, function(_)
-	brew:set({ popup = { drawing = true } })
+	github:set({ popup = { drawing = true } })
 end)
 
-brew:subscribe({
-	"brew_cleanup",
-}, function(_)
-	if brew.skipCleanup == false then
-		brew:set({ label = 0 })
-		brew.clearPopup()
-	end
-end)
-
-brew:subscribe({
+github:subscribe({
 	"routine",
 	"forced",
-	"brew_update",
+	"github_update",
 }, function(_)
-	brew.skipCleanup = false
-
 	-- fetch new information
-	sbar.exec("command brew update")
-	sbar.exec("command brew outdated", function(outdated)
-		-- NOTE: sbar.exec will not run callback if command doesn't return anything.
-		-- We use a variable to determine if we should skip cleaning up the count
-		-- and popup
-		brew.skipCleanup = true
-
-		local thresholds = {
-			{ count = 30, color = colors.red },
-			{ count = 20, color = colors.peach },
-			{ count = 10, color = colors.yellow },
-			{ count = 1, color = colors.green },
-			{ count = 0, color = colors.text },
-		}
-
-		local count = 0
-		for _ in outdated:gmatch("\n") do
-			count = count + 1
+	sbar.exec("gh api notifications", function(notifications)
+		-- Clear existing packages
+		local existingNotifications = github:query()
+		if existingNotifications.popup and next(existingNotifications.popup.items) ~= nil then
+			for _, item in pairs(existingNotifications.popup.items) do
+				sbar.remove(item)
+			end
 		end
 
-		-- Clear existing packages
-		brew.clearPopup()
+		-- PRINT_TABLE(notifications)
 
-		-- Add packages to popup
-		for package in outdated:gmatch("[^\n]+") do
-			sbar.add("item", "brew.package." .. package, {
-				label = {
-					string = tostring(package),
-					align = "right",
-					padding_right = 20,
-					padding_left = 20,
-				},
-				icon = {
-					string = tostring(package),
-					drawing = false,
-				},
-				click_script = sbar.exec("sketchybar --set brew popup.drawing=off"),
-				position = "popup." .. brew.name,
-			})
+		local count = 0
+		for _, notification in pairs(notifications) do
+			-- PRINT_TABLE(notification)
+			-- increment count for label
+			count = count + 1
+
+			local id = notification.id
+			local url = notification.subject.latest_comment_url
+			local repo = notification.repository.name
+			local title = notification.subject.title
+			local type = notification.subject.type
+
+			-- set click_script for each notification
+			if url == nil then
+				url = "https://www.github.com/notifications"
+			else
+				local tempUrl = url:gsub("^'", ""):gsub("'$", "")
+				sbar.exec('gh api "' .. tempUrl .. '" | jq .html_url', function(html_url)
+					local cmd = "sketchybar -m --set github.notification"
+
+					if (repo == nil or repo == "") == false then
+						cmd = cmd .. ".repo."
+						cmd = cmd .. tostring(id) .. ' click_script="open ' .. html_url .. '"'
+						sbar.exec(cmd, function()
+							sbar.exec(popup_off)
+						end)
+					end
+
+					cmd = "sketchybar -m --set github.notification"
+					if title == nil or title == "" == false then
+						cmd = cmd .. ".message."
+						cmd = cmd .. tostring(id) .. ' click_script="open ' .. html_url .. '"'
+						sbar.exec(cmd, function()
+							sbar.exec(popup_off)
+						end)
+					end
+				end)
+			end
+
+			-- get icon and color for each notification
+			-- depending on the type
+			local color, icon
+			if type == "Issue" then
+				color = colors.green
+				icon = icons.git.issue
+			elseif type == "Discussion" then
+				color = colors.text
+				icon = icons.git.discussion
+			elseif type == "PullRequest" then
+				color = colors.maroon
+				icon = icons.git.pull_request
+			elseif type == "Commit" then
+				color = colors.text
+				icon = icons.git.commit
+			else
+				color = colors.text
+				icon = icons.git.issue
+			end
+
+			-- add notification to popup
+			github.notification = {}
+
+			if (repo == nil or repo == "") == false then
+				github.notification.repo = sbar.add("item", "github.notification.repo." .. tostring(id), {
+					label = {
+						padding_right = settings.paddings,
+					},
+					icon = {
+						string = icon .. " " .. repo,
+						color = color,
+						font = {
+							family = settings.nerd_font,
+							size = 14.0,
+							style = "Bold",
+						},
+						padding_left = settings.paddings,
+					},
+					drawing = true,
+					-- TODO: trigger update after clicking since notification is cleared on github
+					click_script = "open " .. url .. "; " .. popup_off,
+					position = "popup." .. github.name,
+				})
+			end
+
+			if (title == nil or title == "") == false then
+				github.notification.message = sbar.add("item", "github.notification.message." .. tostring(id), {
+					label = {
+						string = title,
+						padding_right = 10,
+					},
+					icon = {
+						drawing = "off",
+						padding_left = settings.paddings,
+					},
+					drawing = true,
+					-- TODO: trigger update after clicking since notification is cleared on github
+					click_script = "open " .. url .. "; " .. popup_off,
+					position = "popup." .. github.name,
+				})
+			end
 		end
 
 		-- Change icon and color depending on packages
-		for _, threshold in ipairs(thresholds) do
-			if count >= threshold.count then
-				brew:set({
-					icon = {
-						color = threshold.color,
-					},
-					label = count,
-				})
-				break
-			end
+		github:set({
+			icon = {
+				string = icons.bell_dot,
+			},
+			label = 0,
+		})
+
+		if count > 0 then
+			github:set({
+				icon = {
+					string = icons.bell,
+				},
+				label = count,
+			})
 		end
 	end)
-	sbar.trigger("brew_cleanup")
 end)
 
-return brew
+return github
