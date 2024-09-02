@@ -1,3 +1,6 @@
+bindkey -e
+setopt EMACS
+
 # handy keybindings
 bindkey "^K"      kill-whole-line                      # ctrl-k
 bindkey "^R"      history-incremental-search-backward  # ctrl-r
@@ -9,4 +12,5 @@ bindkey "^N"      insert-last-word                     # ctrl-n
 bindkey "^D"      delete-char                          # ctrl-d
 bindkey "^F"      forward-char                         # ctrl-f
 bindkey "^B"      backward-char                        # ctrl-b
-bindkey -v   # Default to standard vi bindings, regardless of editor string
+bindkey "^[[1;4B" backward-word
+bindkey "^[[1;4F" forward-word
