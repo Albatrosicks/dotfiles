@@ -18,6 +18,7 @@ zinit wait lucid light-mode for \
   joshskidmore/zsh-fzf-history-search \
   akoenig/npm-run.plugin.zsh \
   zsh-users/zsh-syntax-highlighting \
+  orbstack/orbstack \
   atload"typeset -g ZSH_SYSTEM_CLIPBOARD_TMUX_SUPPORT='true'" kutsan/zsh-system-clipboard
 
 zinit ice wait"2" as"command" from"gh-r" lucid \
