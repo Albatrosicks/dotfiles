@@ -46,7 +46,7 @@ brew:subscribe({
 	"mouse.clicked",
 }, function(info)
 	if info.BUTTON == "left" then
-		POPUP_TOGGLE(info.NAME)
+		sbar.exec("sketchybar --set " .. (info.NAME) .. " popup.drawing=toggle")
 	end
 
 	if info.BUTTON == "right" then
@@ -120,7 +120,7 @@ brew:subscribe({
 					string = tostring(package),
 					drawing = false,
 				},
-				click_script = POPUP_OFF("brew"),
+				click_script = sbar.exec("sketchybar --set brew popup.drawing=off"),
 				position = "popup." .. brew.name,
 			})
 		end
