@@ -40,56 +40,75 @@ function process_duti() {
 }
 
 function update_winbox() {
-  local username
-  local existing_file
-  local temp_file
-  local download_url
-  print "\e[1;32m(•_•) > Updating winbox\e[0m"
-  username=$(whoami)
-  existing_file="/Users/$username/Library/Containers/com.isaacmarovitz.Whisky/Bottles/40878A74-CECC-48D0-8C6A-776693F93B88/drive_c/Program Files/MikroTik/winbox64.exe"
-  temp_file=$(mktemp)
-  download_url="https://mt.lv/winbox64"
+    print "\e[1;32m(•_•) > Updating winbox\e[0m"
+    local username
+    local existing_file
+    local temp_file
+    local download_url
+    username=$(whoami)
+    existing_file="/Users/$username/Library/Containers/com.isaacmarovitz.Whisky/Bottles/40878A74-CECC-48D0-8C6A-776693F93B88/drive_c/Program Files/MikroTik/winbox64.exe"
+    temp_file=$(mktemp)
+    download_url="https://mt.lv/winbox64"
 
-  # Download the file
-  if ! curl -L -o "$temp_file" "$download_url"; then
-      echo "Failed to download the file"
-      rm -f "$temp_file"
-      return 1
-  fi
+    # Function to display progress bar
+    display_progress() {
+        local percent=$1
+        local completed=$((percent / 4))
+        printf "\r[%-25s] %d%%" "$(printf "#%.0s" $(seq 1 $completed))" "$percent"
+    }
 
-  # Compare hashes
-  if [ -f "$existing_file" ]; then
-      local existing_hash
-      local new_hash
-      existing_hash=$(shasum -a 256 "$existing_file" | awk '{print $1}')
-      new_hash=$(shasum -a 256 "$temp_file" | awk '{print $1}')
+    # Download the file with progress
+    if ! curl -L -o "$temp_file" "$download_url" --progress-bar; then
+        printf "\nFailed to download the file"
+        rm -f "$temp_file"
+        return 1
+    fi
 
-      if [ "$existing_hash" = "$new_hash" ]; then
-          echo "File is up to date. No changes made."
-          rm -f "$temp_file"
-          return 0
-      else
-          # Replace the existing file
-          if mv "$temp_file" "$existing_file"; then
-              echo "File has been updated successfully."
-              return 0
-          else
-              echo "Failed to update the file. Check permissions."
-              rm -f "$temp_file"
-              return 1
-          fi
-      fi
-  else
-      # If the existing file doesn't exist, move the new file to the destination
-      if mv "$temp_file" "$existing_file"; then
-          echo "File has been downloaded and placed successfully."
-          return 0
-      else
-          echo "Failed to place the file. Check permissions."
-          rm -f "$temp_file"
-          return 1
-      fi
-  fi
+    echo # New line after curl progress
+
+    # Compare hashes
+    if [ -f "$existing_file" ]; then
+        local existing_hash
+        local new_hash
+        existing_hash=$(shasum -a 256 "$existing_file" | awk '{print $1}')
+        new_hash=$(shasum -a 256 "$temp_file" | awk '{print $1}')
+
+        if [ "$existing_hash" = "$new_hash" ]; then
+            echo "File is up to date. No changes made."
+            rm -f "$temp_file"
+            return 0
+        else
+            # Replace the existing file with progress
+            echo "Updating file..."
+            for i in {0..100..5}; do
+                display_progress "$i"
+                sleep 0.1
+            done
+            if mv "$temp_file" "$existing_file"; then
+                printf "\nFile has been updated successfully."
+                return 0
+            else
+                printf "\nFailed to update the file. Check permissions."
+                rm -f "$temp_file"
+                return 1
+            fi
+        fi
+    else
+        # If the existing file doesn't exist, move the new file to the destination with progress
+        echo "Installing file..."
+        for i in {0..100..5}; do
+            display_progress "$i"
+            sleep 0.1
+        done
+        if mv "$temp_file" "$existing_file"; then
+            printf "\nFile has been downloaded and placed successfully."
+            return 0
+        else
+            printf "\nFailed to place the file. Check permissions."
+            rm -f "$temp_file"
+            return 1
+        fi
+    fi
 }
 
 up() {
