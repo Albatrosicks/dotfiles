@@ -43,6 +43,13 @@ local icons = {
       disconnected = "􀙈",
       router = "􁓤",
     },
+    git = {
+      issue = "􀍷",
+      discussion = "􀒤",
+      pull_request = "􀙡",
+      commit = "􀡚",
+      indicator = "",
+    },
     media = {
       back = "􀊊",
       forward = "􀊌",
