@@ -1,7 +1,8 @@
 function update_configs() {
-  local prev_dir="$(pwd)"
   print "\e[1;32m(•_•) > Updating dotfiles config...\e[0m"
-  cd ~/dotfiles
+  local prev_dir="$(pwd)"
+  local username=$(whoami)
+  cd "/Users/$username/dotfiles"
   git pull && rcup
   cd $prev_dir
 }
@@ -38,74 +39,74 @@ function process_duti() {
 
 function update_winbox() {
   print "\e[1;32m(•_•) > Updating winbox\e[0m"
-    local username=$(whoami)
-    local existing_file="/Users/$username/Library/Containers/com.isaacmarovitz.Whisky/Bottles/40878A74-CECC-48D0-8C6A-776693F93B88/drive_c/Program Files/MikroTik/winbox64.exe"
-    local temp_file=$(mktemp)
-    local download_url="https://mt.lv/winbox64"
+  local username=$(whoami)
+  local existing_file="/Users/$username/Library/Containers/com.isaacmarovitz.Whisky/Bottles/40878A74-CECC-48D0-8C6A-776693F93B88/drive_c/Program Files/MikroTik/winbox64.exe"
+  local temp_file=$(mktemp)
+  local download_url="https://mt.lv/winbox64"
 
-    # Download the file
-    if ! curl -L -o "$temp_file" "$download_url"; then
-        echo "Failed to download the file"
-        rm -f "$temp_file"
-        return 1
-    fi
+  # Download the file
+  if ! curl -L -o "$temp_file" "$download_url"; then
+      echo "Failed to download the file"
+      rm -f "$temp_file"
+      return 1
+  fi
 
-    # Compare hashes
-    if [ -f "$existing_file" ]; then
-        local existing_hash=$(shasum -a 256 "$existing_file" | awk '{print $1}')
-        local new_hash=$(shasum -a 256 "$temp_file" | awk '{print $1}')
+  # Compare hashes
+  if [ -f "$existing_file" ]; then
+      local existing_hash=$(shasum -a 256 "$existing_file" | awk '{print $1}')
+      local new_hash=$(shasum -a 256 "$temp_file" | awk '{print $1}')
 
-        if [ "$existing_hash" = "$new_hash" ]; then
-            echo "File is up to date. No changes made."
-            rm -f "$temp_file"
-            return 0
-        else
-            # Replace the existing file
-            if mv "$temp_file" "$existing_file"; then
-                echo "File has been updated successfully."
-                return 0
-            else
-                echo "Failed to update the file. Check permissions."
-                rm -f "$temp_file"
-                return 1
-            fi
-        fi
-    else
-        # If the existing file doesn't exist, move the new file to the destination
-        if mv "$temp_file" "$existing_file"; then
-            echo "File has been downloaded and placed successfully."
-            return 0
-        else
-            echo "Failed to place the file. Check permissions."
-            rm -f "$temp_file"
-            return 1
-        fi
-    fi
-
+      if [ "$existing_hash" = "$new_hash" ]; then
+          echo "File is up to date. No changes made."
+          rm -f "$temp_file"
+          return 0
+      else
+          # Replace the existing file
+          if mv "$temp_file" "$existing_file"; then
+              echo "File has been updated successfully."
+              return 0
+          else
+              echo "Failed to update the file. Check permissions."
+              rm -f "$temp_file"
+              return 1
+          fi
+      fi
+  else
+      # If the existing file doesn't exist, move the new file to the destination
+      if mv "$temp_file" "$existing_file"; then
+          echo "File has been downloaded and placed successfully."
+          return 0
+      else
+          echo "Failed to place the file. Check permissions."
+          rm -f "$temp_file"
+          return 1
+      fi
+  fi
 }
 
 up() {
-    if [[ ! $1 ]] ; then
-        # If function is called with no parameters.
+    if [[ $# -eq 0 ]] ; then
+        # If function is called with no parameters, run all updates
         update_configs 
         update_brew
         update_appstore_apps
-		update_zsh_plugins
-		update_pipx
-		update_winbox
-		process_duti
-    fi
-    if [[ "$1" =~ "--" ]]; then 
-        # If provided an argument corresponding to a file, execute specific update command and disable_quarantine if asked.
-        case "$1" in
-            "--dotfiles") update_configs ;;
-            "--brew") update_brew ;;
-            "--appstore") update_appstore_apps ;;
-            "--zinit") update_zsh_plugins ;;
-            "--pipx") update_pipx ;;
-            "--winbox") update_winbox ;;
-    		"--duti") process_duti ;;
-            "*") print "Invalid parameter passed." ;;
-        esac
+        update_zsh_plugins
+        update_pipx
+        update_winbox
+        process_duti
+    else
+        # Loop through all provided arguments
+        for arg in "$@"; do
+            case "$arg" in
+                "--dotfiles") update_configs ;;
+                "--brew") update_brew ;;
+                "--appstore") update_appstore_apps ;;
+                "--zinit") update_zsh_plugins ;;
+                "--pipx") update_pipx ;;
+                "--winbox") update_winbox ;;
+                "--duti") process_duti ;;
+                *) echo "Invalid parameter: $arg" ;;
+            esac
+        done
     fi
 }
