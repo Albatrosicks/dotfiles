@@ -90,10 +90,10 @@ up() {
         update_configs 
         update_brew
         update_appstore_apps
-    		update_zsh_plugins
-    		update_pipx
-    		update_winbox
-    		process_duti
+		update_zsh_plugins
+		update_pipx
+		update_winbox
+		process_duti
     fi
     if [[ "$1" =~ "--" ]]; then 
         # If provided an argument corresponding to a file, execute specific update command and disable_quarantine if asked.
@@ -104,7 +104,7 @@ up() {
             "--zinit") update_zsh_plugins ;;
             "--pipx") update_pipx ;;
             "--winbox") update_winbox ;;
-        		"--duti") process_duti ;;
+    		"--duti") process_duti ;;
             "*") print "Invalid parameter passed." ;;
         esac
     fi
