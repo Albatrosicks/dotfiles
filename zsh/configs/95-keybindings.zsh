@@ -1,15 +1,16 @@
-autoload -Uz select-word-style
-select-word-style shell
+autoload -Uz match-words-by-style
 
 # Определение функции для перемещения по словам и спецсимволам
 forward-word-match() {
     zle -f match
+    autoload -Uz match-words-by-style
     match-words-by-style -w shell -m default
 }
 
 # Функция для перемещения назад по словам и спецсимволам
 backward-word-match() {
     zle -f match
+    autoload -Uz match-words-by-style
     match-words-by-style -w shell -m default -b
 }
 zle -N forward-word-match
