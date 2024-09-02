@@ -9,7 +9,7 @@ zinit wait lucid light-mode for \
   Albatrosicks/go-task-completions \
   lukechilds/zsh-nvm \
   lukechilds/zsh-better-npm-completion \
-  atload"!_zsh_autosuggest_start; export ZSH_AUTOSUGGEST_USE_ASYNC=1; export ZSH_AUTOSUGGEST_HISTORY_IGNORE=(cd *|ls *|l *|cat *|man *|rm *|mv *|chmod *|cp *|rmdir *|export *|gpg *|*\n*)'" zsh-users/zsh-autosuggestions \
+  atload"!_zsh_autosuggest_start; export ZSH_AUTOSUGGEST_USE_ASYNC=1; export ZSH_AUTOSUGGEST_HISTORY_IGNORE='(cd *|ls *|l *|cat *|man *|rm *|mv *|chmod *|cp *|rmdir *|export *|gpg *|*\n*)'" zsh-users/zsh-autosuggestions \
   Aloxaf/fzf-tab \
   MichaelAquilina/zsh-autoswitch-virtualenv \
   MichaelAquilina/zsh-you-should-use \
