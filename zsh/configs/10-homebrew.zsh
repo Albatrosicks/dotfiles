@@ -5,3 +5,6 @@ export HOMEBREW_NO_ANALYTICS=1
 
 # Disable y/n prompting on update
 export DISABLE_UPDATE_PROMPT="true"
+
+# Disable autoupdate
+export HOMEBREW_NO_AUTO_UPDATE=1
