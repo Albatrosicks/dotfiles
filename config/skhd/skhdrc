@@ -100,6 +100,8 @@ cmd - j [
   "google chrome beta": skhd -k "ctrl - tab"
   "google chrome": skhd -k "ctrl - tab"
   "telegram": skhd -k "cmd + alt - down"
+  "orion rc": skhd -k "ctrl - tab"
+  "orion": skhd -k "ctrl - tab"
 ]
 # switch to next tab
 cmd - k [
@@ -109,6 +111,8 @@ cmd - k [
   "google chrome beta": skhd -k "shift + ctrl - tab"
   "google chrome": skhd -k "shift + ctrl - tab"
   "telegram": skhd -k "cmd + alt - up"
+  "orion rc": skhd -k "shift + ctrl - tab"
+  "orion": skhd -k "shift + ctrl - tab"
 ]
 # switch to previous panel in Firefox
 cmd - h [
