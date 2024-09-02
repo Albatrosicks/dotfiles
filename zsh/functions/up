@@ -1,10 +1,12 @@
 function update_configs() {
+  local prev_dir
+  local username
   print "\e[1;32m(•_•) > Updating dotfiles config...\e[0m"
-  local prev_dir="$(pwd)"
-  local username=$(whoami)
-  cd "/Users/$username/dotfiles"
+  prev_dir="$(pwd)"
+  username=$(whoami)
+  cd "/Users/$username/dotfiles" || return
   git pull && rcup
-  cd $prev_dir
+  cd "$prev_dir" || return
 }
 
 function update_brew() {
@@ -38,11 +40,15 @@ function process_duti() {
 }
 
 function update_winbox() {
+  local username
+  local existing_file
+  local temp_file
+  local download_url
   print "\e[1;32m(•_•) > Updating winbox\e[0m"
-  local username=$(whoami)
-  local existing_file="/Users/$username/Library/Containers/com.isaacmarovitz.Whisky/Bottles/40878A74-CECC-48D0-8C6A-776693F93B88/drive_c/Program Files/MikroTik/winbox64.exe"
-  local temp_file=$(mktemp)
-  local download_url="https://mt.lv/winbox64"
+  username=$(whoami)
+  existing_file="/Users/$username/Library/Containers/com.isaacmarovitz.Whisky/Bottles/40878A74-CECC-48D0-8C6A-776693F93B88/drive_c/Program Files/MikroTik/winbox64.exe"
+  temp_file=$(mktemp)
+  download_url="https://mt.lv/winbox64"
 
   # Download the file
   if ! curl -L -o "$temp_file" "$download_url"; then
@@ -53,8 +59,10 @@ function update_winbox() {
 
   # Compare hashes
   if [ -f "$existing_file" ]; then
-      local existing_hash=$(shasum -a 256 "$existing_file" | awk '{print $1}')
-      local new_hash=$(shasum -a 256 "$temp_file" | awk '{print $1}')
+      local existing_hash
+      local new_hash
+      existing_hash=$(shasum -a 256 "$existing_file" | awk '{print $1}')
+      new_hash=$(shasum -a 256 "$temp_file" | awk '{print $1}')
 
       if [ "$existing_hash" = "$new_hash" ]; then
           echo "File is up to date. No changes made."
