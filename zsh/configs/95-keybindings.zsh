@@ -9,6 +9,4 @@ bindkey "^N"      insert-last-word                     # ctrl-n
 bindkey "^D"      delete-char                          # ctrl-d
 bindkey "^F"      forward-char                         # ctrl-f
 bindkey "^B"      backward-char                        # ctrl-b
-bindkey "^[[1;4B" backward-word                        # alt-shift-b
-bindkey "^[[1;4F" forward-word                         # alt-shift-f
 bindkey -v   # Default to standard vi bindings, regardless of editor string
