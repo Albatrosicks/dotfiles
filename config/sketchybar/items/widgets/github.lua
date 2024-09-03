@@ -6,6 +6,7 @@ local popup_off = "sketchybar --set github popup.drawing=off"
 
 local github = sbar.add("item", "github", {
 	position = "right",
+	drawing = "on",
 	icon = {
 		string = icons.bell,
 		color = colors.blue,
@@ -187,6 +188,7 @@ github:subscribe({
 
 		-- Change icon and color depending on packages
 		github:set({
+			drawing = "off",
 			icon = {
 				string = icons.bell_dot,
 			},
@@ -195,6 +197,7 @@ github:subscribe({
 
 		if count > 0 then
 			github:set({
+				drawing = "on",
 				icon = {
 					string = icons.bell,
 				},
