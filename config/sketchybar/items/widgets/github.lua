@@ -207,4 +207,11 @@ github:subscribe({
 	end)
 end)
 
-return github
+sbar.add("bracket", "widgets.github.bracket", { github.name }, {
+  background = { color = colors.bg1 }
+})
+
+sbar.add("item", "widgets.github.padding", {
+  position = "right",
+  width = settings.group_paddings
+})
