@@ -11,8 +11,7 @@ local github = sbar.add("item", "github", {
 		string = icons.bell,
 		color = colors.blue,
 		font = {
-			family = settings.font,
-			style = "Bold",
+      style = settings.font.style_map["Bold"],
 			size = 15.0,
 		},
 	},
@@ -157,7 +156,7 @@ github:subscribe({
 						font = {
 							family = settings.nerd_font,
 							size = 14.0,
-							style = "Bold",
+				      style = settings.font.style_map["Bold"],
 						},
 						padding_left = settings.paddings,
 					},
