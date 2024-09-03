@@ -15,9 +15,6 @@ local github = sbar.add("item", "github", {
 			size = 15.0,
 		},
 	},
-	background = {
-		padding_left = 0,
-	},
 	label = {
 		string = icons.loading,
 		highlight_color = colors.blue,
