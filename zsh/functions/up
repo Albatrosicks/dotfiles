@@ -41,10 +41,12 @@ function process_duti() {
 
 function update_winbox() {
     print "\e[1;32m(•_•) > Updating winbox\e[0m"
+
     local username
     local existing_file
     local temp_file
     local download_url
+
     username=$(whoami)
     existing_file="/Users/$username/Library/Containers/com.isaacmarovitz.Whisky/Bottles/40878A74-CECC-48D0-8C6A-776693F93B88/drive_c/Program Files/MikroTik/winbox64.exe"
     temp_file=$(mktemp)
@@ -64,12 +66,14 @@ function update_winbox() {
         return 1
     fi
 
-    echo # New line after curl progress
+    # Clear the line after curl progress
+    printf "\033[1A\033[K"
 
     # Compare hashes
     if [ -f "$existing_file" ]; then
         local existing_hash
         local new_hash
+
         existing_hash=$(shasum -a 256 "$existing_file" | awk '{print $1}')
         new_hash=$(shasum -a 256 "$temp_file" | awk '{print $1}')
 
@@ -84,11 +88,13 @@ function update_winbox() {
                 display_progress "$i"
                 sleep 0.1
             done
+            echo # New line after progress bar
+
             if mv "$temp_file" "$existing_file"; then
-                printf "\nFile has been updated successfully."
+                echo "File has been updated successfully."
                 return 0
             else
-                printf "\nFailed to update the file. Check permissions."
+                echo "Failed to update the file. Check permissions."
                 rm -f "$temp_file"
                 return 1
             fi
@@ -100,11 +106,13 @@ function update_winbox() {
             display_progress "$i"
             sleep 0.1
         done
+        echo # New line after progress bar
+
         if mv "$temp_file" "$existing_file"; then
-            printf "\nFile has been downloaded and placed successfully."
+            echo "File has been downloaded and placed successfully."
             return 0
         else
-            printf "\nFailed to place the file. Check permissions."
+            echo "Failed to place the file. Check permissions."
             rm -f "$temp_file"
             return 1
         fi
