@@ -72,17 +72,22 @@ github:subscribe({
 }, function(_)
     -- fetch new information
     sbar.exec("gh api notifications", function(notifications, exit_code)
-        if exit_code == nil or exit_code ~= 0 then
-            -- Handle error
-            local error_message = "Error fetching GitHub notifications."
-            if exit_code ~= nil then
-                error_message = error_message .. " Exit code: " .. exit_code
-            end
+        if exit_code ~= nil and exit_code ~= 0 then
+            -- Handle error when exit_code is non-zero
+            local error_message = "Error fetching GitHub notifications. Exit code: " .. exit_code
             print(error_message)
-            handle_github_error(notifications or error_message)
+            handle_github_error(error_message)
             return
         end
 
+        -- Check if notifications is a string (error message) instead of a table
+        if type(notifications) == "string" then
+            print("Error fetching GitHub notifications: " .. notifications)
+            handle_github_error(notifications)
+            return
+        end
+
+        -- If we've reached here, it's a successful fetch
         -- Clear existing packages
         clear_existing_notifications()
 
@@ -100,6 +105,8 @@ function handle_github_error(error_message)
             error_label = "TO"
         elseif string.match(error_message, "check your internet connection") then
             error_label = "CN"
+        elseif string.match(error_message, "Bad credentials") then
+            error_label = "BC"
         end
     end
 
