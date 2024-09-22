@@ -67,144 +67,146 @@ github:subscribe({
 end)
 
 github:subscribe({
-	"routine",
-	"forced",
-	"github_update",
+    "routine",
+    "forced",
+    "github_update",
 }, function(_)
-	-- fetch new information
-	sbar.exec("gh api notifications", function(notifications)
-		-- Clear existing packages
-		local existingNotifications = github:query()
-		if existingNotifications.popup and next(existingNotifications.popup.items) ~= nil then
-			for _, item in pairs(existingNotifications.popup.items) do
-				sbar.remove(item)
-			end
-		end
+    -- fetch new information
+    sbar.exec("gh api notifications", function(notifications, exit_code)
+        if exit_code ~= 0 then
+            -- Handle error
+            print("Error fetching GitHub notifications. Exit code: " .. exit_code)
+            github:set({
+                drawing = "on",
+                icon = {
+                    string = icons.bell,
+                    color = colors.red,
+                },
+                label = "!",
+            })
+            return
+        end
 
-		-- PRINT_TABLE(notifications)
+        -- Clear existing packages
+        local existingNotifications = github:query()
+        if existingNotifications.popup and next(existingNotifications.popup.items) ~= nil then
+            for _, item in pairs(existingNotifications.popup.items) do
+                sbar.remove(item)
+            end
+        end
 
-		local count = 0
-		for _, notification in pairs(notifications) do
-			-- PRINT_TABLE(notification)
-			-- increment count for label
-			count = count + 1
+        local count = 0
+        for _, notification in pairs(notifications) do
+            -- increment count for label
+            count = count + 1
 
-			local id = notification.id
-			local url = notification.subject.latest_comment_url
-			local repo = notification.repository.name
-			local title = notification.subject.title
-			local type = notification.subject.type
+            local id = notification.id
+            local url = notification.subject.latest_comment_url
+            local repo = notification.repository.name
+            local title = notification.subject.title
+            local type = notification.subject.type
 
-			-- set click_script for each notification
-			if url == nil then
-				url = "https://www.github.com/notifications"
-			else
-				local tempUrl = url:gsub("^'", ""):gsub("'$", "")
-				sbar.exec('gh api "' .. tempUrl .. '" | jq .html_url', function(html_url)
-					local cmd = "sketchybar -m --set github.notification"
+            -- set click_script for each notification
+            if url == nil then
+                url = "https://www.github.com/notifications"
+            else
+                local tempUrl = url:gsub("^'", ""):gsub("'$", "")
+                sbar.exec('gh api "' .. tempUrl .. '" | jq .html_url', function(html_url, api_exit_code)
+                    if api_exit_code ~= 0 then
+                        print("Error fetching HTML URL. Exit code: " .. api_exit_code)
+                        return
+                    end
 
-					if (repo == nil or repo == "") == false then
-						cmd = cmd .. ".repo."
-						cmd = cmd .. tostring(id) .. ' click_script="open ' .. html_url .. '"'
-						sbar.exec(cmd, function()
-							sbar.exec(popup_off)
-						end)
-					end
+                    local cmd = "sketchybar -m --set github.notification"
+                    if repo and repo ~= "" then
+                        cmd = cmd .. ".repo." .. tostring(id) .. ' click_script="open ' .. html_url .. '"'
+                        sbar.exec(cmd)
+                    end
 
-					cmd = "sketchybar -m --set github.notification"
-					if title == nil or title == "" == false then
-						cmd = cmd .. ".message."
-						cmd = cmd .. tostring(id) .. ' click_script="open ' .. html_url .. '"'
-						sbar.exec(cmd, function()
-							sbar.exec(popup_off)
-						end)
-					end
-				end)
-			end
+                    cmd = "sketchybar -m --set github.notification"
+                    if title and title ~= "" then
+                        cmd = cmd .. ".message." .. tostring(id) .. ' click_script="open ' .. html_url .. '"'
+                        sbar.exec(cmd)
+                    end
+                end)
+            end
 
-			-- get icon and color for each notification
-			-- depending on the type
-			local color, icon
-			if type == "Issue" then
-				color = colors.green
-				icon = icons.git.issue
-			elseif type == "Discussion" then
-				color = colors.text
-				icon = icons.git.discussion
-			elseif type == "PullRequest" then
-				color = colors.maroon
-				icon = icons.git.pull_request
-			elseif type == "Commit" then
-				color = colors.text
-				icon = icons.git.commit
-			else
-				color = colors.text
-				icon = icons.git.issue
-			end
+            -- get icon and color for each notification
+            -- depending on the type
+            local color, icon
+            if type == "Issue" then
+                color, icon = colors.green, icons.git.issue
+            elseif type == "Discussion" then
+                color, icon = colors.text, icons.git.discussion
+            elseif type == "PullRequest" then
+                color, icon = colors.maroon, icons.git.pull_request
+            elseif type == "Commit" then
+                color, icon = colors.text, icons.git.commit
+            else
+                color, icon = colors.text, icons.git.issue
+            end
 
-			-- add notification to popup
-			github.notification = {}
+            -- add notification to popup
+            github.notification = {}
+            if repo and repo ~= "" then
+                github.notification.repo = sbar.add("item", "github.notification.repo." .. tostring(id), {
+                    label = {
+                        padding_right = settings.paddings,
+                    },
+                    icon = {
+                        string = icon .. " " .. repo,
+                        color = color,
+                        font = {
+                            family = settings.nerd_font,
+                            size = 14.0,
+                            style = settings.font.style_map["Bold"],
+                        },
+                        padding_left = settings.paddings,
+                    },
+                    drawing = true,
+                    click_script = "open " .. url .. "; " .. popup_off,
+                    position = "popup." .. github.name,
+                })
+            end
 
-			if (repo == nil or repo == "") == false then
-				github.notification.repo = sbar.add("item", "github.notification.repo." .. tostring(id), {
-					label = {
-						padding_right = settings.paddings,
-					},
-					icon = {
-						string = icon .. " " .. repo,
-						color = color,
-						font = {
-							family = settings.nerd_font,
-							size = 14.0,
-				      style = settings.font.style_map["Bold"],
-						},
-						padding_left = settings.paddings,
-					},
-					drawing = true,
-					-- TODO: trigger update after clicking since notification is cleared on github
-					click_script = "open " .. url .. "; " .. popup_off,
-					position = "popup." .. github.name,
-				})
-			end
+            if title and title ~= "" then
+                github.notification.message = sbar.add("item", "github.notification.message." .. tostring(id), {
+                    label = {
+                        string = title,
+                        padding_right = 10,
+                    },
+                    icon = {
+                        drawing = "off",
+                        padding_left = settings.paddings,
+                    },
+                    drawing = true,
+                    click_script = "open " .. url .. "; " .. popup_off,
+                    position = "popup." .. github.name,
+                })
+            end
+        end
 
-			if (title == nil or title == "") == false then
-				github.notification.message = sbar.add("item", "github.notification.message." .. tostring(id), {
-					label = {
-						string = title,
-						padding_right = 10,
-					},
-					icon = {
-						drawing = "off",
-						padding_left = settings.paddings,
-					},
-					drawing = true,
-					-- TODO: trigger update after clicking since notification is cleared on github
-					click_script = "open " .. url .. "; " .. popup_off,
-					position = "popup." .. github.name,
-				})
-			end
-		end
+        -- Change icon and color depending on packages
+        github:set({
+            drawing = "off",
+            icon = {
+                string = icons.bell_dot,
+            },
+            label = 0,
+        })
 
-		-- Change icon and color depending on packages
-		github:set({
-			drawing = "off",
-			icon = {
-				string = icons.bell_dot,
-			},
-			label = 0,
-		})
-
-		if count > 0 then
-			github:set({
-				drawing = "on",
-				icon = {
-					string = icons.bell,
-				},
-				label = count,
-			})
-		end
-	end)
+        if count > 0 then
+            github:set({
+                drawing = "on",
+                icon = {
+                    string = icons.bell,
+                },
+                label = count,
+            })
+        end
+    end)
 end)
+
 
 sbar.add("bracket", "widgets.github.bracket", { github.name }, {
   background = { color = colors.bg1 }
