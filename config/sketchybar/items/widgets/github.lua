@@ -72,17 +72,14 @@ github:subscribe({
 }, function(_)
     -- fetch new information
     sbar.exec("gh api notifications", function(notifications, exit_code)
-        if exit_code ~= 0 then
+        if exit_code == nil or exit_code ~= 0 then
             -- Handle error
-            print("Error fetching GitHub notifications. Exit code: " .. exit_code)
-            handle_github_error(notifications)
-            return
-        end
-
-        -- Check if notifications is a string (error message) instead of a table
-        if type(notifications) == "string" then
-            print("Error fetching GitHub notifications: " .. notifications)
-            handle_github_error(notifications)
+            local error_message = "Error fetching GitHub notifications."
+            if exit_code ~= nil then
+                error_message = error_message .. " Exit code: " .. exit_code
+            end
+            print(error_message)
+            handle_github_error(notifications or error_message)
             return
         end
 
@@ -98,10 +95,12 @@ end)
 
 function handle_github_error(error_message)
     local error_label = "!"
-    if string.match(error_message, "TLS handshake timeout") then
-        error_label = "TO"
-    elseif string.match(error_message, "check your internet connection") then
-        error_label = "CN"
+    if type(error_message) == "string" then
+        if string.match(error_message, "TLS handshake timeout") then
+            error_label = "TO"
+        elseif string.match(error_message, "check your internet connection") then
+            error_label = "CN"
+        end
     end
 
     github:set({
