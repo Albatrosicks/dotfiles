@@ -134,9 +134,21 @@ space_window_observer:subscribe("space_windows_change", function(env)
   if (no_app) then
     icon_line = " —"
   end
-  sbar.animate("tanh", 10, function()
+sbar.animate("tanh", 10, function()
+  if spaces and env and env.INFO and env.INFO.space and spaces[env.INFO.space] then
     spaces[env.INFO.space]:set({ label = icon_line })
-  end)
+  else
+    print("Error: One of the required values is nil")
+    -- You can add more detailed error logging here to identify which value is nil
+    if not spaces then print("spaces is nil") end
+    if not env then print("env is nil") end
+    if env and not env.INFO then print("env.INFO is nil") end
+    if env and env.INFO and not env.INFO.space then print("env.INFO.space is nil") end
+    if spaces and env and env.INFO and env.INFO.space and not spaces[env.INFO.space] then
+      print("spaces[env.INFO.space] is nil")
+    end
+  end
+end)
 end)
 
 spaces_indicator:subscribe("swap_menus_and_spaces", function(env)
