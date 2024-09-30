@@ -40,85 +40,6 @@ function process_duti() {
   print "\e[1;32m(•_•) > Processing duti config\e[0m"
 }
 
-function update_winbox() {
-    print "\e[1;32m(•_•) > Updating winbox\e[0m"
-
-    local username
-    local existing_file
-    local temp_file
-    local download_url
-
-    username=$(whoami)
-    existing_file="/Users/$username/Library/Containers/com.isaacmarovitz.Whisky/Bottles/40878A74-CECC-48D0-8C6A-776693F93B88/drive_c/Program Files/MikroTik/winbox64.exe"
-    temp_file=$(mktemp)
-    download_url="https://mt.lv/winbox64"
-
-    # Function to display progress bar
-    display_progress() {
-        local percent=$1
-        local completed=$((percent / 4))
-        printf "\r[%-25s] %d%%" "$(printf "#%.0s" $(seq 1 $completed))" "$percent"
-    }
-
-    # Download the file with progress
-    if ! curl -L -o "$temp_file" "$download_url" --progress-bar; then
-        printf "\nFailed to download the file"
-        rm -f "$temp_file"
-        return 1
-    fi
-
-    # Clear the line after curl progress
-    printf "\033[1A\033[K"
-
-    # Compare hashes
-    if [ -f "$existing_file" ]; then
-        local existing_hash
-        local new_hash
-
-        existing_hash=$(shasum -a 256 "$existing_file" | awk '{print $1}')
-        new_hash=$(shasum -a 256 "$temp_file" | awk '{print $1}')
-
-        if [ "$existing_hash" = "$new_hash" ]; then
-            echo "File is up to date. No changes made."
-            rm -f "$temp_file"
-            return 0
-        else
-            # Replace the existing file with progress
-            echo "Updating file..."
-            for i in {0..100..5}; do
-                display_progress "$i"
-                sleep 0.1
-            done
-            echo # New line after progress bar
-
-            if mv "$temp_file" "$existing_file"; then
-                echo "File has been updated successfully."
-                return 0
-            else
-                echo "Failed to update the file. Check permissions."
-                rm -f "$temp_file"
-                return 1
-            fi
-        fi
-    else
-        # If the existing file doesn't exist, move the new file to the destination with progress
-        echo "Installing file..."
-        for i in {0..100..5}; do
-            display_progress "$i"
-            sleep 0.1
-        done
-        echo # New line after progress bar
-
-        if mv "$temp_file" "$existing_file"; then
-            echo "File has been downloaded and placed successfully."
-            return 0
-        else
-            echo "Failed to place the file. Check permissions."
-            rm -f "$temp_file"
-            return 1
-        fi
-    fi
-}
 
 up() {
     if [[ $# -eq 0 ]] ; then
@@ -128,7 +49,6 @@ up() {
         update_appstore_apps
         update_zsh_plugins
         update_pipx
-        update_winbox
         process_duti
     else
         # Loop through all provided arguments
@@ -139,7 +59,6 @@ up() {
                 "--appstore") update_appstore_apps ;;
                 "--zinit") update_zsh_plugins ;;
                 "--pipx") update_pipx ;;
-                "--winbox") update_winbox ;;
                 "--duti") process_duti ;;
                 *) echo "Invalid parameter: $arg" ;;
             esac
