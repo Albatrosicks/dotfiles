@@ -13,7 +13,7 @@ function update_brew() {
   print "\e[1;32m(•_•) > Updating brew...\e[0m"
   brew update
   if brew outdated | grep -q .; then
-    brew outdated | parallel --bar --keep-order 'brew fetch --formula --deps {} > /dev/null 2>&1'
+    brew outdated | parallel --bar --keep-order 'brew fetch --deps {} > /dev/null 2>&1'
     brew upgrade
   else
     echo "No outdated packages found."
