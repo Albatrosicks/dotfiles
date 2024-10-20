@@ -1,0 +1,10 @@
+__pycache__
+*.exe
+*.egg-info/
+*.pyc
+*.mkv
+*.mp3
+*.str
+yt-dlp-plugins
+*.json
+build/
