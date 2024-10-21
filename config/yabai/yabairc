@@ -97,6 +97,7 @@ yabai -m rule --add label="Craft" app="^Craft$" title="(Settings|Info)" manage=o
 yabai -m rule --add label="Scoot" app="^Scoot$" manage=off
 yabai -m rule --add label="Homerow" app="^Homerow$" manage=off
 yabai -m rule --add label="Orion" app="^(Orion RC|Orion)$" title="^(General|(Tab|Password|Website|Extension|Plu|Bookmark|Profile)s|AutoFill|Se(arch|curity)|Privacy|Advance|Browsing|Sync|History|Reading List)$" manage=off
+yabai -m rule --add label="Emacs" app="^Emacs$" manage=on
 # yabai -m rule --add label="Arc" app="^Arc$" title="^(Albert|General|Shortcuts|Little Arc|Advanced)$" manage=off
 # yabai -m rule --add label="Arc - PiP" app="^Arc$" level=3 title="Arc" manage=off
 # ===== Signals ================================
