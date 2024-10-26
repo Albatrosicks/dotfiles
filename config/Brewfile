@@ -1,328 +1,203 @@
-# pam_reattach
-tap "fabianishere/personal"
-# sketchybar
-tap "felixkratz/formulae"
-tap "homebrew/autoupdate"
-tap "homebrew/bundle"
-tap "homebrew/services"
-# qlzipinfo
-tap "iloveitaly/tap"
-# lazygit
-tap "jesseduffield/lazygit"
-# skhd, yabai
-tap "koekeishiya/formulae"
-# macism
-tap "laishulu/macism"
-tap "mongodb/brew"
-# Simple, modern, secure file encryption
-brew "age"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.11"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.9"
-# Automate deployment, configuration, and upgrading
-brew "ansible"
-# Language Server for Ansible Files
-brew "ansible-language-server"
-# Plugin manager for zsh, inspired by antigen and antibody
-brew "antidote"
-# Download with resuming and segmented downloading
-brew "aria2"
-# Extendable version manager with support for Ruby, Node.js, Erlang & more
-brew "asdf"
-# CLI to interpret traceroute -a output to show AS names traversed
-brew "asroute"
-# Resource monitor. C++ version and continuation of bashtop and bpytop
-brew "btop"
-# Clone of cat(1) with syntax highlighting and Git integration
-brew "bat"
-# GNU compiler collection
-brew "gcc"
-# Cross-platform make
-brew "cmake"
-# Fast and statically typed, compiled language with Ruby-like syntax
-brew "crystal"
-# Tool for exploring each layer in a docker image
-brew "dive"
-# Select default apps for documents and URL schemes on macOS
-brew "duti"
-# Parser generator tool and incremental parsing library
-brew "tree-sitter"
-# GNU Emacs text editor
-brew "emacs"
-# ESP8266 and ESP32 serial bootloader utility
-brew "esptool"
-# Modern, maintained replacement for ls
-brew "eza"
-# Simple, fast and user-friendly alternative to find
-brew "fd"
-# Play, record, convert, and stream audio and video
-brew "ffmpeg"
-# Command-line fuzzy finder written in Go
-brew "fzf"
-# GNU awk utility
-brew "gawk"
-# GitHub command-line tool
-brew "gh"
-# Distributed revision control system
-brew "git"
-# GNU implementation of the famous stream editor
-brew "gnu-sed"
-# GNU Pretty Good Privacy (PGP) package
-brew "gnupg"
-# Open source programming language to build simple/reliable/efficient software
-brew "go"
-# Task is a task runner/build tool that aims to be simpler and easier to use
-brew "go-task"
-# Language server for the Go language
-brew "gopls"
-# GNU grep, egrep and fgrep
-brew "grep"
-# Post-modern modal text editor
-brew "helix"
-# Command-line hex viewer
-brew "hexyl"
-# User-friendly cURL replacement (command-line HTTP client)
-brew "httpie"
-# Configurable static site generator
-brew "hugo"
-# Tool to report network interface bandwidth
-brew "ifstat"
-# Lightweight and flexible command-line JSON processor
-brew "jq"
-# Tool to move from `docker-compose` to Kubernetes
-brew "kompose"
-# Kubernetes command-line interface
-brew "kubernetes-cli"
-# Lazier way to manage everything docker
-brew "lazydocker"
-# Simple terminal UI for git commands
-brew "lazygit"
-# Powerful, lightweight programming language
-brew "lua"
-# Package manager for the Lua programming language
-brew "luarocks"
-# Swiss Army Knife for macOS
-brew "m-cli"
-# Mac App Store command-line interface
-brew "mas"
-# Simple tool to make locally trusted development certificates
-brew "mkcert"
-# 'traceroute' and 'ping' in a single tool
-brew "mtr"
-# NCurses Disk Usage
-brew "ncdu"
-# Fast, highly customisable system info script
-brew "neofetch"
-# Ambitious Vim-fork focused on extensibility and agility
-brew "neovim"
-# CLI for NextDNS's DNS-over-HTTPS (DoH)
-brew "nextdns"
-# Instantaneous snapshots of system information
-"nidnogg/zeitfetch/zeitfetch"
-# Port scanning utility for large networks
-brew "nmap"
-# HTTP load generator, inspired by rakyll/hey with tui animation
-brew "oha"
-# Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
-brew "oven-sh/bun/bun"
-# Swiss-army knife of markup format conversion
-brew "pandoc"
-# Shell command parallelization utility
-brew "parallel"
-# Python dependency management tool
-brew "pipenv"
-# Execute binaries from Python packages in isolated environments
-brew "pipx"
-# Password generator
-brew "pwgen"
-# Command-line YAML and XML processor that wraps jq
-brew "python-yq"
-# Rsync for cloud storage
-brew "rclone"
-# RC file (dotfile) management
-brew "rcm"
-# Perl-powered file rename script with many helpful built-ins
-brew "rename"
-# Search tool like grep and The Silver Searcher
-brew "ripgrep"
-# Utility that provides fast incremental file transfer
-brew "rsync"
-# Powerful, clean, object-oriented scripting language
-brew "ruby"
-# Safe, concurrent, practical language
-brew "rust"
-# Static analysis and lint tool, for (ba)sh scripts
-brew "shellcheck"
-# Editor of encrypted files
-brew "sops"
-# Source-code syntax highlighter
-brew "source-highlight"
-# Cross-shell prompt for astronauts
-brew "starship"
-# Change macOS audio source from the command-line
-brew "switchaudio-osx"
-# TCP connect to the given IP/port combo
-brew "tcping"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
-# Language for application scale JavaScript development
-brew "typescript"
-# Command-line interface for Vercel
-brew "vercel-cli"
-# Tool for creating isolated virtual python environments
-brew "virtualenv"
-# Internet file retriever
-brew "wget"
-# Tools for the WireGuard secure network tunnel
-brew "wireguard-tools"
-# Access X11 clipboards from the command-line
-brew "xclip"
-# JavaScript package manager
-brew "yarn"
-# Fork of youtube-dl with additional features and fixes
-brew "yt-dlp"
-# Shell extension to navigate your filesystem faster
-brew "zoxide"
-# UNIX shell (command interpreter)
-brew "zsh"
-# Additional completion definitions for zsh
-brew "zsh-completions"
-# PAM module for reattaching to the user's GUI (Aqua) session
-brew "fabianishere/personal/pam_reattach"
-# Custom macOS statusbar with shell plugin, interaction and graph support
-brew "felixkratz/formulae/sketchybar"
-# Simple hotkey-daemon for macOS.
-brew "koekeishiya/formulae/skhd"
-# A tiling window manager for macOS based on binary space partitioning.
-brew "koekeishiya/formulae/yabai"
-# MacOS Input Source Manager
-brew "laishulu/macism/macism"
-# An interactive JavaScript command-line interface to MongoDB
-brew "mongodb/brew/mongodb-community-shell"
-# Converts video, audio and images
-cask "adapter"
-# GPU-accelerated terminal emulator
-cask "alacritty"
-# Android SDK component
-cask "android-platform-tools", args: { appdir: "/Applications" }
-# Inspect application bundles
-cask "apparency"
-# Application uninstaller
-cask "appcleaner"
-# Tool to flash OS images to SD cards & USB drives
-cask "balenaetcher"
-# OpenAI's official ChatGPT desktop app
-cask "chatgpt"
-# Browser for SQLite databases
-cask "db-browser-for-sqlite"
-# Bitcoin thin client
-cask "electrum"
-# Mozilla Firefox Developer Edition
-cask "firefox@developer-edition"
-# Open-source video transcoder
-cask "handbrake"
-# Tool to optimize images to a smaller size
-cask "imageoptim"
-# Instant shortcut lookup
-cask "keycombiner"
-# Wallet desktop application to maintain multiple cryptocurrencies
-cask "ledger-live"
-# Software for Logitech devices
-cask "logi-options-plus"
-# Privacy-first, open-source platform for knowledge sharing and management
-cask "logseq"
-# Untraceable cryptocurrency wallet
-cask "monero-wallet"
-# Replacement for Docker Desktop
-cask "orbstack"
-# WebKit based web browser
-cask "orion"
-# Read/write support for NTFS formatted volumes
-cask "paragon-ntfs", args: { appdir: "/Applications" }
-# Peer to peer Bitorrent client
-cask "qbittorrent"
-# QuickLook plug-in that renders source code with syntax highlighting
-cask "qlcolorcode", args: { appdir: "/Applications" }
-# Display image info and preview unsupported formats in QuickLook
-cask "qlimagesize", args: { appdir: "/Applications" }
-# QuickLook generator for Markdown files
-cask "qlmarkdown", args: { appdir: "/Applications" }
-# QuickLook plugin for plaintext files without an extension
-cask "qlstephen"
-# Thumbnails, static previews, cover art and metadata for video files
-cask "qlvideo", args: { appdir: "/Applications" }
-# List out the contents of a zip file in the QuickLook preview
-cask "qlzipinfo"
-# QuickLook plugin for JSON files
-cask "quicklook-json", args: { appdir: "/Applications" }
-# QuickLook generator for Adobe Swatch Exchange files
-cask "quicklookase", args: { appdir: "/Applications" }
-# Control your tools with a few keystrokes
-cask "raycast"
-# Keyboard-driven cursor actuator
-cask "scoot"
-# Tool that provides consistent, highly configurable symbols for apps
-cask "sf-symbols"
-# Displays all open files and sockets in use by all running processes
-cask "sloth"
-# Git client
-cask "sublime-merge"
-# Text editor for code, markup and prose
-cask "sublime-text"
-# Native Discord client built in Swift
-cask "swiftcord"
-# Real time file synchronization software
-cask "syncthing"
-# Quicklook extension for source files
-cask "syntax-highlight"
-# Telegram for macOS
-cask "telegram"
-# Development environment
-cask "vagrant"
-# Keyboard configurator
-cask "via"
-# Open-source code editor
-cask "visual-studio-code"
-# Virtual machine client
-cask "vmware-horizon-client"
-# Wine wrapper built with SwiftUI
-cask "whisky"
-# Multiplayer code editor
-cask "zed"
-# Mesh VPN client
-cask "zerotier-one"
-# Video communication and virtual meeting platform
-cask "zoom"
-mas "Amphetamine", id: 937984704
-mas "Apple Configurator", id: 1037126344
-mas "Bitwarden", id: 1352778147
-mas "Craft", id: 1487937127
-mas "Dark Mode for Safari", id: 1397180934
-mas "Developer", id: 640199958
-mas "Discovery", id: 1381004916
-mas "Keynote", id: 409183694
-mas "Ledger Extension", id: 1627727841
-mas "Microsoft Remote Desktop", id: 1295203466
-mas "Numbers", id: 409203825
-mas "Octotree", id: 1457450145
-mas "Omnivore", id: 1564031042
-mas "Pages", id: 409201541
-mas "Refined GitHub", id: 1519867270
-mas "Select Like A Boss For Safari", id: 1437310115
-mas "Sleipnir", id: 475299388
-mas "SponsorBlock for YouTube - Skip Sponsorships", id: 1573461917
-mas "Tampermonkey", id: 1482490089
-mas "Things", id: 904280696
-mas "com.kagimacOS.Kagi-Search", id: 1622835804
-mas "V2BOX", id: 6446814690
-mas "WireGuard", id: 1451685025
-vscode "moalamri.inline-fold"
-vscode "ms-azuretools.vscode-docker"
-vscode "ms-vscode-remote.remote-containers"
-vscode "rangav.vscode-thunder-client"
-vscode "redhat.vscode-yaml"
-vscode "svelte.svelte-vscode"
-vscode "vscode-icons-team.vscode-icons"
+tap "fabianishere/personal"      # pam_reattach
+tap "felixkratz/formulae"        # sketchybar
+tap "homebrew/autoupdate"        # automatic homebrew updates
+tap "homebrew/bundle"            # homebrew bundle functionality
+tap "homebrew/services"          # manage background services
+tap "iloveitaly/tap"            # qlzipinfo
+tap "jesseduffield/lazygit"     # lazygit
+tap "koekeishiya/formulae"      # skhd, yabai
+tap "laishulu/macism"           # macism
+tap "mongodb/brew"              # mongodb database and tools
+tap "oven-sh/bun"              # bun javascript runtime
+tap "railwaycat/emacsmacport"  # emacs mac port
+brew "age"                                           # Simple, modern, secure file encryption
+brew "ansible"                                       # Automate deployment, configuration, and upgrading
+brew "ansible-language-server"                       # Language Server for Ansible Files
+brew "antidote"                                      # Plugin manager for zsh, inspired by antigen and antibody
+brew "aria2"                                         # Download with resuming and segmented downloading
+brew "asdf"                                          # Extendable version manager with support for Ruby, Node.js, Erlang & more
+brew "asroute"                                       # CLI to interpret traceroute -a output to show AS names traversed
+brew "bat"                                          # Clone of cat(1) with syntax highlighting and Git integration
+brew "btop"                                         # Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "cmake"                                        # Cross-platform make
+brew "crystal"                                      # Fast and statically typed, compiled language with Ruby-like syntax
+brew "dive"                                         # Tool for exploring each layer in a docker image
+brew "duti"                                         # Select default apps for documents and URL schemes on macOS
+brew "emacs"                                        # GNU Emacs text editor
+brew "esptool"                                      # ESP8266 and ESP32 serial bootloader utility
+brew "eza"                                          # Modern, maintained replacement for ls
+brew "fabianishere/personal/pam_reattach"          # PAM module for reattaching to the user's GUI (Aqua) session
+brew "fd"                                           # Simple, fast and user-friendly alternative to find
+brew "felixkratz/formulae/sketchybar"              # Custom macOS statusbar with shell plugin, interaction and graph support
+brew "ffmpeg"                                       # Play, record, convert, and stream audio and video
+brew "fzf"                                          # Command-line fuzzy finder written in Go
+brew "gawk"                                         # GNU awk utility
+brew "gcc"                                          # GNU compiler collection
+brew "gh"                                           # GitHub command-line tool
+brew "git"                                          # Distributed revision control system
+brew "gnu-sed"                                      # GNU implementation of the famous stream editor
+brew "gnupg"                                        # GNU Pretty Good Privacy (PGP) package
+brew "go"                                           # Open source programming language to build simple/reliable/efficient software
+brew "go-task"                                      # Task is a task runner/build tool that aims to be simpler and easier to use
+brew "gopls"                                        # Language server for the Go language
+brew "grep"                                         # GNU grep, egrep and fgrep
+brew "helix"                                        # Post-modern modal text editor
+brew "hexyl"                                        # Command-line hex viewer
+brew "homebrew/cask-fonts/font-sf-mono"            # sketchybar requirement
+brew "homebrew/cask-fonts/font-sf-pro"             # sketchybar requirement
+brew "httpie"                                       # User-friendly cURL replacement (command-line HTTP client)
+brew "hugo"                                         # Configurable static site generator
+brew "ifstat"                                       # Tool to report network interface bandwidth
+brew "jq"                                           # Lightweight and flexible command-line JSON processor
+brew "koekeishiya/formulae/skhd"                   # Simple hotkey-daemon for macOS
+brew "koekeishiya/formulae/yabai"                  # A tiling window manager for macOS based on binary space partitioning
+brew "kompose"                                      # Tool to move from `docker-compose` to Kubernetes
+brew "kubernetes-cli"                               # Kubernetes command-line interface
+brew "laishulu/macism/macism"                      # MacOS Input Source Manager
+brew "lazydocker"                                   # Lazier way to manage everything docker
+brew "lazygit"                                      # Simple terminal UI for git commands
+brew "lua"                                          # Powerful, lightweight programming language
+brew "luarocks"                                     # Package manager for the Lua programming language
+brew "m-cli"                                        # Swiss Army Knife for macOS
+brew "mas"                                          # Mac App Store command-line interface
+brew "mkcert"                                       # Simple tool to make locally trusted development certificates
+brew "mongodb/brew/mongodb-community-shell"         # An interactive JavaScript command-line interface to MongoDB
+brew "mtr"                                          # 'traceroute' and 'ping' in a single tool
+brew "ncdu"                                         # NCurses Disk Usage
+brew "neofetch"                                     # Fast, highly customisable system info script
+brew "neovim"                                       # Ambitious Vim-fork focused on extensibility and agility
+brew "nextdns"                                      # CLI for NextDNS's DNS-over-HTTPS (DoH)
+brew "nidnogg/zeitfetch/zeitfetch"                 # Instantaneous snapshots of system information
+brew "nmap"                                         # Port scanning utility for large networks
+brew "nowplaying-cli"                              # sketchybar requirement
+brew "oha"                                          # HTTP load generator, inspired by rakyll/hey with tui animation
+brew "oven-sh/bun/bun"                             # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one
+brew "pandoc"                                       # Swiss-army knife of markup format conversion
+brew "parallel"                                     # Shell command parallelization utility
+brew "pipenv"                                       # Python dependency management tool
+brew "pipx"                                         # Execute binaries from Python packages in isolated environments
+brew "poetry"                                       # Python dependency management tool
+brew "pwgen"                                        # Password generator
+brew "python-yq"                                    # Command-line YAML and XML processor that wraps jq
+brew "python@3.11"                                  # Interpreted, interactive, object-oriented programming language
+brew "python@3.12"                                  # Interpreted, interactive, object-oriented programming language
+brew "python@3.9"                                   # Interpreted, interactive, object-oriented programming language
+brew "rclone"                                       # Rsync for cloud storage
+brew "rcm"                                          # RC file (dotfile) management
+brew "rename"                                       # Perl-powered file rename script with many helpful built-ins
+brew "ripgrep"                                      # Search tool like grep and The Silver Searcher
+brew "rsync"                                        # Utility that provides fast incremental file transfer
+brew "ruby"                                         # Powerful, clean, object-oriented scripting language
+brew "rust"                                         # Safe, concurrent, practical language
+brew "shellcheck"                                   # Static analysis and lint tool, for (ba)sh scripts
+brew "sops"                                         # Editor of encrypted files
+brew "source-highlight"                             # Source-code syntax highlighter
+brew "starship"                                     # Cross-shell prompt for astronauts
+brew "switchaudio-osx"                             # Change macOS audio source from the command-line
+brew "tcping"                                       # TCP connect to the given IP/port combo
+brew "tree"                                         # Display directories as trees (with optional color/HTML output)
+brew "tree-sitter"                                  # Parser generator tool and incremental parsing library
+brew "typescript"                                   # Language for application scale JavaScript development
+brew "vercel-cli"                                  # Command-line interface for Vercel
+brew "virtualenv"                                   # Tool for creating isolated virtual python environments
+brew "wget"                                         # Internet file retriever
+brew "wireguard-tools"                             # Tools for the WireGuard secure network tunnel
+brew "xclip"                                        # Access X11 clipboards from the command-line
+brew "yarn"                                         # JavaScript package manager
+brew "yt-dlp"                                       # Fork of youtube-dl with additional features and fixes
+brew "zoxide"                                       # Shell extension to navigate your filesystem faster
+brew "zsh"                                          # UNIX shell (command interpreter)
+brew "zsh-completions"                             # Additional completion definitions for zsh
+
+cask "adapter"                                      # Converts video, audio and images
+cask "alacritty"                                   # GPU-accelerated terminal emulator
+cask "android-platform-tools",                      # Android SDK component
+    args: { appdir: "/Applications" }
+cask "apparency"                                   # Inspect application bundles
+cask "appcleaner"                                  # Application uninstaller
+cask "balenaetcher"                                # Tool to flash OS images to SD cards & USB drives
+cask "chatgpt"                                     # OpenAI's official ChatGPT desktop app
+cask "db-browser-for-sqlite"                       # Browser for SQLite databases
+cask "electrum"                                    # Bitcoin thin client
+cask "firefox@developer-edition"                   # Mozilla Firefox Developer Edition
+cask "font-fira-mono-nerd-font"                   # Nerd Font patched Fira Mono font
+cask "font-hack-nerd-font"                        # Nerd Font patched Hack font
+cask "handbrake"                                   # Open-source video transcoder
+cask "iina"                                        # Modern media player for macOS
+cask "imageoptim"                                  # Tool to optimize images to a smaller size
+cask "keycombiner"                                 # Instant shortcut lookup
+cask "ledger-live"                                 # Wallet desktop application to maintain multiple cryptocurrencies
+cask "logi-options-plus"                           # Software for Logitech devices
+cask "logseq"                                      # Privacy-first, open-source platform for knowledge sharing and management
+cask "monero-wallet"                               # Untraceable cryptocurrency wallet
+cask "orbstack"                                    # Replacement for Docker Desktop
+cask "orion"                                       # WebKit based web browser
+cask "paragon-ntfs",                               # Read/write support for NTFS formatted volumes
+    args: { appdir: "/Applications" }
+cask "qbittorrent"                                 # Peer to peer Bitorrent client
+cask "qlcolorcode",                                # QuickLook plug-in that renders source code with syntax highlighting
+    args: { appdir: "/Applications" }
+cask "qlimagesize",                                # Display image info and preview unsupported formats in QuickLook
+    args: { appdir: "/Applications" }
+cask "qlmarkdown",                                 # QuickLook generator for Markdown files
+    args: { appdir: "/Applications" }
+cask "qlstephen"                                   # QuickLook plugin for plaintext files without an extension
+cask "qlvideo",                                    # Thumbnails, static previews, cover art and metadata for video files
+    args: { appdir: "/Applications" }
+cask "qlzipinfo"                                   # List out the contents of a zip file in the QuickLook preview
+cask "quicklook-json",                             # QuickLook plugin for JSON files
+    args: { appdir: "/Applications" }
+cask "quicklookase",                               # QuickLook generator for Adobe Swatch Exchange files
+    args: { appdir: "/Applications" }
+cask "railwaycat/emacsmacport/emacs-mac"          # Emacs Mac port with native GUI support
+cask "raycast"                                     # Control your tools with a few keystrokes
+cask "scoot"                                       # Keyboard-driven cursor actuator
+cask "sf-symbols"                                  # Tool that provides consistent, highly configurable symbols for apps
+cask "sloth"                                       # Displays all open files and sockets in use by all running processes
+cask "sublime-merge"                               # Git client
+cask "sublime-text"                                # Text editor for code, markup and prose
+cask "swiftcord"                                   # Native Discord client built in Swift
+cask "syncthing"                                   # Real time file synchronization software
+cask "syntax-highlight"                            # Quicklook extension for source files
+cask "telegram"                                    # Telegram for macOS
+cask "vagrant"                                     # Development environment
+cask "via"                                         # Keyboard configurator
+cask "visual-studio-code"                          # Open-source code editor
+cask "vmware-horizon-client"                       # Virtual machine client
+cask "whisky"                                      # Wine wrapper built with SwiftUI
+cask "zed"                                         # Multiplayer code editor
+cask "zerotier-one"                               # Mesh VPN client
+cask "zoom"                                        # Video communication and virtual meeting platform
+
+mas "Amphetamine", id: 937984704                    # Keep your Mac awake
+mas "Apple Configurator", id: 1037126344            # Configure and deploy iOS devices
+mas "Bitwarden", id: 1352778147                     # Password manager and secure vault
+mas "com.kagimacOS.Kagi-Search", id: 1622835804    # Privacy-focused search engine extension
+mas "Craft", id: 1487937127                         # Document and note creation tool
+mas "Dark Mode for Safari", id: 1397180934          # Enable dark mode for websites in Safari
+mas "Developer", id: 640199958                      # Apple Developer app
+mas "Discovery", id: 1381004916                     # Network and port scanning tool
+mas "Keynote", id: 409183694                        # Apple's presentation software
+mas "Ledger Extension", id: 1627727841              # Browser extension for Ledger hardware wallet
+mas "Microsoft Remote Desktop", id: 1295203466      # Remote desktop client for Windows
+mas "Numbers", id: 409203825                        # Apple's spreadsheet software
+mas "Octotree", id: 1457450145                      # GitHub code tree navigator
+mas "Omnivore", id: 1564031042                      # Read-it-later and article manager
+mas "Pages", id: 409201541                          # Apple's word processor
+mas "Refined GitHub", id: 1519867270                # Browser extension to enhance GitHub interface
+mas "Select Like A Boss For Safari", id: 1437310115 # Enhanced text selection for Safari
+mas "Sleipnir", id: 475299388                       # Web browser with customizable interface
+mas "SponsorBlock for YouTube", id: 1573461917      # Skip sponsorship segments in YouTube videos
+mas "Swift Playgrounds", id: 1496833156             # Learn to code in Swift
+mas "Tampermonkey", id: 1482490089                  # UserScript manager for browsers
+mas "Things", id: 904280696                         # Task manager and to-do list app
+mas "WireGuard", id: 1451685025                     # Secure VPN tunnel
+mas "Xcode", id: 497799835                          # Apple's IDE for macOS development
+
+vscode "moalamri.inline-fold"                       # Fold/collapse sections of inline code
+vscode "ms-azuretools.vscode-docker"                # Docker integration and workflow
+vscode "ms-vscode-remote.remote-containers"         # Develop inside containers
+vscode "rangav.vscode-thunder-client"               # Lightweight REST API client
+vscode "redhat.vscode-yaml"                         # YAML language support and validation
+vscode "svelte.svelte-vscode"                       # Svelte language support and tooling
+vscode "vscode-icons-team.vscode-icons"             # File and folder icons for VSCode
