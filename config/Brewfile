@@ -9,7 +9,6 @@ tap "koekeishiya/formulae"      # skhd, yabai
 tap "laishulu/macism"           # macism
 tap "mongodb/brew"              # mongodb database and tools
 tap "oven-sh/bun"              # bun javascript runtime
-tap "railwaycat/emacsmacport"  # emacs mac port
 brew "age"                                           # Simple, modern, secure file encryption
 brew "ansible"                                       # Automate deployment, configuration, and upgrading
 brew "ansible-language-server"                       # Language Server for Ansible Files
@@ -122,6 +121,7 @@ cask "firefox@developer-edition"                   # Mozilla Firefox Developer E
 cask "font-fira-mono-nerd-font"                   # Nerd Font patched Fira Mono font
 cask "font-hack-nerd-font"                        # Nerd Font patched Hack font
 cask "handbrake"                                   # Open-source video transcoder
+cask "homerow"                                     # Keyboard shortcuts for every button on your screen
 cask "iina"                                        # Modern media player for macOS
 cask "imageoptim"                                  # Tool to optimize images to a smaller size
 cask "keycombiner"                                 # Instant shortcut lookup
@@ -148,7 +148,6 @@ cask "quicklook-json",                             # QuickLook plugin for JSON f
     args: { appdir: "/Applications" }
 cask "quicklookase",                               # QuickLook generator for Adobe Swatch Exchange files
     args: { appdir: "/Applications" }
-cask "railwaycat/emacsmacport/emacs-mac"          # Emacs Mac port with native GUI support
 cask "raycast"                                     # Control your tools with a few keystrokes
 cask "scoot"                                       # Keyboard-driven cursor actuator
 cask "sf-symbols"                                  # Tool that provides consistent, highly configurable symbols for apps
