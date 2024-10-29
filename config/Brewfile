@@ -124,6 +124,8 @@ cask "handbrake"                                   # Open-source video transcode
 cask "homerow"                                     # Keyboard shortcuts for every button on your screen
 cask "iina"                                        # Modern media player for macOS
 cask "imageoptim"                                  # Tool to optimize images to a smaller size
+cask "keka"                                        # File archiver
+cask "kekaexternalhelper"                          # Helper application for the Keka file archiver
 cask "keycombiner"                                 # Instant shortcut lookup
 cask "ledger-live"                                 # Wallet desktop application to maintain multiple cryptocurrencies
 cask "logi-options-plus"                           # Software for Logitech devices
