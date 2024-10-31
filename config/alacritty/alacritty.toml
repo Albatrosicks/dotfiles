@@ -32,7 +32,7 @@ action = "ToggleViMode"
 [[keyboard.bindings]]
 key = "K"
 mods = "Command"
-chars = "\u001b[H\u001b[2J\u001b[3J"
+chars = "\u001bc"
 
 # [keyboard]
 # bindings = [
