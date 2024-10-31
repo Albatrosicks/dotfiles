@@ -32,7 +32,7 @@ action = "ToggleViMode"
 [[keyboard.bindings]]
 key = "K"
 mods = "Command"
-command = "~/.config/alacritty/reset-alacritty"
+command = "/Users/$USER/.config/alacritty/reset-alacritty"
 
 # [keyboard]
 # bindings = [
