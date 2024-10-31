@@ -29,10 +29,10 @@ key = "Space"
 mods = "Command|Shift"
 action = "ToggleViMode"
 
-[[keyboard.bindings]]
-key = "K"
-mods = "Command"
-command = "/Users/$USER/.config/alacritty/reset-alacritty"
+# [[keyboard.bindings]]
+# key = "K"
+# mods = "Command"
+# command = "/Users/$USER/.config/alacritty/reset-alacritty"
 
 # [keyboard]
 # bindings = [
