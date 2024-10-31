@@ -24,6 +24,16 @@ option_as_alt = "OnlyLeft"
 x = 3
 y = 5
 
+[[keyboard.bindings]]
+key = "Space"
+mods = "Command|Shift"
+action = "ToggleViMode"
+
+[[keyboard.bindings]]
+key = "K"
+mods = "Command"
+chars = "\u001b[H\u001b[2J\u001b[3J"
+
 # [keyboard]
 # bindings = [
 #   { key = "K", mods = "Command", chars = "\u001bc" },
