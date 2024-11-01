@@ -1,3 +1,4 @@
+tap "d12frosted/emacs-plus"      # emacs-plus
 tap "fabianishere/personal"      # pam_reattach
 tap "felixkratz/formulae"        # sketchybar
 tap "homebrew/autoupdate"        # automatic homebrew updates
@@ -22,6 +23,7 @@ brew "cmake"                                        # Cross-platform make
 brew "crystal"                                      # Fast and statically typed, compiled language with Ruby-like syntax
 brew "dive"                                         # Tool for exploring each layer in a docker image
 brew "duti"                                         # Select default apps for documents and URL schemes on macOS
+brew "emacs-plus"                                   # GNU Emacs text editor
 brew "esptool"                                      # ESP8266 and ESP32 serial bootloader utility
 brew "eza"                                          # Modern, maintained replacement for ls
 brew "fabianishere/personal/pam_reattach"          # PAM module for reattaching to the user's GUI (Aqua) session
