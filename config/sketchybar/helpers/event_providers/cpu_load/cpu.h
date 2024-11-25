@@ -25,7 +25,7 @@ static inline void cpu_update(struct cpu* cpu) {
   kern_return_t error = host_statistics(cpu->host,
                                         HOST_CPU_LOAD_INFO,
                                         (host_info_t)&cpu->load,
-                                        &cpu->count                );
+                                        &cpu->count);
 
   if (error != KERN_SUCCESS) {
     printf("Error: Could not read cpu host statistics.\n");
@@ -42,17 +42,23 @@ static inline void cpu_update(struct cpu* cpu) {
     uint32_t delta_idle = cpu->load.cpu_ticks[CPU_STATE_IDLE]
                           - cpu->prev_load.cpu_ticks[CPU_STATE_IDLE];
 
-    cpu->user_load = (double)delta_user / (double)(delta_system
-                                                     + delta_user
-                                                     + delta_idle) * 100.0;
+    uint32_t total_ticks = delta_system + delta_user + delta_idle;
 
-    cpu->sys_load = (double)delta_system / (double)(delta_system
-                                                      + delta_user
-                                                      + delta_idle) * 100.0;
-
-    cpu->total_load = cpu->user_load + cpu->sys_load;
+    if (total_ticks > 0) {
+      cpu->user_load = (double)delta_user / (double)total_ticks * 100.0;
+      cpu->sys_load = (double)delta_system / (double)total_ticks * 100.0;
+      cpu->total_load = cpu->user_load + cpu->sys_load;
+    } else {
+      cpu->user_load = 0;
+      cpu->sys_load = 0;
+      cpu->total_load = 0;
+    }
+  } else {
+    // Initialize prev_load on the first call
+    cpu->prev_load = cpu->load;
+    cpu->user_load = 0;
+    cpu->sys_load = 0;
+    cpu->total_load = 0;
+    cpu->has_prev_load = true;
   }
-
-  cpu->prev_load = cpu->load;
-  cpu->has_prev_load = true;
 }
