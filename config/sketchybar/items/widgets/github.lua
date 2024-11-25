@@ -15,6 +15,9 @@ local github = sbar.add("item", "github", {
 			size = 15.0,
 		},
 	},
+	background = {
+		padding_left = 0,
+	},
 	label = {
 		string = icons.loading,
 		highlight_color = colors.blue,
@@ -45,7 +48,7 @@ github:subscribe({
 	"mouse.clicked",
 }, function(info)
 	if info.BUTTON == "left" then
-		sbar.exec("sketchybar --set " .. (info.NAME) .. " popup.drawing=toggle")
+		sbar.exec("sketchybar --set github.notification popup.drawing=toggle")
 	end
 
 	if info.BUTTON == "right" then
@@ -112,7 +115,7 @@ github:subscribe({
 					end
 
 					cmd = "sketchybar -m --set github.notification"
-					if title == nil or title == "" == false then
+					if (title == nil or title == "") == false then
 						cmd = cmd .. ".message."
 						cmd = cmd .. tostring(id) .. ' click_script="open ' .. html_url .. '"'
 						sbar.exec(cmd, function()
