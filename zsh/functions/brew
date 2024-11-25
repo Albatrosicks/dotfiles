@@ -1,0 +1,9 @@
+# with `upgrade`, `update`, `outdated` arguments triggers `brew_update` on sketchybar
+
+brew() {
+	command brew "$@"
+
+	if ([[ $* =~ "upgrade" ]] || [[ $* =~ "update" ]] || [[ $* =~ "outdated" ]]) && ! [[ $* =~ "-q" ]]; then
+		sketchybar --trigger brew_update
+	fi
+}
