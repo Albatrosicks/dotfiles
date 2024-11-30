@@ -28,3 +28,7 @@
   path = ~/.gitconfig.local
 [diff]
   colorMoved = zebra
+[user]
+	name = Albatrosicks
+	email = albert@kiskorov.org
+	fullname = Albert Kiskorov
