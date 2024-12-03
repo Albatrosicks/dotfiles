@@ -1,7 +1,7 @@
 motd() {
   export PATH="/opt/local/bin:$PATH"
 
-  if [[ "$(pwd)" == "$HOME/Sources"* ]]; then
+  if ([[ "$(pwd)" == "$HOME/Sources"* ]] || [[ "$(pwd)" == "$HOME/workspaces"* ]]) || ([ -d ".git" ]); then
     clear && printf "\033c"
     ~/go/bin/archimede -c magenta
   fi
