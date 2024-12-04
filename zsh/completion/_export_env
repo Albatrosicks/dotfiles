@@ -1,0 +1,8 @@
+function _export_env() {
+    local -a files
+    files=(.*(.))  # Get only hidden files (not directories)
+    _describe 'hidden files' files
+}
+
+# Register the completion
+compdef _export_env export_env
