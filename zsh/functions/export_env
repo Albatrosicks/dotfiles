@@ -7,16 +7,24 @@ function export_env() {
         return 1
     }
 
-    while IFS='=' read -r key value; do
+    local line key value
+    while read line; do
         # Skip empty lines and comments
-        [[ -z "$key" || "$key" == \#* ]] && continue
+        [[ -z "$line" || "$line" == \#* ]] && continue
+
+        # Split line into key and value
+        key="${line%%=*}"
+        value="${line#*=}"
 
         # Remove leading/trailing whitespace and quotes
-        key=$(echo "$key" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-        value=$(echo "$value" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/^["\x27]\(.*\)["\x27]$/\1/')
+        key="${key## }"
+        key="${key%% }"
+        value="${value## }"
+        value="${value%% }"
+        value="${value#[\"\']}"
+        value="${value%[\"\']}"
 
-        # Export the variable
-        export "$key=$value"
+        # Export if key is not empty
+        [[ -n "$key" ]] && export "$key=$value"
     done < "$env_file"
 }
-
