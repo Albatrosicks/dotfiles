@@ -1,30 +1,17 @@
 # Function to export env vars
-function export_env() {
-    local env_file="${1:-.env}"
+export_env() {
+    typeset file=${1:-.env}
 
-    if [[ ! -f "$env_file" ]]; then
-        echo "Error: File '$env_file' not found"
-        return 1
-    }
+    [ ! -f "$file" ] && echo "Error: File '$file' not found" && return 1
 
-    local line key value
-    while read line; do
-        # Skip empty lines and comments
-        [[ -z "$line" || "$line" == \#* ]] && continue
+    sed -e '/^#/d;/^\s*$/d' "$file" | while read line; do
+        key=$(echo "$line" | cut -d= -f1)
+        value=$(echo "$line" | cut -d= -f2-)
 
-        # Split line into key and value
-        key="${line%%=*}"
-        value="${line#*=}"
+        # Trim spaces and quotes
+        key=$(echo "$key" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+        value=$(echo "$value" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//;s/^["\x27]\(.*\)["\x27]$/\1/')
 
-        # Remove leading/trailing whitespace and quotes
-        key="${key## }"
-        key="${key%% }"
-        value="${value## }"
-        value="${value%% }"
-        value="${value#[\"\']}"
-        value="${value%[\"\']}"
-
-        # Export if key is not empty
-        [[ -n "$key" ]] && export "$key=$value"
-    done < "$env_file"
+        [ -n "$key" ] && export "$key=$value"
+    done
 }
