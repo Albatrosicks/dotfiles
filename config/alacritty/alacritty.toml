@@ -1,3 +1,6 @@
+[env]
+TERM = "alacritty-direct"
+
 [font]
 size = 14.0
 
