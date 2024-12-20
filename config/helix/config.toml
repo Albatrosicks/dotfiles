@@ -1,4 +1,5 @@
 [editor]
+clipboard = "system"
 idle-timeout = 0
 completion-trigger-len = 1
 true-color = true
