@@ -6,9 +6,9 @@ motd() {
     ~/go/bin/archimede -c magenta
   fi
 
-  if [[ "$1" == 'startup' && $(w -h | grep "^$(whoami) *s[^ ]* *-" -c) -eq 1 && $TERMINAL_EMULATOR != 'JetBrains-JediTerm' && $TERM_PROGRAM != "vscode" ]] || [[ "$1" == '' ]]; then
-    /opt/homebrew/bin/neofetch
-  fi
+  # if [[ "$1" == 'startup' && $(w -h | grep "^$(whoami) *s[^ ]* *-" -c) -eq 1 && $TERMINAL_EMULATOR != 'JetBrains-JediTerm' && $TERM_PROGRAM != "vscode" ]] || [[ "$1" == '' ]]; then
+  #   /opt/homebrew/bin/neofetch
+  # fi
 }
 touch "$HOME/.hushlogin"
 motd "startup"
