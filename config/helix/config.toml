@@ -1,3 +1,5 @@
+theme = "gruvbox_dark_hard"
+
 [editor]
 #clipboard-provider = "pasteboard"
 idle-timeout = 0
