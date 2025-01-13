@@ -175,12 +175,30 @@ end)
 
 wifi:subscribe({"wifi_change", "system_woke"}, function(env)
   sbar.exec("ipconfig getifaddr en0", function(ip)
-    local connected = not (ip == "")
+    -- Handle nil case and trim whitespace
+    ip = ip and ip:match("^%s*(.-)%s*$") or ""
+
+    -- Check if IP is valid format (basic IPv4 check)
+    local function is_valid_ip(str)
+        if not str then return false end
+        local parts = {str:match("^(%d+)%.(%d+)%.(%d+)%.(%d+)$")}
+        if #parts ~= 4 then return false end
+        for _, part in ipairs(parts) do
+            local num = tonumber(part)
+            if not num or num < 0 or num > 255 then
+                return false
+            end
+        end
+        return true
+    end
+
+    local connected = is_valid_ip(ip)
+
     wifi:set({
-      icon = {
-        string = connected and icons.wifi.connected or icons.wifi.disconnected,
-        color = connected and colors.white or colors.red,
-      },
+        icon = {
+            string = connected and icons.wifi.connected or icons.wifi.disconnected,
+            color = connected and colors.white or colors.red,
+        },
     })
   end)
 end)
