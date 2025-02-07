@@ -98,10 +98,10 @@ brew:subscribe({
 
 		local thresholds = {
 			{ count = 30, color = colors.red },
-			{ count = 20, color = colors.peach },
+			-- { count = 20, color = colors.peach },
 			{ count = 10, color = colors.yellow },
 			{ count = 1, color = colors.green },
-			{ count = 0, color = colors.text },
+			{ count = 0, color = colors.green },
 		}
 
 		local count = 0
