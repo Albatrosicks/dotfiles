@@ -2,44 +2,34 @@ local icons = require("icons")
 local settings = require("settings")
 local colors = require("colors")
 
-local cursor = sbar.add("item", "cursor", {
+local cursor = sbar.add("graph", "widgets.cursor", 42, {
     position = "right",
+    graph = { color = colors.blue },
+    background = {
+        height = 22,
+        color = { alpha = 0 },
+        border_color = { alpha = 0 },
+        drawing = true,
+    },
     icon = {
-        -- Задайте свою иконку для Cursor AI
-        string = icons.cursor or "",
+        string = icons.cursor,
         color = colors.green,
     },
-    background = {
-        padding_left = 5,
-    },
-    label = "?",
-    update_freq = 300,
-    popup = {
+    label = {
+        string = "reqs ??",
+        font = {
+            family = settings.font.numbers,
+            style = settings.font.style_map["Bold"],
+            size = 9.0,
+        },
         align = "right",
-        height = 20,
+        padding_right = 0,
+        width = 0,
+        y_offset = 4
     },
+    update_freq = 300,
+    padding_right = settings.paddings + 6
 })
-
-cursor.details = sbar.add("item", "cursor.details", {
-    position = "popup." .. cursor.name,
-    click_script = "sketchybar --set cursor popup.drawing=off",
-    background = {
-        corner_radius = 12,
-        padding_left = 5,
-        padding_right = 10,
-    },
-})
-
-cursor.clearPopup = function()
-    local existingItems = cursor:query()
-    if existingItems.popup and next(existingItems.popup.items) ~= nil then
-        for _, item in pairs(existingItems.popup.items) do
-            sbar.remove(item)
-        end
-    end
-end
-
-cursor.skipCleanup = true
 
 cursor:subscribe({
     "mouse.clicked",
@@ -53,33 +43,10 @@ cursor:subscribe({
 end)
 
 cursor:subscribe({
-    "mouse.entered",
-}, function(_)
-    cursor:set({ popup = { drawing = true } })
-end)
-
-cursor:subscribe({
-    "mouse.exited",
-    "mouse.exited.global",
-}, function(_)
-    cursor:set({ popup = { drawing = false } })
-end)
-
-cursor:subscribe({
-    "cursor_cleanup",
-}, function(_)
-    if cursor.skipCleanup == false then
-        cursor:set({ label = 0 })
-        cursor.clearPopup()
-    end
-end)
-
-cursor:subscribe({
     "routine",
     "forced",
     "cursor_update",
 }, function(_)
-    cursor.skipCleanup = false
 
     cursor:set({
         label = {
@@ -88,43 +55,31 @@ cursor:subscribe({
         },
     })
 
-    -- Исправленный путь к bash скрипту
-    local cmd = "bash ~/.config/sketchybar/items/widgets/cursor_balance.sh"
-    sbar.exec(cmd, function(result)
-        -- Обрезаем пробелы в начале и конце строки
-        result = result:gsub("^%s*(.-)%s*$", "%1")
-        -- Извлекаем значение remaining, используя более строгий шаблон
-        local remaining = result:match('{"remaining":(%d+),')
-        if remaining then
-            remaining = tonumber(remaining)
-        else
-            remaining = "N/A"
-        end
+    sbar.exec("source ~/.zshrc.local && curl -s -H 'Content-Type: application/json' -H \"Cookie: WorkosCursorSessionToken=$CURSOR_TOKEN\" \"https://www.cursor.com/api/usage?user=${CURSOR_TOKEN%%::*}\"", function(result)
+        local maxRequestUsage = result["gpt-4"].maxRequestUsage
+        local numRequests = result["gpt-4"].numRequests
+        local remaining = maxRequestUsage - numRequests
+        local used_percent = (numRequests / maxRequestUsage) * 100
 
-        local thresholds = {
-            { count = 1000, color = colors.green },
-            { count = 500, color = colors.yellow },
-            { count = 100, color = colors.peach },
-            { count = 0, color = colors.red },
-        }
-
-        if type(remaining) == "number" then
-            for _, threshold in ipairs(thresholds) do
-                if remaining >= threshold.count then
-                    cursor:set({
-                        icon = { color = threshold.color },
-                        label = remaining,
-                    })
-                    break
-                end
+        local color = colors.green
+        if remaining > 50 then
+            if remaining < 100 then
+                color = colors.orange
+            elseif remaining < 250 then
+                color = colors.yellow
+            else
+                color = colors.red
             end
-        else
-            cursor:set({ label = result })
         end
-    end)
+            
 
-    sbar.trigger("cursor_cleanup")
+        cursor:set({ label = remaining })
+
+        -- Отправляем значение в график, преобразованное в число от 0 до 1
+        cursor:push({0.5})
+    end)
 end)
+
 
 sbar.add("bracket", "widgets.cursor.bracket", { cursor.name }, {
     background = { color = colors.bg1 }
@@ -136,4 +91,3 @@ sbar.add("item", "widgets.cursor.padding", {
 })
 
 return cursor
-

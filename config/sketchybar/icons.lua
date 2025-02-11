@@ -7,6 +7,7 @@ local icons = {
     apple = "􀣺",
     gear = "􀍟",
     cpu = "􀫥",
+    cursor = "􀄮",
     memory = "􀫦",
     clipboard = "􀉄",
     checkmark = "􀆅",
