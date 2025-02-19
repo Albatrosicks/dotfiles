@@ -2,6 +2,16 @@ local icons = require("icons")
 local settings = require("settings")
 local colors = require("colors")
 
+local update_interval = 5       -- интервал обновления графика (в секундах)
+local real_update_interval = 60 -- фактический запрос каждый 60 секунд
+local elapsed = 0               -- накопленное время
+local cached_remaining = 0      -- кэшированное значение remaining
+
+local function is_cursor_running()
+    local result = sbar.exec("pgrep -x 'Cursor' >/dev/null && echo 'running' || echo 'not running'")
+    return result:match("running") ~= nil
+end
+
 local cursor = sbar.add("graph", "widgets.cursor", 42, {
     position = "right",
     graph = { color = colors.blue },
@@ -27,7 +37,7 @@ local cursor = sbar.add("graph", "widgets.cursor", 42, {
         width = 0,
         y_offset = 4
     },
-    update_freq = 300,
+    update_freq = update_interval,  -- обновление графика каждые 5 сек
     padding_right = settings.paddings + 6
 })
 
@@ -47,39 +57,64 @@ cursor:subscribe({
     "forced",
     "cursor_update",
 }, function(_)
+    -- Check if Cursor.app is running
+    if not is_cursor_running() then
+        cursor:set({ drawing = false })
+        return
+    else
+        cursor:set({ drawing = true })
+    end
 
-    cursor:set({
-        label = {
-            string = icons.loading or "",
-            highlight_color = colors.blue,
-        },
-    })
+    elapsed = elapsed + update_interval
 
-    sbar.exec("source ~/.zshrc.local && curl -s -H 'Content-Type: application/json' -H \"Cookie: WorkosCursorSessionToken=$CURSOR_TOKEN\" \"https://www.cursor.com/api/usage?user=${CURSOR_TOKEN%%::*}\"", function(result)
-        local maxRequestUsage = result["gpt-4"].maxRequestUsage
-        local numRequests = result["gpt-4"].numRequests
-        local remaining = maxRequestUsage - numRequests
-        local used_percent = (numRequests / maxRequestUsage) * 100
+    if elapsed >= real_update_interval then
+        elapsed = 0  -- сбрасываем накопление времени при фактическом обновлении
 
-        local color = colors.green
-        if remaining > 50 then
-            if remaining < 100 then
-                color = colors.orange
-            elseif remaining < 250 then
-                color = colors.yellow
-            else
-                color = colors.red
+        -- отображаем индикатор загрузки перед выполнением запроса
+        cursor:set({
+            label = {
+                string = icons.loading or "",
+                highlight_color = colors.blue,
+            },
+        })
+
+        sbar.exec("source ~/.zshrc.local && curl -s -H 'Content-Type: application/json' -H \"Cookie: WorkosCursorSessionToken=$CURSOR_TOKEN\" \"https://www.cursor.com/api/usage?user=${CURSOR_TOKEN%%::*}\"", function(result)
+            local maxRequestUsage = result["gpt-4"].maxRequestUsage
+            local numRequests = result["gpt-4"].numRequests
+            local remaining = maxRequestUsage - numRequests
+            cached_remaining = remaining  -- сохраняем новое значение в кэш
+
+            local color = colors.green
+            if remaining > 50 then
+                if remaining < 100 then
+                    color = colors.orange
+                elseif remaining < 250 then
+                    color = colors.yellow
+                else
+                    color = colors.red
+                end
             end
-        end
-            
 
-        cursor:set({ label = remaining })
-
-        -- Отправляем значение в график, преобразованное в число от 0 до 1
+            cursor:set({ label = remaining })
+            -- отправляем значение в график; при желании можно преобразовать remaining к [0,1]
+            cursor:push({0.5})
+        end)
+    else
+        -- каждое обновление графика каждые 5 сек – используем кэшированное значение
+        cursor:set({ label = cached_remaining })
         cursor:push({0.5})
-    end)
+    end
 end)
 
+-- Add new subscription to check application status
+cursor:subscribe("system_woke", function(_)
+    if not is_cursor_running() then
+        cursor:set({ drawing = false })
+    else
+        cursor:set({ drawing = true })
+        sbar.trigger("cursor_update")
+    end
+end)
 
 sbar.add("bracket", "widgets.cursor.bracket", { cursor.name }, {
     background = { color = colors.bg1 }
