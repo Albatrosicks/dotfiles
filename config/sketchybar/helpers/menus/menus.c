@@ -1,4 +1,18 @@
 #include <Carbon/Carbon.h>
+#include <ApplicationServices/ApplicationServices.h>
+#include <libproc.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define MAX_PROCESS_NAME 256
+
+// Внешние функции SkyLight для работы с меню
+extern int SLSMainConnectionID(void);
+extern void SLSSetMenuBarVisibilityOverrideOnDisplay(int cid, int did, bool enabled);
+extern void SLSSetMenuBarInsetAndAlpha(int cid, double u1, double u2, float alpha);
 
 void ax_init() {
   const void *keys[] = { kAXTrustedCheckOptionPrompt };
@@ -14,7 +28,10 @@ void ax_init() {
 
   bool trusted = AXIsProcessTrustedWithOptions(options);
   CFRelease(options);
-  if (!trusted) exit(1);
+  if (!trusted) {
+    printf("Please enable accessibility access for this application in System Preferences > Security & Privacy > Privacy > Accessibility\n");
+    exit(1);
+  }
 }
 
 void ax_perform_click(AXUIElementRef element) {
@@ -24,225 +41,316 @@ void ax_perform_click(AXUIElementRef element) {
   AXUIElementPerformAction(element, kAXPressAction);
 }
 
-CFStringRef ax_get_title(AXUIElementRef element) {
-  CFTypeRef title = NULL;
-  AXError error = AXUIElementCopyAttributeValue(element,
-                                                kAXTitleAttribute,
-                                                &title            );
+// Получить PID процесса ControlCenter
+pid_t get_control_center_pid() {
+  int proc_count = proc_listpids(PROC_ALL_PIDS, 0, NULL, 0) / sizeof(pid_t);
+  pid_t all_pids[proc_count];
+  proc_listpids(PROC_ALL_PIDS, 0, all_pids, sizeof(all_pids));
 
-  if (error != kAXErrorSuccess) return NULL;
-  return title;
-}
+  for (int i = 0; i < proc_count; i++) {
+    if (all_pids[i] == 0) continue;
 
-void ax_select_menu_option(AXUIElementRef app, int id) {
-  AXUIElementRef menubars_ref = NULL;
-  CFArrayRef children_ref = NULL;
-
-  AXError error = AXUIElementCopyAttributeValue(app,
-                                                kAXMenuBarAttribute,
-                                                (CFTypeRef*)&menubars_ref);
-  if (error == kAXErrorSuccess) {
-    error = AXUIElementCopyAttributeValue(menubars_ref,
-                                          kAXVisibleChildrenAttribute,
-                                          (CFTypeRef*)&children_ref   );
-
-    if (error == kAXErrorSuccess) {
-      uint32_t count = CFArrayGetCount(children_ref);
-      if (id < count) {
-        AXUIElementRef item = CFArrayGetValueAtIndex(children_ref, id);
-        ax_perform_click(item);
-      }
-      if (children_ref) CFRelease(children_ref);
-    }
-    if (menubars_ref) CFRelease(menubars_ref);
-  }
-}
-
-void ax_print_menu_options(AXUIElementRef app) {
-  AXUIElementRef menubars_ref = NULL;
-  CFTypeRef menubar = NULL;
-  CFArrayRef children_ref = NULL;
-
-  AXError error = AXUIElementCopyAttributeValue(app,
-                                                kAXMenuBarAttribute,
-                                                (CFTypeRef*)&menubars_ref);
-  if (error == kAXErrorSuccess) {
-    error = AXUIElementCopyAttributeValue(menubars_ref,
-                                          kAXVisibleChildrenAttribute,
-                                          (CFTypeRef*)&children_ref   );
-
-    if (error == kAXErrorSuccess) {
-      uint32_t count = CFArrayGetCount(children_ref);
-
-      for (int i = 1; i < count; i++) {
-        AXUIElementRef item = CFArrayGetValueAtIndex(children_ref, i);
-        CFTypeRef title = ax_get_title(item);
-
-        if (title) {
-          uint32_t buffer_len = 2*CFStringGetLength(title);
-          char buffer[2*CFStringGetLength(title)];
-          CFStringGetCString(title, buffer, buffer_len, kCFStringEncodingUTF8);
-          printf("%s\n", buffer);
-          CFRelease(title);
-        }
+    char path[PROC_PIDPATHINFO_MAXSIZE];
+    if (proc_pidpath(all_pids[i], path, sizeof(path)) > 0) {
+      char *name = strrchr(path, '/');
+      if (name && strcmp(name + 1, "ControlCenter") == 0) {
+        return all_pids[i];
       }
     }
-    if (menubars_ref) CFRelease(menubars_ref);
-    if (children_ref) CFRelease(children_ref);
   }
+
+  return 0;
 }
 
-AXUIElementRef ax_get_extra_menu_item(char* alias) {
-  pid_t pid = 0;
-  CGRect bounds = CGRectNull;
-  CFArrayRef window_list = CGWindowListCopyWindowInfo(kCGWindowListOptionAll,
-                                                      kCGNullWindowID        );
-  char owner_buffer[256];
-  char name_buffer[256];
-  char buffer[512];
-  int window_count = CFArrayGetCount(window_list);
-  for (int i = 0; i < window_count; ++i) {
-    CFDictionaryRef dictionary = CFArrayGetValueAtIndex(window_list, i);
-    if (!dictionary) continue;
+// Функция для нормализации строки (удаление спецсимволов, приведение к нижнему регистру)
+void normalize_string(const char *input, char *output, size_t output_size) {
+  size_t i = 0, j = 0;
 
-    CFStringRef owner_ref = CFDictionaryGetValue(dictionary,
-                                                 kCGWindowOwnerName);
-
-    CFNumberRef owner_pid_ref = CFDictionaryGetValue(dictionary,
-                                                     kCGWindowOwnerPID);
-
-    CFStringRef name_ref = CFDictionaryGetValue(dictionary, kCGWindowName);
-    CFNumberRef layer_ref = CFDictionaryGetValue(dictionary, kCGWindowLayer);
-    CFDictionaryRef bounds_ref = CFDictionaryGetValue(dictionary,
-                                                      kCGWindowBounds);
-
-    if (!name_ref || !owner_ref || !owner_pid_ref || !layer_ref || !bounds_ref)
-      continue;
-
-    long long int layer = 0;
-    CFNumberGetValue(layer_ref, CFNumberGetType(layer_ref), &layer);
-    uint64_t owner_pid = 0;
-    CFNumberGetValue(owner_pid_ref,
-                     CFNumberGetType(owner_pid_ref),
-                     &owner_pid                     );
-
-    if (layer != 0x19) continue;
-    bounds = CGRectNull;
-    if (!CGRectMakeWithDictionaryRepresentation(bounds_ref, &bounds)) continue;
-    CFStringGetCString(owner_ref,
-                       owner_buffer,
-                       sizeof(owner_buffer),
-                       kCFStringEncodingUTF8);
-
-    CFStringGetCString(name_ref,
-                       name_buffer,
-                       sizeof(name_buffer),
-                       kCFStringEncodingUTF8);
-    snprintf(buffer, sizeof(buffer), "%s,%s", owner_buffer, name_buffer);
-
-    if (strcmp(buffer, alias) == 0) {
-      pid = owner_pid;
-      break;
+  while (input[i] != '\0' && j < output_size - 1) {
+    // Пропускаем все не-алфавитные и не-цифровые символы
+    if (isalnum((unsigned char)input[i])) {
+      output[j++] = tolower((unsigned char)input[i]);
     }
+    i++;
   }
-  CFRelease(window_list);
-  if (!pid) return NULL;
+
+  output[j] = '\0';
+}
+
+// Показать панель меню перед действием и скрыть после
+void show_menu_bar_for_action(void (*action)()) {
+  int cid = SLSMainConnectionID();
+
+  // Показываем панель меню
+  SLSSetMenuBarInsetAndAlpha(cid, 0, 1, 0.0);
+  SLSSetMenuBarVisibilityOverrideOnDisplay(cid, 0, true);
+  SLSSetMenuBarInsetAndAlpha(cid, 0, 1, 0.0);
+
+  // Даем время для отображения
+  usleep(100000); // 100ms
+
+  // Выполняем действие
+  action();
+
+  // Даем время для завершения действия
+  usleep(300000); // 300ms
+
+  // Скрываем панель меню
+  SLSSetMenuBarVisibilityOverrideOnDisplay(cid, 0, false);
+  SLSSetMenuBarInsetAndAlpha(cid, 0, 1, 1.0);
+}
+
+// Найти и кликнуть по элементу трея по его ID
+bool click_menu_item_by_id(int id) {
+  pid_t pid = get_control_center_pid();
+  if (pid == 0) {
+    printf("ControlCenter process not found\n");
+    return false;
+  }
 
   AXUIElementRef app = AXUIElementCreateApplication(pid);
-  if (!app) return NULL;
-  AXUIElementRef result = NULL;
-  CFTypeRef extras = NULL;
-  CFArrayRef children_ref = NULL;
-  AXError error = AXUIElementCopyAttributeValue(app,
-                                                kAXExtrasMenuBarAttribute,
-                                                &extras                   );
-  if (error == kAXErrorSuccess) {
-    error = AXUIElementCopyAttributeValue(extras,
-                                          kAXVisibleChildrenAttribute,
-                                          (CFTypeRef*)&children_ref   );
+  if (!app) {
+    printf("Failed to create AXUIElement for ControlCenter\n");
+    return false;
+  }
 
-    if (error == kAXErrorSuccess) {
-      uint32_t count = CFArrayGetCount(children_ref);
-      for (uint32_t i = 0; i < count; i++) {
-        AXUIElementRef item = CFArrayGetValueAtIndex(children_ref, i);
-        CFTypeRef position_ref = NULL;
-        CFTypeRef size_ref = NULL;
-        AXUIElementCopyAttributeValue(item, kAXPositionAttribute,
-                                            &position_ref        );
-        AXUIElementCopyAttributeValue(item, kAXSizeAttribute,
-                                            &size_ref        );
-        if (!position_ref || !size_ref) continue;
+  CFTypeRef extrasMenuBar = NULL;
+  AXError error = AXUIElementCopyAttributeValue(app, kAXExtrasMenuBarAttribute, &extrasMenuBar);
 
-        CGPoint position = CGPointZero;
-        AXValueGetValue(position_ref, kAXValueCGPointType, &position);
-        CGSize size = CGSizeZero;
-        AXValueGetValue(size_ref, kAXValueCGSizeType, &size);
-        CFRelease(position_ref);
-        CFRelease(size_ref);
-        // The offset is exactly 8 on macOS Sonoma...
-        // printf("%f %f\n", position.x, bounds.origin.x);
-        if (error == kAXErrorSuccess
-            && fabs(position.x - bounds.origin.x) <= 10) {
-          result = item;
-          break;
-        }
+  if (error != kAXErrorSuccess || !extrasMenuBar) {
+    printf("Failed to get extras menu bar, error: %d\n", error);
+    CFRelease(app);
+    return false;
+  }
+
+  CFArrayRef children = NULL;
+  error = AXUIElementCopyAttributeValue(extrasMenuBar, kAXChildrenAttribute, (CFTypeRef*)&children);
+
+  if (error != kAXErrorSuccess || !children) {
+    printf("Failed to get children, error: %d\n", error);
+    CFRelease(extrasMenuBar);
+    CFRelease(app);
+    return false;
+  }
+
+  CFIndex count = CFArrayGetCount(children);
+
+  if (id < 0 || id >= count) {
+    printf("Invalid ID: %d. Valid range is 0-%ld\n", id, count - 1);
+    CFRelease(children);
+    CFRelease(extrasMenuBar);
+    CFRelease(app);
+    return false;
+  }
+
+  AXUIElementRef item = CFArrayGetValueAtIndex(children, id);
+
+  // Получаем описание для вывода
+  CFStringRef desc = NULL;
+  error = AXUIElementCopyAttributeValue(item, kAXDescriptionAttribute, (CFTypeRef*)&desc);
+
+  if (error == kAXErrorSuccess && desc) {
+    char desc_buffer[256];
+    CFStringGetCString(desc, desc_buffer, sizeof(desc_buffer), kCFStringEncodingUTF8);
+    printf("Clicking menu item %d: %s\n", id, desc_buffer);
+    CFRelease(desc);
+  } else {
+    printf("Clicking menu item %d\n", id);
+  }
+
+  // Сохраняем ссылку на элемент для использования в лямбда-функции
+  AXUIElementRef item_ref = CFRetain(item);
+
+  // Выполняем клик с временным отображением панели меню
+  show_menu_bar_for_action(^{
+    ax_perform_click(item_ref);
+  });
+
+  CFRelease(item_ref);
+  CFRelease(children);
+  CFRelease(extrasMenuBar);
+  CFRelease(app);
+
+  return true;
+}
+
+// Найти и кликнуть по элементу трея по его описанию
+bool click_menu_item_by_description(const char *description) {
+  pid_t pid = get_control_center_pid();
+  if (pid == 0) {
+    printf("ControlCenter process not found\n");
+    return false;
+  }
+
+  AXUIElementRef app = AXUIElementCreateApplication(pid);
+  if (!app) {
+    printf("Failed to create AXUIElement for ControlCenter\n");
+    return false;
+  }
+
+  CFTypeRef extrasMenuBar = NULL;
+  AXError error = AXUIElementCopyAttributeValue(app, kAXExtrasMenuBarAttribute, &extrasMenuBar);
+
+  if (error != kAXErrorSuccess || !extrasMenuBar) {
+    printf("Failed to get extras menu bar, error: %d\n", error);
+    CFRelease(app);
+    return false;
+  }
+
+  CFArrayRef children = NULL;
+  error = AXUIElementCopyAttributeValue(extrasMenuBar, kAXChildrenAttribute, (CFTypeRef*)&children);
+
+  if (error != kAXErrorSuccess || !children) {
+    printf("Failed to get children, error: %d\n", error);
+    CFRelease(extrasMenuBar);
+    CFRelease(app);
+    return false;
+  }
+
+  CFIndex count = CFArrayGetCount(children);
+  bool found = false;
+
+  // Нормализуем искомую строку
+  char normalized_search[256];
+  normalize_string(description, normalized_search, sizeof(normalized_search));
+
+  AXUIElementRef found_item = NULL;
+
+  for (CFIndex i = 0; i < count; i++) {
+    AXUIElementRef child = CFArrayGetValueAtIndex(children, i);
+
+    CFStringRef desc = NULL;
+    error = AXUIElementCopyAttributeValue(child, kAXDescriptionAttribute, (CFTypeRef*)&desc);
+
+    if (error == kAXErrorSuccess && desc) {
+      char desc_buffer[256];
+      CFStringGetCString(desc, desc_buffer, sizeof(desc_buffer), kCFStringEncodingUTF8);
+
+      // Нормализуем описание элемента
+      char normalized_desc[256];
+      normalize_string(desc_buffer, normalized_desc, sizeof(normalized_desc));
+
+      // Проверяем, содержит ли нормализованное описание искомую строку
+      if (strstr(normalized_desc, normalized_search) != NULL) {
+        printf("Found menu item: %s\n", desc_buffer);
+        found_item = CFRetain(child);
+        found = true;
+        CFRelease(desc);
+        break;
       }
+
+      CFRelease(desc);
     }
   }
 
+  if (found_item) {
+    // Выполняем клик с временным отображением панели меню
+    show_menu_bar_for_action(^{
+      ax_perform_click(found_item);
+    });
+
+    CFRelease(found_item);
+  }
+
+  CFRelease(children);
+  CFRelease(extrasMenuBar);
   CFRelease(app);
-  return result;
+
+  return found;
 }
 
-extern int SLSMainConnectionID();
-extern void SLSSetMenuBarVisibilityOverrideOnDisplay(int cid, int did, bool enabled);
-extern void SLSSetMenuBarVisibilityOverrideOnDisplay(int cid, int did, bool enabled);
-extern void SLSSetMenuBarInsetAndAlpha(int cid, double u1, double u2, float alpha);
-void ax_select_menu_extra(char* alias) {
-  AXUIElementRef item = ax_get_extra_menu_item(alias);
-  if (!item) return;
-  SLSSetMenuBarInsetAndAlpha(SLSMainConnectionID(), 0, 1, 0.0);
-  SLSSetMenuBarVisibilityOverrideOnDisplay(SLSMainConnectionID(), 0, true);
-  SLSSetMenuBarInsetAndAlpha(SLSMainConnectionID(), 0, 1, 0.0);
-  ax_perform_click(item);
-  SLSSetMenuBarVisibilityOverrideOnDisplay(SLSMainConnectionID(), 0, false);
-  SLSSetMenuBarInsetAndAlpha(SLSMainConnectionID(), 0, 1, 1.0);
-  CFRelease(item);
+// Вывести список всех доступных элементов трея
+void list_menu_items() {
+  pid_t pid = get_control_center_pid();
+  if (pid == 0) {
+    printf("ControlCenter process not found\n");
+    return;
+  }
+
+  AXUIElementRef app = AXUIElementCreateApplication(pid);
+  if (!app) {
+    printf("Failed to create AXUIElement for ControlCenter\n");
+    return;
+  }
+
+  CFTypeRef extrasMenuBar = NULL;
+  AXError error = AXUIElementCopyAttributeValue(app, kAXExtrasMenuBarAttribute, &extrasMenuBar);
+
+  if (error != kAXErrorSuccess || !extrasMenuBar) {
+    printf("Failed to get extras menu bar, error: %d\n", error);
+    CFRelease(app);
+    return;
+  }
+
+  CFArrayRef children = NULL;
+  error = AXUIElementCopyAttributeValue(extrasMenuBar, kAXChildrenAttribute, (CFTypeRef*)&children);
+
+  if (error != kAXErrorSuccess || !children) {
+    printf("Failed to get children, error: %d\n", error);
+    CFRelease(extrasMenuBar);
+    CFRelease(app);
+    return;
+  }
+
+  CFIndex count = CFArrayGetCount(children);
+  printf("Found %ld menu items:\n", count);
+
+  for (CFIndex i = 0; i < count; i++) {
+    AXUIElementRef child = CFArrayGetValueAtIndex(children, i);
+
+    CFStringRef desc = NULL;
+    error = AXUIElementCopyAttributeValue(child, kAXDescriptionAttribute, (CFTypeRef*)&desc);
+
+    if (error == kAXErrorSuccess && desc) {
+      char desc_buffer[256];
+      CFStringGetCString(desc, desc_buffer, sizeof(desc_buffer), kCFStringEncodingUTF8);
+      printf("%ld: %s\n", i, desc_buffer);
+      CFRelease(desc);
+    } else {
+      printf("%ld: (no description)\n", i);
+    }
+  }
+
+  CFRelease(children);
+  CFRelease(extrasMenuBar);
+  CFRelease(app);
 }
 
-extern void _SLPSGetFrontProcess(ProcessSerialNumber* psn);
-extern void SLSGetConnectionIDForPSN(int cid, ProcessSerialNumber* psn, int* cid_out);
-extern void SLSConnectionGetPID(int cid, pid_t* pid_out);
-AXUIElementRef ax_get_front_app() {
-  ProcessSerialNumber psn;
-  _SLPSGetFrontProcess(&psn);
-  int target_cid;
-  SLSGetConnectionIDForPSN(SLSMainConnectionID(), &psn, &target_cid);
-
-  pid_t pid;
-  SLSConnectionGetPID(target_cid, &pid);
-  return AXUIElementCreateApplication(pid);
-}
-
-int main (int argc, char **argv) {
+int main(int argc, char **argv) {
   if (argc == 1) {
-    printf("Usage: %s [-l | -s id/alias ]\n", argv[0]);
+    printf("Usage: %s [-l | -c item_name | -i id]\n", argv[0]);
+    printf("  -l: List all available menu items\n");
+    printf("  -c item_name: Click on menu item containing the specified text\n");
+    printf("  -i id: Click on menu item with the specified ID\n");
+    printf("\nExamples:\n");
+    printf("  %s -l\n", argv[0]);
+    printf("  %s -c wifi\n", argv[0]);
+    printf("  %s -c battery\n", argv[0]);
+    printf("  %s -i 2\n", argv[0]);
     exit(0);
   }
+
   ax_init();
+
   if (strcmp(argv[1], "-l") == 0) {
-    AXUIElementRef app = ax_get_front_app();
-    if (!app) return 1;
-    ax_print_menu_options(app);
-    CFRelease(app);
-  } else if (argc == 3 && strcmp(argv[1], "-s") == 0) {
-    int id = 0;
-    if (sscanf(argv[2], "%d", &id) == 1) {
-      AXUIElementRef app = ax_get_front_app();
-      if (!app) return 1;
-      ax_select_menu_option(app, id);
-      CFRelease(app);
-    } else ax_select_menu_extra(argv[2]);
+    // Временно показываем панель меню для получения элементов
+    show_menu_bar_for_action(^{
+      list_menu_items();
+    });
+  } else if (argc == 3 && strcmp(argv[1], "-c") == 0) {
+    if (!click_menu_item_by_description(argv[2])) {
+      printf("Menu item containing '%s' not found\n", argv[2]);
+      return 1;
+    }
+  } else if (argc == 3 && strcmp(argv[1], "-i") == 0) {
+    int id = atoi(argv[2]);
+    if (!click_menu_item_by_id(id)) {
+      return 1;
+    }
+  } else {
+    printf("Unknown option: %s\n", argv[1]);
+    return 1;
   }
+
   return 0;
 }
