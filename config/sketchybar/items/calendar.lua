@@ -29,6 +29,7 @@ local cal = sbar.add("item", {
     border_color = colors.black,
     border_width = 1
   },
+  click_script = "$CONFIG_DIR/helpers/extras/bin/extras -c Clock"
 })
 
 -- Double border for calendar using a single item bracket

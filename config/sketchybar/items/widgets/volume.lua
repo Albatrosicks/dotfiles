@@ -12,6 +12,7 @@ local volume_percent = sbar.add("item", "widgets.volume1", {
     padding_left = -1,
     font = { family = settings.font.numbers }
   },
+  click_script = "$CONFIG_DIR/helpers/extras/bin/extras -c Sound"
 })
 
 local volume_icon = sbar.add("item", "widgets.volume2", {
@@ -35,6 +36,7 @@ local volume_icon = sbar.add("item", "widgets.volume2", {
       size = 14.0,
     },
   },
+  click_script = "$CONFIG_DIR/helpers/extras/bin/extras -c Sound"
 })
 
 local volume_bracket = sbar.add("bracket", "widgets.volume.bracket", {
@@ -142,9 +144,9 @@ local function volume_scroll(env)
   sbar.exec('osascript -e "set volume output volume (output volume of (get volume settings) + ' .. delta .. ')"')
 end
 
-volume_icon:subscribe("mouse.clicked", volume_toggle_details)
+-- volume_icon:subscribe("mouse.clicked", volume_toggle_details)
 volume_icon:subscribe("mouse.scrolled", volume_scroll)
-volume_percent:subscribe("mouse.clicked", volume_toggle_details)
-volume_percent:subscribe("mouse.exited.global", volume_collapse_details)
+-- volume_percent:subscribe("mouse.clicked", volume_toggle_details)
+-- volume_percent:subscribe("mouse.exited.global", volume_collapse_details)
 volume_percent:subscribe("mouse.scrolled", volume_scroll)
 

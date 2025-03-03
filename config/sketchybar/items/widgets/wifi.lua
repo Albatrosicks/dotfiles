@@ -30,6 +30,7 @@ local wifi_up = sbar.add("item", "widgets.wifi1", {
     string = "??? Bps",
   },
   y_offset = 4,
+  click_script = "$CONFIG_DIR/helpers/extras/bin/extras -c Wi-Fi"
 })
 
 local wifi_down = sbar.add("item", "widgets.wifi2", {
@@ -53,11 +54,13 @@ local wifi_down = sbar.add("item", "widgets.wifi2", {
     string = "??? Bps",
   },
   y_offset = -4,
+  click_script = "$CONFIG_DIR/helpers/extras/bin/extras -c Wi-Fi"
 })
 
 local wifi = sbar.add("item", "widgets.wifi.padding", {
   position = "right",
   label = { drawing = false },
+  click_script = "$CONFIG_DIR/helpers/extras/bin/extras -c Wi-Fi"
 })
 
 -- Background around the item
@@ -231,10 +234,10 @@ local function toggle_details()
   end
 end
 
-wifi_up:subscribe("mouse.clicked", toggle_details)
-wifi_down:subscribe("mouse.clicked", toggle_details)
-wifi:subscribe("mouse.clicked", toggle_details)
-wifi:subscribe("mouse.exited.global", hide_details)
+-- wifi_up:subscribe("mouse.clicked", toggle_details)
+-- wifi_down:subscribe("mouse.clicked", toggle_details)
+-- wifi:subscribe("mouse.clicked", toggle_details)
+-- wifi:subscribe("mouse.exited.global", hide_details)
 
 local function copy_label_to_clipboard(env)
   local label = sbar.query(env.NAME).label.value
@@ -245,8 +248,8 @@ local function copy_label_to_clipboard(env)
   end)
 end
 
-ssid:subscribe("mouse.clicked", copy_label_to_clipboard)
-hostname:subscribe("mouse.clicked", copy_label_to_clipboard)
-ip:subscribe("mouse.clicked", copy_label_to_clipboard)
-mask:subscribe("mouse.clicked", copy_label_to_clipboard)
-router:subscribe("mouse.clicked", copy_label_to_clipboard)
+-- ssid:subscribe("mouse.clicked", copy_label_to_clipboard)
+-- hostname:subscribe("mouse.clicked", copy_label_to_clipboard)
+-- ip:subscribe("mouse.clicked", copy_label_to_clipboard)
+-- mask:subscribe("mouse.clicked", copy_label_to_clipboard)
+-- router:subscribe("mouse.clicked", copy_label_to_clipboard)

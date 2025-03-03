@@ -21,7 +21,8 @@ local media_cover = sbar.add("item", {
   popup = {
     align = "center",
     horizontal = true,
-  }
+  },
+  click_script = "$CONFIG_DIR/helpers/extras/bin/extras -c 'Now Playing'"
 })
 
 local media_artist = sbar.add("item", {
@@ -110,9 +111,9 @@ media_cover:subscribe("mouse.exited", function(env)
   animate_detail(false)
 end)
 
-media_cover:subscribe("mouse.clicked", function(env)
-  media_cover:set({ popup = { drawing = "toggle" }})
-end)
+-- media_cover:subscribe("mouse.clicked", function(env)
+--   media_cover:set({ popup = { drawing = "toggle" }})
+-- end)
 
 media_title:subscribe("mouse.exited.global", function(env)
   media_cover:set({ popup = { drawing = false }})
