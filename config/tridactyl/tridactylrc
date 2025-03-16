@@ -48,7 +48,9 @@
 " 
 " " Git{Hub,Lab} git clone via SSH yank
 bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
-" 
+" " Copy ID's from URL
+bind yi composite js document.location.href.includes("shikimori") ? "[shikimori-" + document.location.href.split("/").filter(p => /^\D*\d+/.test(p))[0].replace(/^[a-z]+/, "") + "]" : document.location.href.includes("kinopoisk.ru") ? "[kp-" + document.location.href.split("/").slice(document.location.href.split("/").indexOf("film") > -1 ? document.location.href.split("/").indexOf("film") : document.location.href.split("/").indexOf("series")).slice(1,2).join("") + "]" : document.location.href.includes("anidb.net") ? "[anidbid-" + document.location.href.split("/").slice(document.location.href.split("/").indexOf("anime") + 1)[0] + "]" : document.location.href.includes("thetvdb.com") ? "[tvdbid-" + document.location.href.split("/").slice(document.location.href.split("/").indexOf("series") > -1 ? document.location.href.split("/").indexOf("series") : document.location.href.split("/").indexOf("movies") + 1)[0] + "]" : document.location.href.split("/").filter(p => /^\d+$/.test(p))[0] | clipboard
+
 " " As above but execute it and open terminal in folder
 " bind ,g js let uri = document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git"); tri.native.run("cd ~/projects; git clone " + uri + "; cd \"$(basename \"" + uri + "\" .git)\"; st")
 " 
