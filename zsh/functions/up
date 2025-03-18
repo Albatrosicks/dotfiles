@@ -9,12 +9,71 @@ function update_configs() {
   cd "$prev_dir" || return
 }
 
+
+function update_qutebrowser_codecs() {
+  # Skip if qutebrowser not installed
+  if [ ! -d "/Applications/qutebrowser.app" ]; then
+    return
+  fi
+
+  # Get installed qutebrowser version
+  QUTE_VERSION=$(/Applications/qutebrowser.app/Contents/MacOS/qutebrowser --version 2>/dev/null | grep "qutebrowser v" | cut -d " " -f 2)
+
+  # Check for stored previous version
+  VERSION_FILE="$HOME/.qutebrowser/last_patched_version"
+  if [ -f "$VERSION_FILE" ]; then
+    LAST_VERSION=$(cat "$VERSION_FILE")
+  else
+    LAST_VERSION=""
+    mkdir -p "$HOME/.qutebrowser"
+  fi
+
+  # Skip if no update detected
+  if [ "$QUTE_VERSION" == "$LAST_VERSION" ]; then
+    return
+  fi
+
+  # Get Homebrew Qt path
+  BREW_QT_PATH=$(brew --prefix qt)
+  if [ ! -d "$BREW_QT_PATH" ]; then
+    return
+  fi
+
+  # Get Qt versions
+  QUTE_QT_VERSION=$(/Applications/qutebrowser.app/Contents/MacOS/qutebrowser --version 2>/dev/null | grep "Qt:" | cut -d " " -f 2)
+  BREW_QT_VERSION=$(brew info qt --json | grep -o '"installed":.*,"linked"' | grep -o '"[0-9.]*"' | tr -d '"')
+
+  # Check Qt major versions compatibility
+  QUTE_QT_MAJOR=$(echo "$QUTE_QT_VERSION" | cut -d. -f1)
+  BREW_QT_MAJOR=$(echo "$BREW_QT_VERSION" | cut -d. -f1)
+  if [ "$QUTE_QT_MAJOR" != "$BREW_QT_MAJOR" ]; then
+    return
+  fi
+
+  # Framework paths
+  QUTE_FRAMEWORK_PATH="/Applications/qutebrowser.app/Contents/Frameworks/PyQt6/Qt6/lib/QtWebEngineCore.framework"
+  BREW_FRAMEWORK_PATH="$BREW_QT_PATH/lib/QtWebEngineCore.framework"
+
+  if [ ! -d "$BREW_FRAMEWORK_PATH" ]; then
+    return
+  fi
+
+  # Update framework
+  print "Updating qutebrowser codecs..."
+  rm -rf "$QUTE_FRAMEWORK_PATH"
+  cp -R "$BREW_FRAMEWORK_PATH" "$QUTE_FRAMEWORK_PATH"
+
+  # Save version
+  echo "$QUTE_VERSION" > "$VERSION_FILE"
+}
+
 function update_brew() {
   print "\e[1;32m(•_•) > Updating brew...\e[0m"
   brew update
   if brew outdated | grep -q .; then
     brew outdated | parallel --bar --keep-order 'brew fetch --deps {} > /dev/null 2>&1'
     brew upgrade
+    update_qutebrowser_codecs
   else
     echo "No outdated packages found."
   fi
