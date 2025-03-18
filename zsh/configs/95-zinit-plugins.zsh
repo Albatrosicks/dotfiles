@@ -1,5 +1,13 @@
+# First initialize completion system
+autoload -Uz compinit
+compinit
+
+# Now load carapace
+source <(carapace _carapace)
+
+# Then load zinit plugins
 zinit wait lucid light-mode for \
-  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma/fast-syntax-highlighting \
+  atload"zicdreplay" zdharma/fast-syntax-highlighting \
   blockf zsh-users/zsh-completions \
   greymd/docker-zsh-completion \
   srijanshetty/zsh-pip-completion \
@@ -27,8 +35,7 @@ zinit ice wait"2" as"command" from"gh-r" lucid \
   atpull"%atclone" src"init.zsh" nocompile'!'
 zinit light ajeetdsouza/zoxide
 
-autoload -Uz compinit
-compinit
+# Final replay of completion definitions
 zinit cdreplay -q
 
 eval "$(starship init zsh)"

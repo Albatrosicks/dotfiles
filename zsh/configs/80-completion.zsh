@@ -6,5 +6,4 @@ fpath=(/opt/homebrew/Cellar/m-cli/*/share/zsh/site-functions $fpath)
 fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-source <(carapace _carapace)
 export -U fpath
