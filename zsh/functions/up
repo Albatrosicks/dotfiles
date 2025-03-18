@@ -9,7 +9,6 @@ function update_configs() {
   cd "$prev_dir" || return
 }
 
-
 function update_qutebrowser_codecs() {
   # Skip if qutebrowser not installed
   if [ ! -d "/Applications/qutebrowser.app" ]; then
@@ -69,10 +68,34 @@ function update_qutebrowser_codecs() {
 
 function update_brew() {
   print "\e[1;32m(•_•) > Updating brew...\e[0m"
+
+  # Auto-accept Xcode license if needed
+  if command -v xcodebuild &>/dev/null; then
+    xcodebuild -license accept &>/dev/null 2>&1 || true
+  fi
+
+  # Set environment variables to reduce interactive prompts
+  export HOMEBREW_NO_ENV_HINTS=1
+  export HOMEBREW_AUTO_UPDATE_SECS=86400
+  export HOMEBREW_NO_INSTALL_CLEANUP=1
+  export ACCEPT_EULA=Y
+
+  # Update Homebrew
   brew update
+
   if brew outdated | grep -q .; then
+    # Pre-fetch packages individually to handle license agreements
+    for pkg in $(brew outdated | cut -d' ' -f1); do
+      brew fetch "$pkg" &>/dev/null || true
+    done
+
+    # Now do parallel fetch
     brew outdated | parallel --bar --keep-order 'brew fetch --deps {} > /dev/null 2>&1'
+
+    # Upgrade packages
     brew upgrade
+
+    # Update qutebrowser codecs if Qt was updated
     update_qutebrowser_codecs
   else
     echo "No outdated packages found."
