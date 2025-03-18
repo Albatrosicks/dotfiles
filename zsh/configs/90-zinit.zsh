@@ -8,3 +8,6 @@ fi
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -U +X _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Customize Zinit message colors
+ZINIT+=(col-error $'\e[38;5;186m' col-info $'\e[38;5;147m' col-msg $'\e[38;5;151m')
