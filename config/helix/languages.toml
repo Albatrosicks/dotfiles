@@ -11,16 +11,79 @@ file_store = { }
 [language-server.lsp-ai.config.models.model1]
 type = "open_ai"
 # chat_endpoint = "https://api.runpod.ai/v2/vllm-8b9eeigouuoh1x/openai/v1/chat/completions"
-completions_endpoint = "https://api.runpod.ai/v2/vllm-8b9eeigouuoh1x/openai/v1/completions"
-model = "stelterlab/Codestral-22B-v0.1-AWQ"
-auth_token_env_var_name = "COPILOT_OPENAI_API_KEY"
+completions_endpoint = "https://openrouter.ai/api/v1"
+model = "mistralai/mistral-small-3.1-24b-instruct:free"
+auth_token_env_var_name = "LLM_API_KEY"
 
 [language-server.lsp-ai.config.completion]
 model = "model1"
 
 [language-server.lsp-ai.config.completion.parameters]
-max_tokens = 64
-max_context = 8064
+max_tokens = 128
+max_context = 16384
+
+## Optimized instructions for Mistral Small 3.1 24B Instruct
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "system"
+content = """
+You are an AI code assistant with a 128k token context window. Your task is to replace "<CURSOR>" in code snippets with appropriate code or comments.
+
+Instructions:
+1. Analyze the surrounding code's syntax, semantics, and context
+2. Identify the programming language and its conventions
+3. Generate only the content that should replace "<CURSOR>"
+4. Maintain stylistic consistency with the existing code
+
+Constraints:
+- Respond only with code or comments without explanations
+- Never include "<CURSOR>" in your response
+- Don't rewrite existing code, only insert new code at cursor position
+- For ambiguous cases, choose the most contextually appropriate option
+"""
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "def greet(name):\n    print(f\"Hello, {<CURSOR>}\")"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "name"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "function sum(a, b) {\n    return a + <CURSOR>;\n}"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "b"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "fn multiply(a: i32, b: i32) -> i32 {\n    a * <CURSOR>\n}"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "b"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "# <CURSOR>\ndef add(a, b):\n    return a + b"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "Adds two numbers"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "# This function checks if a number is even\n<CURSOR>"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "def is_even(n):\n    return n % 2 == 0"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "{CODE}"
 
 #################################
 ## Configuration for languages ##
