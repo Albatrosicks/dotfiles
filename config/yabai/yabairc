@@ -28,13 +28,14 @@ color["transparent"]="0x00FFFFFF"
 RESTART_SCRIPT='
   sleep 3;
 
-  # Функция для проверки состояния блокировки экрана
   is_screen_locked() {
-    # Проверяем, заблокирован ли экран через ioreg
-    ioreg -c IOHIDSession | grep "HIDIdleTime" | awk -F= "{print \$NF}" | cut -d. -f1 | awk "{if (\$1 > 0) {print 1} else {print 0}}"
+    if pgrep -fl "loginwindow.app.*-secure" > /dev/null; then
+      echo 1
+    else
+      echo 0
+    fi
   }
 
-  # Ждем, пока экран не будет разблокирован (максимум 60 секунд)
   max_wait=60
   wait_count=0
 
@@ -43,11 +44,11 @@ RESTART_SCRIPT='
     wait_count=$((wait_count + 1))
   done
 
-  # Если экран разблокирован или время ожидания истекло, перезапускаем sketchybar
   if [ "$(is_screen_locked)" = "0" ] || [ "$wait_count" -ge "$max_wait" ]; then
     /opt/homebrew/bin/brew services restart sketchybar
   fi
 '
+
 
 # Uncomment to refresh ubersicht widget on workspace change
 # Make sure to replace WIDGET NAME for the name of the ubersicht widget
