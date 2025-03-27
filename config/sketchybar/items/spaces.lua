@@ -4,6 +4,8 @@ local settings = require("settings")
 local app_icons = require("helpers.app_icons")
 
 local spaces = {}
+local arc_first_space = nil -- Tracks the first space where Arc is found
+local arc_in_spaces = {} -- Tracks which spaces have Arc
 
 for i = 1, 10, 1 do
   local space = sbar.add("space", "space." .. i, {
@@ -121,15 +123,53 @@ local spaces_indicator = sbar.add("item", {
   }
 })
 
+-- Modify the space_window_observer:subscribe function
 space_window_observer:subscribe("space_windows_change", function(env)
   local icon_line = ""
   local no_app = true
+  local current_space = env.INFO.space
+
+  -- Check if Arc is in this space
+  local has_arc = false
   for app, count in pairs(env.INFO.apps) do
-    no_app = false
-    local lookup = app_icons[app]
-    -- Add fallback to "?" if both lookup and default icon are nil
-    local icon = ((lookup == nil) and (app_icons["Default"] or "?") or lookup)
-    icon_line = icon_line .. " " .. icon
+    if app == "Arc" then
+      has_arc = true
+      break
+    end
+  end
+
+  -- Update our tracking of Arc's presence in this space
+  arc_in_spaces[current_space] = has_arc
+
+  -- If Arc is no longer in the first space, find a new first space
+  if arc_first_space ~= nil and not arc_in_spaces[arc_first_space] then
+    arc_first_space = nil
+    for space = 1, 10 do
+      if arc_in_spaces[space] then
+        arc_first_space = space
+        break
+      end
+    end
+  end
+
+  -- If Arc is in this space and we haven't recorded a first space yet,
+  -- mark this as the first space
+  if has_arc and arc_first_space == nil then
+    arc_first_space = current_space
+  end
+
+  -- Build the icon line
+  for app, count in pairs(env.INFO.apps) do
+    -- Skip Arc if this is not the first space where it was found
+    if app == "Arc" and current_space ~= arc_first_space then
+      -- Skip this icon
+    else
+      no_app = false
+      local lookup = app_icons[app]
+      -- Add fallback to "?" if both lookup and default icon are nil
+      local icon = ((lookup == nil) and (app_icons["Default"] or "?") or lookup)
+      icon_line = icon_line .. " " .. icon
+    end
   end
 
   if (no_app) then
@@ -152,6 +192,7 @@ space_window_observer:subscribe("space_windows_change", function(env)
     end
   end)
 end)
+
 
 spaces_indicator:subscribe("swap_menus_and_spaces", function(env)
   local currently_on = spaces_indicator:query().icon.value == icons.switch.on
