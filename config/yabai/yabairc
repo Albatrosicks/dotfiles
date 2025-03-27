@@ -122,8 +122,9 @@ yabai -m rule --add label="Scoot" app="^Scoot$" manage=off
 yabai -m rule --add label="Homerow" app="^Homerow$" manage=off
 yabai -m rule --add label="Orion" app="^(Orion RC|Orion)$" title="^(General|(Tab|Password|Website|Extension|Plu|Bookmark|Profile)s|AutoFill|Se(arch|curity)|Privacy|Advance|Browsing|Sync|History|Reading List)$" manage=off
 yabai -m rule --add label="Telegram" app="^Telegram$" title="^$" manage=off
-# yabai -m rule --add label="Arc" app="^Arc$" title="^(Albert|General|Shortcuts|Little Arc|Advanced)$" manage=off
-# yabai -m rule --add label="Arc - PiP" app="^Arc$" level=3 title="Arc" manage=off
+yabai -m rule --add label="Arc" app="^Arc$" title="^(Albert|General|Shortcuts|Little Arc|Advanced)$" manage=off
+yabai -m rule --add label="Arc - PiP" app="^Arc$" level=3 title="Arc" manage=off
+yabai -m rule --add label="Arc - PiPv2" app="^Arc$" title="^AXSystemDialog$" manage=off
 # ===== Signals ================================
 # ===== Ubersicht
 # yabai -m signal --add event=application_front_switched action="${ubersicht_spaces_refresh_command}"
