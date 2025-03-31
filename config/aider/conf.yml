@@ -1,0 +1,10 @@
+# Aider model configuration
+model: openrouter/google/gemini-2.5-pro-exp-03-25:free
+
+# Go-specific linting integration
+lint-cmd:
+  - "go: golangci-lint run --fix ./..."
+
+# Enable automatic linting after changes
+auto-lint: true
+
