@@ -1,9 +1,28 @@
 # Aider model configuration
-model: openrouter/google/gemini-2.5-pro-exp-03-25:free
+# model: openrouter/google/gemini-2.5-pro-exp-03-25:free
+
+# Main model configuration
+model: r1
+model_name: openrouter/deepseek/deepseek-r1
+
+# Editor model configuration
+editor_model: sonnet
+editor_model_name: openrouter/anthropic/claude-3.7-sonnet
+
+# Enable architect mode
+architect: true
+
+# Other common settings
+auto_commits: false
+pretty: true
+stream: true
+verbose: false
+dark_mode: auto
 
 # Go-specific linting integration
 lint-cmd:
-  - "go: golangci-lint run --fix ./..."
+  # - "go: golangci-lint run --fix ./..."
+  - "go: golangci-lint run --fix ./"
 
 # Enable automatic linting after changes
 auto-lint: true
