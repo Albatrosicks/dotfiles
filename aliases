@@ -22,7 +22,7 @@ if [[ -f /usr/local/bin/finch ]]; then
     alias docker=finch
     alias docker-compose="finch compose"
 fi
-alias aider='aider --config-file ~/.config/aider/conf.yml'
+alias aider='aider --config ~/.config/aider/conf.yml'
 alias forget=' remove_last_history_entry' # Added a space in 'my_remove_last_history_entry' so that zsh forgets the 'forget' command :).
 alias lzd='docker run --rm --privileged -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/.lzd:/.config/jesseduffield/lazydocker lazyteam/lazydocker'
 alias lg='lazygit'
