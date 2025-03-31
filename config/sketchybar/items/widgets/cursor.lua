@@ -2,38 +2,35 @@ local icons = require("icons")
 local settings = require("settings")
 local colors = require("colors")
 
-local update_interval = 5       -- интервал обновления графика (в секундах)
-local real_update_interval = 60 -- фактический запрос каждый 60 секунд
-local elapsed = real_update_interval  -- начинаем с forced check при старте
-local cached_remaining = 0      -- кэшированное значение remaining
+local update_interval = 60 -- обновление каждые 60 секунд
+local cached_remaining = 0 -- кэшированное значение remaining
 
-local cursor = sbar.add("graph", "widgets.cursor", 42, {
+local cursor = sbar.add("item", "widgets.cursor", {
     position = "right",
-    graph = { color = colors.blue },
-    background = {
-        height = 22,
-        color = { alpha = 0 },
-        border_color = { alpha = 0 },
-        drawing = true,
-    },
     icon = {
         string = icons.cursor,
         color = colors.green,
     },
-    label = {
-        string = "reqs ??",
-        font = {
-            family = settings.font.numbers,
-            style = settings.font.style_map["Bold"],
-            size = 9.0,
-        },
-        align = "right",
-        padding_right = 0,
-        width = 0,
-        y_offset = 4
+    background = {
+        padding_left = 5,
     },
-    update_freq = update_interval,  -- обновление графика каждые 5 сек
+    label = "?",
+    update_freq = update_interval,
+    popup = {
+        align = "right",
+        height = 20,
+    },
     padding_right = settings.paddings + 6
+})
+
+cursor.details = sbar.add("item", "cursor.details", {
+    position = "popup." .. cursor.name,
+    click_script = "sketchybar --set cursor popup.drawing=off",
+    background = {
+        corner_radius = 12,
+        padding_left = 5,
+        padding_right = 10,
+    },
 })
 
 cursor:subscribe({
@@ -48,56 +45,72 @@ cursor:subscribe({
 end)
 
 cursor:subscribe({
+    "mouse.exited",
+    "mouse.exited.global",
+}, function(_)
+    cursor:set({ popup = { drawing = false } })
+end)
+
+cursor:subscribe({
+    "mouse.entered",
+}, function(_)
+    cursor:set({ popup = { drawing = true } })
+end)
+
+cursor:subscribe({
     "routine",
     "forced",
     "cursor_update",
 }, function(_)
-    if elapsed >= real_update_interval then
-        elapsed = 0  -- сбрасываем накопление времени при фактическом обновлении
+    -- отображаем индикатор загрузки перед выполнением запроса
+    cursor:set({
+        label = { 
+            string = icons.loading,
+            highlight_color = colors.blue,
+        },
+    })
 
-        -- отображаем индикатор загрузки перед выполнением запроса
-        cursor:set({
+    sbar.exec("source ~/.zshrc.local && curl -s -H 'Content-Type: application/json' -H \"Cookie: WorkosCursorSessionToken=$CURSOR_TOKEN\" \"https://www.cursor.com/api/usage?user=${CURSOR_TOKEN%%::*}\"", function(result)
+        if not result or not result["gpt-4"] then
+            cursor:set({ label = "ERR" })
+            return
+        end
+
+        local maxRequestUsage = result["gpt-4"].maxRequestUsage
+        local numRequests = result["gpt-4"].numRequests
+        local remaining = maxRequestUsage - numRequests
+        cached_remaining = remaining  -- сохраняем новое значение в кэш
+
+        local thresholds = {
+            { count = 250, color = colors.green },
+            { count = 100, color = colors.yellow },
+            { count = 50, color = colors.orange },
+            { count = 0, color = colors.red },
+        }
+
+        -- Change icon color depending on remaining requests
+        for _, threshold in ipairs(thresholds) do
+            if remaining >= threshold.count then
+                cursor:set({
+                    icon = {
+                        color = threshold.color,
+                    },
+                    label = remaining,
+                })
+                break
+            end
+        end
+
+        -- Add details to popup
+        cursor.details:set({
             label = {
-                string = icons.loading or "",
-                highlight_color = colors.blue,
+                string = "Used: " .. numRequests .. " / " .. maxRequestUsage,
+                align = "right",
+                padding_right = 20,
+                padding_left = 20,
             },
         })
-
-        sbar.exec("source ~/.zshrc.local && curl -s -H 'Content-Type: application/json' -H \"Cookie: WorkosCursorSessionToken=$CURSOR_TOKEN\" \"https://www.cursor.com/api/usage?user=${CURSOR_TOKEN%%::*}\"", function(result)
-            if not result or not result["gpt-4"] then
-                cursor:set({ label = "ERR" })
-                return
-            end
-
-            local maxRequestUsage = result["gpt-4"].maxRequestUsage
-            local numRequests = result["gpt-4"].numRequests
-            local remaining = maxRequestUsage - numRequests
-            cached_remaining = remaining  -- сохраняем новое значение в кэш
-
-            local color = colors.green
-            if remaining < 50 then
-                color = colors.red
-            elseif remaining < 100 then
-                color = colors.orange
-            elseif remaining < 250 then
-                color = colors.yellow
-            end
-
-            cursor:set({ 
-                label = remaining,
-                icon = {
-                    color = color
-                }
-            })
-            -- отправляем значение в график; при желании можно преобразовать remaining к [0,1]
-            cursor:push({0.5})
-        end)
-    else
-        elapsed = elapsed + update_interval
-        -- каждое обновление графика каждые 5 сек – используем кэшированное значение
-        cursor:set({ label = cached_remaining })
-        cursor:push({0.5})
-    end
+    end)
 end)
 
 sbar.add("bracket", "widgets.cursor.bracket", { cursor.name }, {
