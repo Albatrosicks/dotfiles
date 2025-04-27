@@ -124,3 +124,5 @@ sbar.add("item", "widgets.battery.padding", {
   position = "right",
   width = settings.group_paddings
 })
+
+return battery

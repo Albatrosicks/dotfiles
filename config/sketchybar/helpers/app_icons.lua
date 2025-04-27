@@ -75,6 +75,7 @@ return {
     ["Discord PTB"] = ":discord:",
     ["Docker"] = ":docker:",
     ["Docker Desktop"] = ":docker:",
+    ["Ghostty"] = ":ghostty:",
     ["GrandTotal"] = ":dollar:",
     ["Receipts"] = ":dollar:",
     ["Double Commander"] = ":doublecmd:",

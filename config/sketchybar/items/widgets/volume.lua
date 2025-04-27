@@ -150,3 +150,4 @@ volume_icon:subscribe("mouse.scrolled", volume_scroll)
 -- volume_percent:subscribe("mouse.exited.global", volume_collapse_details)
 volume_percent:subscribe("mouse.scrolled", volume_scroll)
 
+return volume

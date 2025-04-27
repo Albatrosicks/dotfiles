@@ -16,7 +16,8 @@ local github = sbar.add("item", "github", {
 		},
 	},
 	background = {
-		padding_left = 0,
+        padding_left = settings.paddings,
+        padding_right = settings.paddings,
 	},
 	label = {
 		string = icons.loading,
@@ -191,26 +192,30 @@ github:subscribe({
 		-- Change icon and color depending on packages
 		github:set({
 			drawing = "off",
-			icon = {
-				string = icons.bell_dot,
-			},
+			icon = { string = icons.bell_dot },
 			label = 0,
 		})
+
+		-- hide bracket and collapse padding when no notifications
+		sbar.exec("sketchybar --set widgets.github.bracket drawing=off")
+		sbar.exec("sketchybar --set widgets.github.padding width=0")
 
 		if count > 0 then
 			github:set({
 				drawing = "on",
-				icon = {
-					string = icons.bell,
-				},
+				icon = { string = icons.bell },
 				label = count,
 			})
+			-- show bracket and restore padding
+			sbar.exec("sketchybar --set widgets.github.bracket drawing=on")
+			sbar.exec("sketchybar --set widgets.github.padding width=" .. settings.group_paddings)
 		end
 	end)
 end)
 
 sbar.add("bracket", "widgets.github.bracket", { github.name }, {
-  background = { color = colors.bg1 }
+  background = { color = colors.bg1 },
+  drawing = "off"
 })
 
 sbar.add("item", "widgets.github.padding", {

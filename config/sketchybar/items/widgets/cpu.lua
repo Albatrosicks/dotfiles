@@ -67,3 +67,5 @@ sbar.add("item", "widgets.cpu.padding", {
   position = "right",
   width = settings.group_paddings
 })
+
+return cpu

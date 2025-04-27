@@ -8,11 +8,18 @@ local brew = sbar.add("item", "brew", {
     icon = {
         string = icons.brew.empty,
         color = colors.green,
+        padding_left = settings.paddings,
+        padding_right = settings.paddings,
     },
     background = {
-        padding_left = 5,
+        padding_left = settings.paddings,
+        padding_right = settings.paddings,
     },
-    label = "?",
+    label = {
+        string = "?",
+        padding_left = settings.paddings,
+        padding_right = settings.paddings,
+    },
     update_freq = 300,
     popup = {
         align = "right",
@@ -84,6 +91,9 @@ brew:subscribe({
             drawing = "off" -- Hide when no packages
         })
         brew.clearPopup()
+        -- hide bracket and padding when brew is hidden (in case outdated callback didn't run)
+        sbar.exec("sketchybar --set widgets.brew.bracket drawing=off")
+        sbar.exec("sketchybar --set widgets.brew.padding width=0")
     end
 end)
 
@@ -150,12 +160,18 @@ brew:subscribe({
                 drawing = "off",
                 label = "?",
             })
+            -- hide bracket and padding when hidden
+            sbar.exec("sketchybar --set widgets.brew.bracket drawing=off")
+            sbar.exec("sketchybar --set widgets.brew.padding width=0")
             return
         else
             brew:set({
                 drawing = "on",
                 label = "?", -- Default to ? when not hovered
             })
+            -- show bracket and padding when shown
+            sbar.exec("sketchybar --set widgets.brew.bracket drawing=on")
+            sbar.exec("sketchybar --set widgets.brew.padding width=" .. settings.group_paddings)
         end
 
         -- Change icon color depending on packages
@@ -174,12 +190,13 @@ brew:subscribe({
 end)
 
 sbar.add("bracket", "widgets.brew.bracket", { brew.name }, {
-  background = { color = colors.bg1 }
+  background = { color = colors.bg1 },
+  drawing = "off"
 })
 
 sbar.add("item", "widgets.brew.padding", {
   position = "right",
-  width = settings.group_paddings
+  width = 0
 })
 
 return brew

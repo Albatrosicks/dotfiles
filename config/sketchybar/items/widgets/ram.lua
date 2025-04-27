@@ -69,3 +69,4 @@ sbar.add("item", "widgets.ram.padding", {
   width = settings.group_paddings
 })
 
+return ram
