@@ -111,7 +111,7 @@ brew:subscribe({
             highlight_color = colors.blue,
         },
     })
-    sbar.exec("command brew update -q")
+    sbar.exec("bash -lc 'lockfile=\"$(brew --prefix)/var/homebrew/locks/update\"; if [[ -e \"$lockfile\" ]] && (command -v lsof >/dev/null && lsof \"$lockfile\" >/dev/null || command -v fuser >/dev/null && fuser \"$lockfile\" >/dev/null); then exit 1; fi; command brew update -q'")
     sbar.exec("command brew outdated -q", function(outdated)
         -- NOTE: sbar.exec will not run callback if command doesn't return anything.
         -- We use a variable to determine if we should skip cleaning up the count
