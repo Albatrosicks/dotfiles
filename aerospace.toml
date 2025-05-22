@@ -210,28 +210,28 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
 if.app-id = "app.zen-browser.zen"
-run = "move-node-to-workspace 1-main"
+run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
 if.app-id = "ru.keepcoder.Telegram"
-run = "move-node-to-workspace 2-main"
+run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
 if.app-id = "com.tdesktop.Telegram"
-run = "move-node-to-workspace 2-main"
+run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
 if.app-id = "org.gnu.Emacs"
-run = "move-node-to-workspace 3-main"
+run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
 if.app-id = "com.openai.chat"
-run = "move-node-to-workspace 4-main"
+run = "move-node-to-workspace 4"
 
 [[on-window-detected]]
 if.app-id = "com.anthropic.claudefordesktop"
-run = "move-node-to-workspace 4-main"
+run = "move-node-to-workspace 4"
 
 [[on-window-detected]]
 if.app-id = "com.apple.Music"
-run = "move-node-to-workspace 5-main"
+run = "move-node-to-workspace 5"
