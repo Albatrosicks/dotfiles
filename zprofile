@@ -3,6 +3,7 @@ motd() {
 
   if ([[ "$(pwd)" == "$HOME/Sources"* ]] || [[ "$(pwd)" == "$HOME/workspaces"* ]]) || ([ -d ".git" ]); then
     clear && printf "\033c"
+    echo "$TERMINAL_EMULATOR $TERM_PROGRAM"
     ~/go/bin/archimede -c magenta
   fi
 
