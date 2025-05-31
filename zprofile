@@ -3,7 +3,6 @@ motd() {
 
   if ([[ "$(pwd)" == "$HOME/Sources"* ]] || [[ "$(pwd)" == "$HOME/workspaces"* ]]) || ([ -d ".git" ]); then
     clear && printf "\033c"
-    echo "$TERMINAL_EMULATOR $TERM_PROGRAM"
     ~/go/bin/archimede -c magenta
   fi
 
@@ -12,7 +11,7 @@ motd() {
   # fi
 }
 touch "$HOME/.hushlogin"
-motd "startup"
+# motd "startup"
 
 if [ -d "/opt/homebrew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"

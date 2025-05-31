@@ -28,7 +28,7 @@ alias lzd='docker run --rm --privileged -it -v /var/run/docker.sock:/var/run/doc
 alias lg='lazygit'
 alias intel='arch -x86_64'
 alias ez='eza --icons=auto -l -h -G'
-alias proj='clear && archimede -c magenta && printf "\033[3J"'
+alias proj='clear && archimede -c magenta && printf "\033[3J" && ez -T -L 2'
 alias rathole='rathole -c ~/.config/rathole/client.toml'
 alias z=__zoxide_z
 alias zz=__zoxide_zi
