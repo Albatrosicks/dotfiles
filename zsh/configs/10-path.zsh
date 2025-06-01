@@ -52,4 +52,5 @@ PATH="$HOME/.local/bin:$PATH"
 # mkdir .git/safe in the root of repositories you trust
 PATH=".git/safe/../../bin:$PATH"
 
+export -U LIBRARY_PATH="$(brew --prefix gcc)/lib/gcc/$(gcc -dumpversion):$LIBRARY_PATH"
 export -U PATH
