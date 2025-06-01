@@ -47,6 +47,10 @@ if [[ -d "$HOME/.cargo/bin/" ]]; then
   PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+if [[ -d "/opt/homebrew/bin/" ]]; then
+  PATH="/opt/homebrew/bin:$PATH"
+fi
+
 PATH="$HOME/.local/bin:$PATH"
 
 # mkdir .git/safe in the root of repositories you trust
