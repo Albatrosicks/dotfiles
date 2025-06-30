@@ -50,7 +50,7 @@ macos-option-as-alt = true
 term = xterm-256color
 
 # to start with yazelix, creating a new session or attaching if a session called yazelix already exists
-command = "env PATH=/opt/homebrew/bin:$PATH nu -c 'zellij --config-dir ~/.config/yazelix/zellij attach --create yazelix_ghostty options --default-layout yazelix'"
+command = "env PATH=/opt/homebrew/bin:$PATH nu -c 'zellij --config-dir ~/.config/zellij attach --create yazelix_ghostty options --default-layout yazelix'"
 # Alternative: Pick a Layout
 # command = "/opt/homebrew/bin/nu -c '/opt/homebrew/bin/zellij -l welcome --config-dir ~/.config/yazelix/zellij options --layout-dir ~/.config/yazelix/zellij/layouts'"
 
