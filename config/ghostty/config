@@ -50,11 +50,18 @@ macos-option-as-alt = true
 term = xterm-256color
 
 # to start with yazelix, creating a new session or attaching if a session called yazelix already exists
-command = "nu -c 'zellij --config-dir ~/.config/yazelix/zellij attach --create yazelix_ghostty options --default-layout yazelix'"
+command = "/opt/homebrew/bin/nu -c 'zellij --config-dir ~/.config/yazelix/zellij attach --create yazelix_ghostty options --default-layout yazelix'"
 
 # Alternative: Pick a Layout
-# command = "nu -c 'zellij -l welcome --config-dir ~/.config/yazelix/zellij options --layout-dir ~/.config/yazelix/zellij/layouts'"
+# command = "/opt/homebrew/bin/nu -c 'zellij -l welcome --config-dir ~/.config/yazelix/zellij options --layout-dir ~/.config/yazelix/zellij/layouts'"
 
 # theme = "Abernathy"
 window-decoration = "none"
 window-padding-y = 10,0
+
+
+keybind = alt+left  = unbind
+keybind = alt+right = unbind
+
+keybind = alt+up = unbind
+keybind = alt+down = unbind
