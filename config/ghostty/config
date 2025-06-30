@@ -3,7 +3,7 @@
 # This template file has been automatically created at the following
 # path since Ghostty couldn't find any existing config files on your system:
 #
-#   /home/lucca/.config/ghostty/config
+#   /home/albi/.config/ghostty/config
 #
 # The template does not set any default options, since Ghostty ships
 # with sensible defaults for all options. Users should only need to set
@@ -50,8 +50,7 @@ macos-option-as-alt = true
 term = xterm-256color
 
 # to start with yazelix, creating a new session or attaching if a session called yazelix already exists
-command = "/opt/homebrew/bin/nu -c '/opt/homebrew/bin/zellij --config-dir ~/.config/yazelix/zellij attach --create yazelix_ghostty options --default-layout yazelix'"
-
+command = "PATH=/opt/homebrew/bin:$PATH nu -c 'zellij --config-dir ~/.config/yazelix/zellij attach --create yazelix_ghostty options --default-layout yazelix'"
 # Alternative: Pick a Layout
 # command = "/opt/homebrew/bin/nu -c '/opt/homebrew/bin/zellij -l welcome --config-dir ~/.config/yazelix/zellij options --layout-dir ~/.config/yazelix/zellij/layouts'"
 
@@ -60,8 +59,11 @@ window-decoration = "none"
 window-padding-y = 10,0
 
 
-keybind = alt+left  = unbind
-keybind = alt+right = unbind
+keybind = alt+left=unbind
+keybind = alt+right=unbind
 
-keybind = alt+up = unbind
-keybind = alt+down = unbind
+# назначаем Alt + ← → ↑ ↓
+keybind = alt+left=csi:1;3D
+keybind = alt+right=csi:1;3C
+keybind = alt+up=csi:1;3A
+keybind = alt+down=csi:1;3B
