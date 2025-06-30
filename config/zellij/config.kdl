@@ -153,7 +153,7 @@ keybinds clear-defaults=true {
         bind "Ctrl g" { SwitchToMode "locked"; }
         bind "Alt w" { MoveTab "left"; }
         bind "Alt m" { NewPane; }
-        bind "Alt enter" { ToggleFocusFullscreen; SwitchToMode "normal"; }
+        bind "Alt Enter" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "Alt q" { MoveTab "right"; }
         bind "Ctrl q" { Quit; }
     }
@@ -161,7 +161,7 @@ keybinds clear-defaults=true {
         bind "Ctrl h" { SwitchToMode "move"; }
     }
     shared_except "locked" "session" {
-        bind "Ctrl Char: '.'" { SwitchToMode "session"; }
+        bind "Ctrl ." { SwitchToMode "normal"; }
     }
     shared_except "locked" "scroll" {
         bind "Alt left" { MoveFocusOrTab "left"; }
