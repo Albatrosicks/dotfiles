@@ -28,6 +28,7 @@ right = ["diagnostics", "version-control", "selections", "position", "file-encod
 # C-s = ":w"
 "ret" = "expand_selection"
 "backspace" = "shrink_selection"
+A-y = ":sh nu ~/.config/yazelix/nushell/reveal_in_yazi.nu \"%{buffer_name}\""
 
 [keys.select]
 C-C = ":clipboard-yank"
