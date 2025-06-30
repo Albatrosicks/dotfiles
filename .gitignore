@@ -1,4 +1,5 @@
 !bin
 vim/bundle/
 config/sketchybar/helper
+config/fish/config.local.fish
 zsh/configs/99-keys.zsh
