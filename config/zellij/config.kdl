@@ -4,7 +4,7 @@
 
 keybinds clear-defaults=true {
     normal {
-        bind "Alt m" {
+        bind "Alt t" {
             MessagePlugin {
                 payload "multitask_run"
             }
@@ -152,16 +152,16 @@ keybinds clear-defaults=true {
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt f" { ToggleFloatingPanes; }
         bind "Ctrl g" { SwitchToMode "locked"; }
-        bind "Alt i" { MoveTab "left"; }
-        bind "Alt n" { NewPane; }
-        bind "Alt o" { MoveTab "right"; }
+        bind "Alt w" { MoveTab "left"; }
+        bind "Alt m" { NewPane; }
+        bind "Alt q" { MoveTab "right"; }
         bind "Ctrl q" { Quit; }
     }
     shared_except "locked" "move" {
         bind "Ctrl h" { SwitchToMode "move"; }
     }
     shared_except "locked" "session" {
-        bind "Ctrl o" { SwitchToMode "session"; }
+        bind "Ctrl e" { SwitchToMode "session"; }
     }
     shared_except "locked" "scroll" {
         bind "Alt left" { MoveFocusOrTab "left"; }
@@ -177,7 +177,7 @@ keybinds clear-defaults=true {
         bind "Ctrl b" { SwitchToMode "tmux"; }
     }
     shared_except "locked" "scroll" "search" {
-        bind "Ctrl s" { SwitchToMode "scroll"; }
+        bind "Ctrl y" { SwitchToMode "scroll"; }
     }
     shared_except "locked" "tab" {
         bind "Ctrl t" { SwitchToMode "tab"; }
