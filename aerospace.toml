@@ -242,3 +242,7 @@ run = "move-node-to-workspace 4"
 [[on-window-detected]]
 if.app-id = "com.apple.Music"
 run = "move-node-to-workspace 5"
+
+[[on-window-detected]]
+if.window-title-regex-substring = '^Picture-in-picture|Picture-in-Picture|Picture in Picture|Picture in picture'
+run = 'layout floating'
