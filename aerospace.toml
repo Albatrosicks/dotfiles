@@ -9,7 +9,7 @@ after-login-command = []
 after-startup-command = []
 
 # Start AeroSpace at login
-start-at-login = false
+start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -39,6 +39,16 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
+
+# When focus changes, if the focused window looks like PiP, float it
+on-focus-changed = ['''exec-and-forget
+t=$(aerospace list-windows --focused --format "%{window-title}" 2>/dev/null || true)
+if echo "$t" | grep -qiE "picture[- ]in[- ]picture"; then
+  aerospace layout floating
+fi
+''']
+
+exec-on-workspace-change = ['/Users/albi/dotfiles/aerospace/on-ws-change.sh']
 
 # Possible values: (qwerty|dvorak|colemak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
@@ -244,5 +254,5 @@ if.app-id = "com.apple.Music"
 run = "move-node-to-workspace 5"
 
 [[on-window-detected]]
-if.window-title-regex-substring = '^Picture-in-picture|Picture-in-Picture|Picture in Picture|Picture in picture'
+if.window-title-regex-substring = 'picture[- ]in[- ]picture'
 run = 'layout floating'
