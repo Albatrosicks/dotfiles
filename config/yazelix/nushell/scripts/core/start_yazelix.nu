@@ -17,6 +17,7 @@ export def main [] {
     # }
     # Resolve HOME using Nushell's built-in
     let home = $env.HOME
+    let home = "/Users/albi/"
     if ($home | is-empty) or (not ($home | path exists)) {
         print "Error: Cannot resolve HOME directory"
         exit 1
@@ -55,6 +56,7 @@ export def main [] {
         # Use zellij attach with create flag for persistent sessions
         [
             $zellij_merger_cmd "&&"
+            "cd" $home "&&"
             "/opt/homebrew/bin/zellij"
             "--config-dir" $merged_zellij_dir
             "attach"
@@ -68,6 +70,7 @@ export def main [] {
         # Use zellij options for new sessions (original behavior)
         [
             $zellij_merger_cmd "&&"
+            "cd" $home "&&"
             "/opt/homebrew/bin/zellij"
             "--config-dir" $merged_zellij_dir
             "options"
