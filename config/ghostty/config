@@ -49,8 +49,9 @@ macos-option-as-alt = true
 # Terminal features to better support tmux and key bindings
 term = xterm-256color
 
-# to start with yazelix, creating a new session or attaching if a session called yazelix already exists
-command = "env PATH=/opt/homebrew/bin:$PATH nu -c 'zellij --config-dir ~/.config/zellij attach --create yazelix_ghostty options --default-layout yazelix'"
+# Start Yazelix via login shell to ensure Nix environment is loaded
+initial-command = "bash -l -c '/opt/homebrew/bin/nu ~/.config/yazelix/nushell/scripts/core/start_yazelix.nu'"
+
 # Alternative: Pick a Layout
 # command = "/opt/homebrew/bin/nu -c '/opt/homebrew/bin/zellij -l welcome --config-dir ~/.config/yazelix/zellij options --layout-dir ~/.config/yazelix/zellij/layouts'"
 
