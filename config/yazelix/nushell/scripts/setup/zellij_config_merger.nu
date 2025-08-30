@@ -51,7 +51,7 @@ def read_config_file [path: string, name: string] {
             ""
         }
     } else {
-        ""
+        $"// ($path) doesn't exist"
     }
 }
 
@@ -62,8 +62,8 @@ def merge_zellij_configs [
     print "🔧 Merging Zellij configuration layers..."
     
     # Layer 1: Zellij defaults
-    print "   📥 Fetching Zellij defaults..."
-    let defaults = get_zellij_defaults
+    # print "   📥 Fetching Zellij defaults..."
+    # let defaults = get_zellij_defaults
     
     # Layer 2: Yazelix overrides
     let yazelix_overrides_path = $"($yazelix_dir)/configs/zellij/yazelix_overrides.kdl"
@@ -94,14 +94,16 @@ def merge_zellij_configs [
         $"// Generated: (date now | format date '%Y-%m-%d %H:%M:%S')",
         "// ========================================",
         "",
-        "// === LAYER 1: ZELLIJ DEFAULTS ===",
-        $defaults,
+        # "// === LAYER 1: ZELLIJ DEFAULTS ===",
+        # $defaults,
+        "// === LAYER 3: USER CONFIGURATION ===",
+        $user_config,
         "",
         "// === LAYER 2: YAZELIX OVERRIDES ===",
         $yazelix_overrides,
         "",
-        "// === LAYER 3: USER CONFIGURATION ===",
-        $user_config,
+        # "// === LAYER 3: USER CONFIGURATION ===",
+        # $user_config,
         ""
     ] | str join "\n"
     

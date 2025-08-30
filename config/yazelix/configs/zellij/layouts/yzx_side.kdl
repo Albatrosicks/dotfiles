@@ -69,7 +69,7 @@ layout {
         }
         pane split_direction="vertical" {
             pane name="sidebar" {
-                command "yazi"
+                command "/opt/homebrew/bin/yazi"
             	size "100%"
             }
         }

@@ -12,9 +12,9 @@ export def main [] {
     use ../utils/nix_env_helper.nu ensure_nix_in_environment
     
     # If automatic setup fails, fall back to the detector with user interaction
-    if not (ensure_nix_in_environment) {
-        ensure_nix_available
-    }
+    # if not (ensure_nix_in_environment) {
+    #     ensure_nix_available
+    # }
     # Resolve HOME using Nushell's built-in
     let home = $env.HOME
     if ($home | is-empty) or (not ($home | path exists)) {
@@ -42,38 +42,38 @@ export def main [] {
     let merged_yazi_dir = generate_merged_yazi_config $yazelix_dir --quiet
     
     # For Zellij config, create a placeholder for now - will be generated inside Nix environment
-    # let merged_zellij_dir = $"($env.HOME)/.local/share/yazelix/configs/zellij"
-    let merged_zellij_dir = $"($env.HOME)/.config/yazelix/configs/zellij"
+    let merged_zellij_dir = $"($env.HOME)/.local/share/yazelix/configs/zellij"
+    # let merged_zellij_dir = $"($env.HOME)/.config/yazelix/configs/zellij"
 
     # Build the command that first generates the zellij config, then starts zellij
-    let zellij_merger_cmd = $"nu ($yazelix_dir)/nushell/scripts/setup/zellij_config_merger.nu ($yazelix_dir)"
+    let zellij_merger_cmd = $"/opt/homebrew/bin/nu ($yazelix_dir)/nushell/scripts/setup/zellij_config_merger.nu ($yazelix_dir)"
 
     # let yazelixLayoutName = if yazelixEnableSidebar then "yzx_side" else "yzx_no_side";
-    let ZELLIJ_DEFAULT_LAYOUT = "yzx_side";
+    let ZELLIJ_DEFAULT_LAYOUT = $"($yazelix_dir)/configs/zellij/layouts/yzx_side.kdl";
     
     let cmd = if ($config.persistent_sessions == "true") {
         # Use zellij attach with create flag for persistent sessions
         [
             $zellij_merger_cmd "&&"
-            "zellij"
+            "/opt/homebrew/bin/zellij"
             "--config-dir" $merged_zellij_dir
             "attach"
             "-c" $config.session_name
             "options"
             "--default-cwd" $home
             "--default-layout" $ZELLIJ_DEFAULT_LAYOUT
-            "--default-shell" $config.default_shell
+            "--default-shell" "/opt/homebrew/bin/fish"
         ] | str join " "
     } else {
         # Use zellij options for new sessions (original behavior)
         [
             $zellij_merger_cmd "&&"
-            "zellij"
+            "/opt/homebrew/bin/zellij"
             "--config-dir" $merged_zellij_dir
             "options"
             "--default-cwd" $home
             "--default-layout" $ZELLIJ_DEFAULT_LAYOUT
-            "--default-shell" $config.default_shell
+            "--default-shell" "/opt/homebrew/bin/fish"
         ] | str join " "
     }
 
