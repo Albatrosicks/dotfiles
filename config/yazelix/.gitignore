@@ -12,6 +12,4 @@ shells/zsh/initializers
 yazelix.nix
 helix_custom/
 configs/yazi/user/
-configs/yazi/personal/
-configs/zellij/personal/*
 !configs/zellij/personal/README.md
