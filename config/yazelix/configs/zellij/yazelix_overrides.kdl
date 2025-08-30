@@ -3,8 +3,7 @@
 // override these in zellij/personal/user_config.kdl
  
 // Use Yazelix's custom layouts (yzx_side.kdl or yzx_no_side.kdl)
-// default_layout "yazelix"
-default_layout "yzx_side.kdl"
+default_layout "yazelix"
 
 // Copy to Wayland clipboard - 
 // copy_command "wl-copy"
