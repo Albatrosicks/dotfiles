@@ -42,10 +42,14 @@ export def main [] {
     let merged_yazi_dir = generate_merged_yazi_config $yazelix_dir --quiet
     
     # For Zellij config, create a placeholder for now - will be generated inside Nix environment
-    let merged_zellij_dir = $"($env.HOME)/.local/share/yazelix/configs/zellij"
+    # let merged_zellij_dir = $"($env.HOME)/.local/share/yazelix/configs/zellij"
+    let merged_zellij_dir = $"($env.HOME)/.config/yazelix/configs/zellij"
 
     # Build the command that first generates the zellij config, then starts zellij
     let zellij_merger_cmd = $"nu ($yazelix_dir)/nushell/scripts/setup/zellij_config_merger.nu ($yazelix_dir)"
+
+    # let yazelixLayoutName = if yazelixEnableSidebar then "yzx_side" else "yzx_no_side";
+    let ZELLIJ_DEFAULT_LAYOUT = "yzx_side";
     
     let cmd = if ($config.persistent_sessions == "true") {
         # Use zellij attach with create flag for persistent sessions
@@ -57,7 +61,7 @@ export def main [] {
             "-c" $config.session_name
             "options"
             "--default-cwd" $home
-            "--default-layout" "$ZELLIJ_DEFAULT_LAYOUT"
+            "--default-layout" $ZELLIJ_DEFAULT_LAYOUT
             "--default-shell" $config.default_shell
         ] | str join " "
     } else {
@@ -68,7 +72,7 @@ export def main [] {
             "--config-dir" $merged_zellij_dir
             "options"
             "--default-cwd" $home
-            "--default-layout" "$ZELLIJ_DEFAULT_LAYOUT"
+            "--default-layout" $ZELLIJ_DEFAULT_LAYOUT
             "--default-shell" $config.default_shell
         ] | str join " "
     }
@@ -77,6 +81,7 @@ export def main [] {
     # The default shell is dynamically read from yazelix.nix configuration
     # and passed directly to the zellij command.
     with-env {HOME: $home} {
-        ^nix develop --impure --command bash -c $cmd
+        # ^nix develop --impure --command bash -c $cmd
+        bash -c $cmd
     }
 }
