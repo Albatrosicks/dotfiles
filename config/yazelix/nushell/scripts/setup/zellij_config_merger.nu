@@ -96,14 +96,12 @@ def merge_zellij_configs [
         "",
         # "// === LAYER 1: ZELLIJ DEFAULTS ===",
         # $defaults,
-        "// === LAYER 3: USER CONFIGURATION ===",
-        $user_config,
         "",
         "// === LAYER 2: YAZELIX OVERRIDES ===",
         $yazelix_overrides,
         "",
-        # "// === LAYER 3: USER CONFIGURATION ===",
-        # $user_config,
+        "// === LAYER 3: USER CONFIGURATION ===",
+        $user_config,
         ""
     ] | str join "\n"
     
