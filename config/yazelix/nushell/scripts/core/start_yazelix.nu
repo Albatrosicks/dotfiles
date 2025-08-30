@@ -17,7 +17,7 @@ export def main [] {
     # }
     # Resolve HOME using Nushell's built-in
     let home = $env.HOME
-    let home = "/Users/albi/"
+    let home = "/Users/albi"
     if ($home | is-empty) or (not ($home | path exists)) {
         print "Error: Cannot resolve HOME directory"
         exit 1
