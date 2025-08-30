@@ -24,7 +24,7 @@ layout {
                command_shell_command "bash -c 'echo ${YAZELIX_DEFAULT_SHELL:-$(basename $SHELL)}'"
                
                // command_editor_command "bash -c 'basename $EDITOR'"
-               command_editor_command "bash -c 'basename hx'"
+               command_editor_command "/opt/homebrew/bin/hx"
                command_editor_format "{stdout}"
                command_editor_interval "300"
                command_shell_format "{stdout}"
@@ -62,7 +62,7 @@ layout {
                command_shell_command "bash -c 'echo ${YAZELIX_DEFAULT_SHELL:-$(basename $SHELL)}'"
                
                // command_editor_command "bash -c 'basename $EDITOR'"
-               command_editor_command "bash -c 'basename hx'"
+               command_editor_command "/opt/homebrew/bin/hx"
                command_editor_format "{stdout}"
                command_editor_interval "300"
                command_shell_format "{stdout}"
