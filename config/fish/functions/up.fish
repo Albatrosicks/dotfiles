@@ -147,6 +147,85 @@ end
 
 function process_duti
     echo -e "\e[1;32m(•_•) > Processing duti config...\e[0m"
+    # Apply Zed as default editor for text/code UTIs using duti — fish version
+    # --- Preflight checks ---
+    type -q duti; or (echo "❌ duti not found. Install via: brew install duti")
+
+    set -l ZED_APP_NAME Zed
+    set -l ZED_BUNDLE_ID (osascript -e "id of app \"$ZED_APP_NAME\"")
+    test $status -eq 0 -a -n "$ZED_BUNDLE_ID"; or die "Could not find $ZED_APP_NAME. Make sure it’s installed (e.g., /Applications/Zed.app)."
+    echo "✅ Using $ZED_APP_NAME with bundle ID: $ZED_BUNDLE_ID"
+
+    # --- UTI list (deduped to cover text & code) ---
+    set -l UTIS \
+        com.apple.traditional-mac-plain-text \
+        public.text \
+        public.plain-text \
+        public.utf8-plain-text \
+        public.utf16-plain-text \
+        public.utf16-external-plain-text \
+        public.source-code \
+        public.script \
+        public.shell-script \
+        public.unix-executable \
+        public.json \
+        public.xml \
+        public.yaml \
+        org.yaml.yaml \
+        com.apple.property-list \
+        public.html \
+        public.css \
+        public.javascript \
+        com.netscape.javascript-source \
+        public.typescript-script \
+        public.c-source \
+        public.c-header \
+        public.c-plus-plus-source \
+        public.c-plus-plus-header \
+        public.objective-c-source \
+        public.objective-c-plus-plus-source \
+        com.sun.java-source \
+        public.java-source \
+        public.swift-source \
+        public.rust-source \
+        org.gnu.assembly \
+        public.assembly-source \
+        org.gnu.emacs.lisp \
+        public.python-script \
+        public.ruby-script \
+        public.perl-script \
+        public.php-script \
+        public.csh-script \
+        com.apple.applescript.text \
+        public.markdown \
+        net.daringfireball.markdown \
+        dyn.ah62d4rv4ge8044pq \
+        public.makefile \
+        org.gnu.gnu-make \
+        public.ini-settings \
+        com.microsoft.windows-ini \
+        com.sun.java-properties \
+        public.log \
+        com.macromates.textmate.language \
+        com.macromates.textmate.preferences \
+        com.macromates.textmate.snippet \
+        com.macromates.textmate.theme
+
+    # --- Apply UTIs to Zed ---
+    for uti in $UTIS
+        echo "🔧 Setting $uti to open with $ZED_APP_NAME..."
+        duti -s $ZED_BUNDLE_ID $uti all
+        if test $status -ne 0
+            echo "⚠️  Failed to set $uti — continuing..."
+        end
+    end
+
+    # --- Extension mapping: .mdx -> Zed (duti uses extension without the dot) ---
+    echo "🔧 Setting .mdx extension to open with $ZED_APP_NAME..."
+    duti -s $ZED_BUNDLE_ID mdx all
+    test $status -eq 0; or echo "⚠️  Failed to set .mdx"
+
+    echo "🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
 end
 
 function up --description "Update system components"
