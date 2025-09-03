@@ -148,8 +148,6 @@ end
 function process_duti
     echo -e "\e[1;32m(•_•) > Processing duti config...\e[0m"
     # Apply Zed as default editor for text/code UTIs using duti — fish version
-    # --- Preflight checks ---
-    type -q duti; or (echo "❌ duti not found. Install via: brew install duti")
 
     set -l ZED_APP_NAME Zed
     set -l ZED_BUNDLE_ID (osascript -e "id of app \"$ZED_APP_NAME\"")
