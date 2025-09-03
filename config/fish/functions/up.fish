@@ -151,7 +151,7 @@ function process_duti
 
     set -l ZED_APP_NAME Zed
     set -l ZED_BUNDLE_ID (osascript -e "id of app \"$ZED_APP_NAME\"")
-    test $status -eq 0 -a -n "$ZED_BUNDLE_ID"; or die "Could not find $ZED_APP_NAME. Make sure it’s installed (e.g., /Applications/Zed.app)."
+    test $status -eq 0 -a -n "$ZED_BUNDLE_ID"; or echo "Could not find $ZED_APP_NAME. Make sure it’s installed (e.g., /Applications/Zed.app)."
     echo "✅ Using $ZED_APP_NAME with bundle ID: $ZED_BUNDLE_ID"
 
     # --- UTI list (deduped to cover text & code) ---
