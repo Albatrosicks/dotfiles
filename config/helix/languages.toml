@@ -92,44 +92,43 @@ content = "{CODE}"
 name = "go"
 auto-format = true
 formatter = { command = "goimports" }
-language-servers = [ "gopls", "golangci-lint-langserver", "lsp-ai" ]
+language-servers = [ "gopls", "golangci-lint-langserver" ]
 
 [[language]]
 name = "python"
 roots = [ "pyproject.toml" ]
-language-servers = [ "pyright", "ruff", "lsp-ai" ]
+language-servers = [ "pyright", "ruff" ]
 
 [[language]]
 name = "php"
-language-servers = [ "lsp-ai" ]
 
 [[language]]
 name = "bash"
-language-servers = [ "bash-language-server" , "lsp-ai" ]
+language-servers = [ "bash-language-server" ]
 
 [[language]]
 name = "json"
-language-servers = [ "vscode-json-language-server" , "lsp-ai" ]
+language-servers = [ "vscode-json-language-server" ]
 
 [[language]]
 name = "css"
-language-servers = [ "vscode-css-language-server", "lsp-ai" ]
+language-servers = [ "vscode-css-language-server" ]
 
 [[language]]
 name = "dockerfile"
-language-servers = [ "docker-langserver", "lsp-ai" ]
+language-servers = [ "docker-langserver" ]
 
 [[language]]
 name = 'docker-compose'
-language-servers = [ "docker-compose-langserver", "lsp-ai" ]
+language-servers = [ "docker-compose-langserver" ]
 
 [[language]]
 name = 'lua'
-language-servers = [ "lua-language-server", "lsp-ai" ]
+language-servers = [ "lua-language-server" ]
 
 [[language]]
 name = "sql"
-language-servers = [ "sqls", "lsp-ai" ]
+language-servers = [ "sqls" ]
 
 [[language]]
 name = "yaml"
