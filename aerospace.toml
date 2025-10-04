@@ -41,14 +41,14 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 automatically-unhide-macos-hidden-apps = false
 
 # When focus changes, if the focused window looks like PiP, float it
-on-focus-changed = ['''exec-and-forget
-t=$(aerospace list-windows --focused --format "%{window-title}" 2>/dev/null || true)
-if echo "$t" | grep -qiE "picture[- ]in[- ]picture"; then
-  aerospace layout floating
-fi
-''']
+# on-focus-changed = ['''exec-and-forget
+# t=$(aerospace list-windows --focused --format "%{window-title}" 2>/dev/null || true)
+# if echo "$t" | grep -qiE "picture[- ]in[- ]picture"; then
+#   aerospace layout floating
+# fi
+# ''']
 
-exec-on-workspace-change = ['/Users/albi/dotfiles/aerospace/on-ws-change.sh']
+# exec-on-workspace-change = ['/Users/albi/dotfiles/aerospace/on-ws-change.sh']
 
 # Possible values: (qwerty|dvorak|colemak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
@@ -109,10 +109,10 @@ exec-on-workspace-change = ['/Users/albi/dotfiles/aerospace/on-ws-change.sh']
     alt-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    alt-h = 'focus left'
-    alt-j = 'focus down'
-    alt-k = 'focus up'
-    alt-l = 'focus right'
+    alt-h = 'focus --ignore-floating left'
+    alt-j = 'focus --ignore-floating down'
+    alt-k = 'focus --ignore-floating up'
+    alt-l = 'focus --ignore-floating right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
     alt-shift-h = 'move left'
@@ -226,6 +226,10 @@ if.app-id = "app.zen-browser.zen"
 run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
+if.app-id = "com.kagi.kagimacOS.RC"
+run = "move-node-to-workspace 1"
+
+[[on-window-detected]]
 if.app-id = "ru.keepcoder.Telegram"
 run = "move-node-to-workspace 2"
 
@@ -258,5 +262,9 @@ if.app-id = "dev.zed.Zed"
 run = "move-node-to-workspace 6"
 
 [[on-window-detected]]
-if.window-title-regex-substring = 'picture[- ]in[- ]picture'
-run = 'layout floating'
+if.app-id = "com.apple.Music"
+run = "move-node-to-workspace 4"
+
+# [[on-window-detected]]
+# if.window-title-regex-substring = 'picture[- ]in[- ]picture'
+# run = 'layout floating'
