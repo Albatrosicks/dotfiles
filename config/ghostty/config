@@ -51,7 +51,8 @@ term = xterm-256color
 
 # Start Yazelix via login shell to ensure Nix environment is loaded
 # initial-command = "/opt/homebrew/bin/nu ~/.config/yazelix/nushell/scripts/core/start_yazelix.nu"
-initial-command = "/opt/homebrew/bin/fish -c '/opt/homebrew/bin/nu ~/.config/yazelix/nushell/scripts/core/start_yazelix.nu'"
+# initial-command = "/opt/homebrew/bin/fish -c '/opt/homebrew/bin/nu ~/.config/yazelix/nushell/scripts/core/start_yazelix.nu'"
+initial-command = "/opt/homebrew/bin/fish -c 'zellij --layout default'"
 
 # Alternative: Pick a Layout
 # command = "/opt/homebrew/bin/nu -c '/opt/homebrew/bin/zellij -l welcome --config-dir ~/.config/yazelix/zellij options --layout-dir ~/.config/yazelix/zellij/layouts'"
