@@ -161,6 +161,11 @@ keybinds clear-defaults=true {
         bind "Ctrl h" { SwitchToMode "move"; }
     }
     shared_except "locked" "session" {
+        // Use original Zellij keybinding but with Ctrl+Alt modifier
+        // Original: Ctrl+O, now: Ctrl+Alt+O to avoid Helix conflicts
+        unbind "Ctrl o"
+        bind "Ctrl Alt o" { SwitchToMode "Session"; }
+
         bind "Ctrl ." { SwitchToMode "normal"; }
     }
     shared_except "locked" "scroll" {
