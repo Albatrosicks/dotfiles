@@ -21,6 +21,7 @@ set -gx PATH \
     $BREW_PREFIX/opt/make/libexec/gnubin \
     $BREW_PREFIX/opt/gawk/libexec/gnubin \
     $BREW_PREFIX/opt/python/libexec/bin \
+    $BREW_PREFIX/opt/openjdk/bin/ \
     ~/.cargo/bin \
     $GOPATH/bin \
     ~/.local/bin \
