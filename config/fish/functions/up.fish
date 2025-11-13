@@ -55,10 +55,6 @@ function update_brew
             brew fetch $pkg >/dev/null 2>&1; or true
         end
 
-        if command -q parallel
-            echo $outdated | parallel --bar --keep-order 'brew fetch --deps {} >/dev/null 2>&1'
-        end
-
         brew upgrade
         update_qutebrowser_codecs
     else
