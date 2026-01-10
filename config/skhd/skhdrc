@@ -114,6 +114,10 @@ cmd - k [
   "orion rc": skhd -k "shift + ctrl - tab"
   "orion": skhd -k "shift + ctrl - tab"
 ]
+# search
+cmd - slash [
+  "telegram": skhd -k "cmd + k"
+]
 # switch to previous panel in Firefox
 cmd - h [
   "firefox": skhd -k "alt - 0x2B"
