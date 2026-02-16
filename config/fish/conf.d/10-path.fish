@@ -13,7 +13,7 @@ end
 set -gx GOPATH ~/go
 
 # Set Ansible vault password file
-set -gx ANSIBLE_VAULT_PASSWORD_FILE ~/.config/ansible/vault-pass.sh
+set -gx ANSIBLE_VAULT_PASSWORD_FILE ~/.config/ansible/vault-pass.fish
 
 # Build PATH with proper precedence (first entries have highest priority)
 set -gx PATH \
