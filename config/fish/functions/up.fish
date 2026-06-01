@@ -167,7 +167,7 @@ function process_duti
         public.yaml \
         org.yaml.yaml \
         com.apple.property-list \
-        public.html \
+        # public.html \ # disable annoying "change browser" popup
         public.css \
         public.javascript \
         com.netscape.javascript-source \
