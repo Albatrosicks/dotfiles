@@ -192,7 +192,6 @@ function process_duti
         com.apple.applescript.text \
         net.daringfireball.markdown \
         md \
-        makefile \
         ini \
         properties \
         public.log \
@@ -212,13 +211,6 @@ function process_duti
         if test $status -ne 0
             echo -e "\r\e[K⚠️  Failed to set $target — continuing..."
         end
-    end
-
-    # --- Extension mapping: .mdx -> Zed ---
-    echo -en "\r\e[K🔧 Setting mdx extension to open with $ZED_APP_NAME..."
-    duti -s $ZED_BUNDLE_ID mdx all >/dev/null 2>&1
-    if test $status -ne 0
-        echo -e "\r\e[K⚠️  Failed to set mdx (Launch Services paramErr -50)"
     end
 
     echo -e "\r\e[K🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
