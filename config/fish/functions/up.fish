@@ -70,8 +70,20 @@ end
 
 function update_fish_plugins
     echo -e "\e[1;32m(•_•) > Updating fish plugins...\e[0m"
-    if not command -q fisher
-        fisher update
+
+    if command -q fisher
+        # Pipe both stdout and stderr into the processing loop
+        fisher update 2>&1 | while read -l line
+            if string match -q -r '^\s+' -- "$line"
+                # Inline update for paths: \r returns to start, \e[K clears trailing text
+                echo -en "\r\e[K$line"
+            else
+                # Permanent print for high-level messages, clearing any leftover inline text
+                echo -e "\r\e[K$line"
+            end
+        end
+    else
+        echo "⚠️  fisher is not installed. Skipping..."
     end
 end
 
