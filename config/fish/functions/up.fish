@@ -143,17 +143,16 @@ end
 
 function process_duti
     echo -e "\e[1;32m(•_•) > Processing duti config...\e[0m"
-    # Apply Zed as default editor for text/code UTIs using duti — fish version
+    # Apply Zed as default editor for text/code using duti — fish version
 
     set -l ZED_APP_NAME Zed
     set -l ZED_BUNDLE_ID (osascript -e "id of app \"$ZED_APP_NAME\"")
     test $status -eq 0 -a -n "$ZED_BUNDLE_ID"; or echo "Could not find $ZED_APP_NAME. Make sure it’s installed (e.g., /Applications/Zed.app)."
 
-    # Эту строку оставляем как есть, она останется в логе
     echo "✅ Using $ZED_APP_NAME with bundle ID: $ZED_BUNDLE_ID"
 
-    # --- UTI list (deduped to cover text & code) ---
-    set -l UTIS \
+    # --- Targets list (mix of UTIs and direct file extensions) ---
+    set -l TARGETS \
         com.apple.traditional-mac-plain-text \
         public.text \
         public.plain-text \
@@ -169,61 +168,58 @@ function process_duti
         public.yaml \
         org.yaml.yaml \
         com.apple.property-list \
-        # public.html \ # disable annoying "change browser" popup \
         public.css \
-        public.javascript \
         com.netscape.javascript-source \
-        public.typescript-script \
-        public.c-source \
-        public.c-header \
-        public.c-plus-plus-source \
-        public.c-plus-plus-header \
-        public.objective-c-source \
-        public.objective-c-plus-plus-source \
-        com.sun.java-source \
-        public.java-source \
-        public.swift-source \
-        public.rust-source \
-        org.gnu.assembly \
-        public.assembly-source \
-        org.gnu.emacs.lisp \
-        public.python-script \
-        public.ruby-script \
-        public.perl-script \
-        public.php-script \
-        public.csh-script \
+        js \
+        ts \
+        c \
+        h \
+        cpp \
+        hpp \
+        m \
+        mm \
+        java \
+        swift \
+        rs \
+        asm \
+        el \
+        py \
+        rb \
+        pl \
+        php \
+        csh \
         com.apple.applescript.text \
-        public.markdown \
         net.daringfireball.markdown \
-        dyn.ah62d4rv4ge8044pq \
-        public.makefile \
-        org.gnu.gnu-make \
-        public.ini-settings \
-        com.microsoft.windows-ini \
-        com.sun.java-properties \
+        md \
+        makefile \
+        ini \
+        properties \
         public.log \
         com.macromates.textmate.language \
         com.macromates.textmate.preferences \
         com.macromates.textmate.snippet \
         com.macromates.textmate.theme
 
-    # --- Apply UTIs to Zed ---
-    for uti in $UTIS
-        # Обновляем строку на месте: \r возвращает в начало, \e[K очищает хвост
-        echo -en "\r\e[K🔧 Setting $uti to open with $ZED_APP_NAME..."
-        duti -s $ZED_BUNDLE_ID $uti all
+    # --- Apply targets to Zed ---
+    for target in $TARGETS
+        # Update line in place: \r returns to start, \e[K clears trailing text
+        echo -en "\r\e[K🔧 Setting $target to open with $ZED_APP_NAME..."
+
+        # Mute stdout/stderr to prevent system output from breaking the UI
+        duti -s $ZED_BUNDLE_ID $target all >/dev/null 2>&1
+
         if test $status -ne 0
-            # Warning выводится с переносом строки, поэтому он останется в истории
-            echo -e "\r\e[K⚠️  Failed to set $uti — continuing..."
+            echo -e "\r\e[K⚠️  Failed to set $target — continuing..."
         end
     end
 
-    # --- Extension mapping: .mdx -> Zed (duti uses extension without the dot) ---
-    echo -en "\r\e[K🔧 Setting .mdx extension to open with $ZED_APP_NAME..."
-    duti -s $ZED_BUNDLE_ID mdx all
-    test $status -eq 0; or echo -e "\r\e[K⚠️  Failed to set .mdx"
+    # --- Extension mapping: .mdx -> Zed ---
+    echo -en "\r\e[K🔧 Setting mdx extension to open with $ZED_APP_NAME..."
+    duti -s $ZED_BUNDLE_ID mdx all >/dev/null 2>&1
+    if test $status -ne 0
+        echo -e "\r\e[K⚠️  Failed to set mdx (Launch Services paramErr -50)"
+    end
 
-    # Финальное сообщение перекроет последнюю строку процесса и останется на экране
     echo -e "\r\e[K🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
 end
 
