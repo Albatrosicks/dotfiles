@@ -148,6 +148,8 @@ function process_duti
     set -l ZED_APP_NAME Zed
     set -l ZED_BUNDLE_ID (osascript -e "id of app \"$ZED_APP_NAME\"")
     test $status -eq 0 -a -n "$ZED_BUNDLE_ID"; or echo "Could not find $ZED_APP_NAME. Make sure it’s installed (e.g., /Applications/Zed.app)."
+
+    # Эту строку оставляем как есть, она останется в логе
     echo "✅ Using $ZED_APP_NAME with bundle ID: $ZED_BUNDLE_ID"
 
     # --- UTI list (deduped to cover text & code) ---
@@ -167,7 +169,7 @@ function process_duti
         public.yaml \
         org.yaml.yaml \
         com.apple.property-list \
-        # public.html \ # disable annoying "change browser" popup
+        # public.html \ # disable annoying "change browser" popup \
         public.css \
         public.javascript \
         com.netscape.javascript-source \
@@ -207,19 +209,22 @@ function process_duti
 
     # --- Apply UTIs to Zed ---
     for uti in $UTIS
-        echo "🔧 Setting $uti to open with $ZED_APP_NAME..."
+        # Обновляем строку на месте: \r возвращает в начало, \e[K очищает хвост
+        echo -en "\r\e[K🔧 Setting $uti to open with $ZED_APP_NAME..."
         duti -s $ZED_BUNDLE_ID $uti all
         if test $status -ne 0
-            echo "⚠️  Failed to set $uti — continuing..."
+            # Warning выводится с переносом строки, поэтому он останется в истории
+            echo -e "\r\e[K⚠️  Failed to set $uti — continuing..."
         end
     end
 
     # --- Extension mapping: .mdx -> Zed (duti uses extension without the dot) ---
-    echo "🔧 Setting .mdx extension to open with $ZED_APP_NAME..."
+    echo -en "\r\e[K🔧 Setting .mdx extension to open with $ZED_APP_NAME..."
     duti -s $ZED_BUNDLE_ID mdx all
-    test $status -eq 0; or echo "⚠️  Failed to set .mdx"
+    test $status -eq 0; or echo -e "\r\e[K⚠️  Failed to set .mdx"
 
-    echo "🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
+    # Финальное сообщение перекроет последнюю строку процесса и останется на экране
+    echo -e "\r\e[K🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
 end
 
 function up --description "Update system components"
