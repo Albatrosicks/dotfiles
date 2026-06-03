@@ -69,7 +69,7 @@ end
 
 function update_fish_plugins
     echo -e "\e[1;32m(•_•) > Updating fish plugins...\e[0m"
-    if command -q fisher
+    if not command -q fisher
         fisher update
     end
 end
