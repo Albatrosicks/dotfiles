@@ -228,8 +228,6 @@ function up --description "Update system components"
         update_brew
         update_appstore_apps
         update_fish_plugins
-        update_go_binaries
-        update_cargo_binaries
         update_pipx
         process_duti
     else
@@ -243,10 +241,6 @@ function up --description "Update system components"
                     update_appstore_apps
                 case --fish
                     update_fish_plugins
-                case --go
-                    update_go_binaries
-                case --cargo --rust
-                    update_cargo_binaries
                 case --pipx
                     update_pipx
                 case --duti
