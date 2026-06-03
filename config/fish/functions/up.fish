@@ -4,7 +4,8 @@ function update_configs
     set username (whoami)
 
     cd "/Users/$username/dotfiles"; or return
-    git pull; and rcup
+    git pull
+    rcup
     cd $prev_dir; or return
 end
 
