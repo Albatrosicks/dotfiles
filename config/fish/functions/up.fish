@@ -258,12 +258,6 @@ function up --description "Update system components"
         set run_all false
     end
 
-    # Determine if fish should run in verbose mode
-    set -l fish_args ""
-    if set -q _flag_verbose
-        set fish_args --verbose
-    end
-
     # Execute updates based on flags or run_all
     if test "$run_all" = true; or set -q _flag_dotfiles
         update_configs
@@ -278,7 +272,7 @@ function up --description "Update system components"
     end
 
     if test "$run_all" = true; or set -q _flag_fish
-        update_fish_plugins $fish_args
+        update_fish_plugins $_flag_verbose
     end
 
     if test "$run_all" = true; or set -q _flag_uv_tool
@@ -286,6 +280,6 @@ function up --description "Update system components"
     end
 
     if test "$run_all" = true; or set -q _flag_duti
-        process_duti
+        process_duti $_flag_verbose
     end
 end
