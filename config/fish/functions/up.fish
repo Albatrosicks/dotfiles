@@ -5,7 +5,7 @@ function update_configs
 
     cd "/Users/$username/dotfiles"; or return
     git pull
-    rcup
+    rcup -i y
     cd $prev_dir; or return
 end
 
@@ -65,21 +65,35 @@ end
 
 function update_appstore_apps
     echo -e "\e[1;32m(•_•) > Updating AppStore applications...\e[0m"
-    mas upgrade
+
+    set -l mas_output (mas upgrade)
+
+    if test (count $mas_output) -eq 0
+        echo "Already up-to-date."
+    else
+        printf "%s\n" $mas_output
+    end
 end
 
 function update_fish_plugins
+    # Parse arguments: support -v or --verbose
+    argparse v/verbose -- $argv
+    or return
+
     echo -e "\e[1;32m(•_•) > Updating fish plugins...\e[0m"
 
     if not command -q fisher
-        # Pipe both stdout and stderr into the processing loop
-        fisher update 2>&1 | while read -l line
-            if string match -q -r '^\s+' -- "$line"
-                # Inline update for paths: \r returns to start, \e[K clears trailing text
-                echo -en "\r\e[K$line"
-            else
-                # Permanent print for high-level messages, clearing any leftover inline text
-                echo -e "\r\e[K$line"
+        if set -q _flag_verbose
+            # Verbose mode: execute normally, printing everything
+            fisher update
+        else
+            # Quiet mode: hide indented paths, showing them inline
+            fisher update 2>&1 | while read -l line
+                if string match -q -r '^\s+' -- "$line"
+                    echo -en "\r\e[K$line"
+                else
+                    echo -e "\r\e[K$line"
+                end
             end
         end
     else
@@ -229,31 +243,44 @@ function process_duti
 end
 
 function up --description "Update system components"
-    if test (count $argv) -eq 0
+    # Define valid flags. v/verbose means -v and --verbose are aliases
+    argparse dotfiles brew appstore fish uv-tool duti v/verbose -- $argv
+    or return
+
+    # Check if any specific component flag was provided
+    set -l run_all true
+    if set -q _flag_dotfiles; or set -q _flag_brew; or set -q _flag_appstore; or set -q _flag_fish; or set -q _flag_uv_tool; or set -q _flag_duti
+        set run_all false
+    end
+
+    # Determine if fish should run in verbose mode
+    set -l fish_args ""
+    if set -q _flag_verbose
+        set fish_args --verbose
+    end
+
+    # Execute updates based on flags or run_all
+    if test "$run_all" = true; or set -q _flag_dotfiles
         update_configs
+    end
+
+    if test "$run_all" = true; or set -q _flag_brew
         update_brew
+    end
+
+    if test "$run_all" = true; or set -q _flag_appstore
         update_appstore_apps
-        update_fish_plugins
+    end
+
+    if test "$run_all" = true; or set -q _flag_fish
+        update_fish_plugins $fish_args
+    end
+
+    if test "$run_all" = true; or set -q _flag_uv_tool
         update_uv-tool
+    end
+
+    if test "$run_all" = true; or set -q _flag_duti
         process_duti
-    else
-        for arg in $argv
-            switch $arg
-                case --dotfiles
-                    update_configs
-                case --brew
-                    update_brew
-                case --appstore
-                    update_appstore_apps
-                case --fish
-                    update_fish_plugins
-                case --uv-tool
-                    update_uv-tool
-                case --duti
-                    process_duti
-                case "*"
-                    echo "Invalid parameter: $arg"
-            end
-        end
     end
 end
