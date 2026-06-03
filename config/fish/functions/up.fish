@@ -74,9 +74,9 @@ function update_fish_plugins
     end
 end
 
-function update_pipx
-    echo -e "\e[1;32m(•_•) > Updating pipx...\e[0m"
-    pipx upgrade-all
+function update_uvx
+    echo -e "\e[1;32m(•_•) > Updating uvx...\e[0m"
+    uvx upgrade-all
 end
 
 function update_go_binaries
@@ -228,7 +228,7 @@ function up --description "Update system components"
         update_brew
         update_appstore_apps
         update_fish_plugins
-        update_pipx
+        update_uvx
         process_duti
     else
         for arg in $argv
@@ -241,8 +241,8 @@ function up --description "Update system components"
                     update_appstore_apps
                 case --fish
                     update_fish_plugins
-                case --pipx
-                    update_pipx
+                case --uvx
+                    update_uvx
                 case --duti
                     process_duti
                 case "*"
