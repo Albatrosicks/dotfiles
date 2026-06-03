@@ -74,9 +74,9 @@ function update_fish_plugins
     end
 end
 
-function update_uvx
-    echo -e "\e[1;32m(•_•) > Updating uvx...\e[0m"
-    uvx upgrade-all
+function update_uv-tool
+    echo -e "\e[1;32m(•_•) > Updating uv tool...\e[0m"
+    uv tool upgrade --all --no-progress
 end
 
 function update_go_binaries
@@ -228,7 +228,7 @@ function up --description "Update system components"
         update_brew
         update_appstore_apps
         update_fish_plugins
-        update_uvx
+        update_uv-tool
         process_duti
     else
         for arg in $argv
@@ -241,8 +241,8 @@ function up --description "Update system components"
                     update_appstore_apps
                 case --fish
                     update_fish_plugins
-                case --uvx
-                    update_uvx
+                case --uv-tool
+                    update_uv-tool
                 case --duti
                     process_duti
                 case "*"
