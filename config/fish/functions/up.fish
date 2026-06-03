@@ -71,7 +71,7 @@ end
 function update_fish_plugins
     echo -e "\e[1;32m(•_•) > Updating fish plugins...\e[0m"
 
-    if command -q fisher
+    if not command -q fisher
         # Pipe both stdout and stderr into the processing loop
         fisher update 2>&1 | while read -l line
             if string match -q -r '^\s+' -- "$line"
