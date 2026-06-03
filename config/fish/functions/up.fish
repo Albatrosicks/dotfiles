@@ -169,6 +169,10 @@ function update_cargo_binaries
 end
 
 function process_duti
+    # Parse arguments: support -v or --verbose
+    argparse v/verbose -- $argv
+    or return
+
     echo -e "\e[1;32m(•_•) > Processing duti config...\e[0m"
     # Apply Zed as default editor for text/code using duti — fish version
 
@@ -197,29 +201,20 @@ function process_duti
         com.apple.property-list \
         public.css \
         com.netscape.javascript-source \
-        js \
-        ts \
-        c \
-        h \
-        cpp \
-        hpp \
-        m \
-        mm \
-        java \
-        swift \
-        rs \
-        asm \
-        el \
-        py \
-        rb \
-        pl \
-        php \
-        csh \
+        js ts jsx tsx jsonc \
+        vue svelte \
+        c h cpp hpp m mm \
+        java swift rs asm el \
+        go mod sum \
+        py rb pl php csh \
+        sh bash zsh fish \
+        lua sql graphql gql \
         com.apple.applescript.text \
         net.daringfireball.markdown \
-        md \
-        ini \
-        properties \
+        md mk \
+        yml toml conf env ini properties \
+        tf tfvars hcl \
+        csv tsv txt log \
         public.log \
         com.macromates.textmate.language \
         com.macromates.textmate.preferences \
@@ -228,18 +223,28 @@ function process_duti
 
     # --- Apply targets to Zed ---
     for target in $TARGETS
-        # Update line in place: \r returns to start, \e[K clears trailing text
-        echo -en "\r\e[K🔧 Setting $target to open with $ZED_APP_NAME..."
-
-        # Mute stdout/stderr to prevent system output from breaking the UI
-        duti -s $ZED_BUNDLE_ID $target all >/dev/null 2>&1
-
-        if test $status -ne 0
-            echo -e "\r\e[K⚠️  Failed to set $target — continuing..."
+        if set -q _flag_verbose
+            # Verbose mode: print on new lines, let duti print its own errors
+            echo "🔧 Setting $target to open with $ZED_APP_NAME..."
+            duti -s $ZED_BUNDLE_ID $target all
+            if test $status -ne 0
+                echo "⚠️  Failed to set $target — continuing..."
+            end
+        else
+            # Quiet mode: Update line in place, mute duti output
+            echo -en "\r\e[K🔧 Setting $target to open with $ZED_APP_NAME..."
+            duti -s $ZED_BUNDLE_ID $target all >/dev/null 2>&1
+            if test $status -ne 0
+                echo -e "\r\e[K⚠️  Failed to set $target — continuing..."
+            end
         end
     end
 
-    echo -e "\r\e[K🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
+    if set -q _flag_verbose
+        echo "🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
+    else
+        echo -e "\r\e[K🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
+    end
 end
 
 function up --description "Update system components"
