@@ -12,12 +12,14 @@ SETUVAR _fisher_martonperei_2F_starship_2E_fish_files:\x7e/\x2econfig/fish/conf\
 SETUVAR _fisher_paysonwallach_2F_fish_2D_you_2D_should_2D_use_files:\x7e/\x2econfig/fish/functions/__ysu__check_aliases\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__check_git_aliases\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__check_hardcore\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__flush_buffer\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__get_field\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__message\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__set_default\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__set_field\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__write_buffer\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/you_should_use\x2efish
 SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ehbiel/fish\x2dautoswitch\x2dvirtualenv\x1emartonperei/starship\x2efish\x1epaysonwallach/fish\x2dyou\x2dshould\x2duse\x1edaleeidd/fish\x2dgit\x2dignore\x1ekidonng/zoxide\x2efish
 SETUVAR _fisher_upgraded_to_4_4:\x1d
+SETUVAR fish_greeting:
 SETUVAR fish_history_ignore_duplicates:1
 SETUVAR fish_history_ignore_patterns:ls\x1ecd\x1epwd\x1eexit\x1ell\x1ehistory\x1eez\x1eeza\x1eexport
 SETUVAR fish_history_ignore_space:1
 SETUVAR fish_history_max_size:4096
 SETUVAR fish_history_save_on_exit:1
 SETUVAR fish_prompt_pwd_dir_length:5
+SETUVAR fish_user_paths:/Users/albi/\x2egrok/bin
 SETUVAR zellij_fish_dump_full_screen:0
 SETUVAR zellij_fish_update_tab_name_on_preexec:0
 SETUVAR zellij_fish_update_tab_name_on_preexec_blacklist:pwd\x1ecd\x1erm\x1emv
