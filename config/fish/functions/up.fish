@@ -193,7 +193,6 @@ function process_duti
         public.source-code \
         public.script \
         public.shell-script \
-        public.unix-executable \
         public.json \
         public.xml \
         public.yaml \
