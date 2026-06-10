@@ -168,92 +168,14 @@ function update_cargo_binaries
     cargo install-update --all
 end
 
-function process_duti
-    # Parse arguments: support -v or --verbose
-    argparse v/verbose -- $argv
-    or return
-
-    echo -e "\e[1;32m(•_•) > Processing duti config...\e[0m"
-    # Apply Zed as default editor for text/code using duti — fish version
-
-    set -l ZED_APP_NAME Zed
-    set -l ZED_BUNDLE_ID (osascript -e "id of app \"$ZED_APP_NAME\"")
-    test $status -eq 0 -a -n "$ZED_BUNDLE_ID"; or echo "Could not find $ZED_APP_NAME. Make sure it’s installed (e.g., /Applications/Zed.app)."
-
-    echo "✅ Using $ZED_APP_NAME with bundle ID: $ZED_BUNDLE_ID"
-
-    # --- Targets list (mix of UTIs and direct file extensions) ---
-    set -l TARGETS \
-        com.apple.traditional-mac-plain-text \
-        public.text \
-        public.plain-text \
-        public.utf8-plain-text \
-        public.utf16-plain-text \
-        public.utf16-external-plain-text \
-        public.source-code \
-        public.script \
-        public.shell-script \
-        public.json \
-        public.xml \
-        public.yaml \
-        org.yaml.yaml \
-        com.apple.property-list \
-        public.css \
-        com.netscape.javascript-source \
-        js ts jsx tsx jsonc \
-        vue svelte \
-        c h cpp hpp m mm \
-        java swift rs asm el \
-        go mod sum \
-        py rb pl php csh \
-        sh bash zsh fish \
-        lua sql graphql gql \
-        com.apple.applescript.text \
-        net.daringfireball.markdown \
-        md mk \
-        yml toml conf env ini properties \
-        tf tfvars hcl \
-        csv tsv txt log \
-        public.log \
-        com.macromates.textmate.language \
-        com.macromates.textmate.preferences \
-        com.macromates.textmate.snippet \
-        com.macromates.textmate.theme
-
-    # --- Apply targets to Zed ---
-    for target in $TARGETS
-        if set -q _flag_verbose
-            # Verbose mode: print on new lines, let duti print its own errors
-            echo "🔧 Setting $target to open with $ZED_APP_NAME..."
-            duti -s $ZED_BUNDLE_ID $target all
-            if test $status -ne 0
-                echo "⚠️  Failed to set $target — continuing..."
-            end
-        else
-            # Quiet mode: Update line in place, mute duti output
-            echo -en "\r\e[K🔧 Setting $target to open with $ZED_APP_NAME..."
-            duti -s $ZED_BUNDLE_ID $target all >/dev/null 2>&1
-            if test $status -ne 0
-                echo -e "\r\e[K⚠️  Failed to set $target — continuing..."
-            end
-        end
-    end
-
-    if set -q _flag_verbose
-        echo "🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
-    else
-        echo -e "\r\e[K🎉 Done! $ZED_APP_NAME is now the default editor for text/code files."
-    end
-end
-
 function up --description "Update system components"
     # Define valid flags. v/verbose means -v and --verbose are aliases
-    argparse dotfiles brew appstore fish uv-tool duti v/verbose -- $argv
+    argparse dotfiles brew appstore fish uv-tool v/verbose -- $argv
     or return
 
     # Check if any specific component flag was provided
     set -l run_all true
-    if set -q _flag_dotfiles; or set -q _flag_brew; or set -q _flag_appstore; or set -q _flag_fish; or set -q _flag_uv_tool; or set -q _flag_duti
+    if set -q _flag_dotfiles; or set -q _flag_brew; or set -q _flag_appstore; or set -q _flag_fish; or set -q _flag_uv_tool
         set run_all false
     end
 
@@ -276,9 +198,5 @@ function up --description "Update system components"
 
     if test "$run_all" = true; or set -q _flag_uv_tool
         update_uv-tool
-    end
-
-    if test "$run_all" = true; or set -q _flag_duti
-        process_duti $_flag_verbose
     end
 end

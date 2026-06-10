@@ -1,4 +1,0 @@
-com.apple.automator.PlainTextLauncher public.plain-text all
-com.apple.automator.PlainTextLauncher public.unix-executable all
-com.apple.automator.PlainTextLauncher public.data all
-com.apple.automator.PlainTextLauncher .log all
